@@ -74,11 +74,7 @@ ana.gemPadCluster.verbose = 0
 ana.cscComparatorDigi.verbose = 0
 ana.cscWireDigi.verbose = 0
 ana.cscALCT.verbose = 0
-ana.cscALCT.minBX = 2
-ana.cscALCT.maxBX = 4
 ana.cscCLCT.verbose = 0
-ana.cscCLCT.minBX = 6
-ana.cscCLCT.maxBX = 8
 ana.cscLCT.verbose = 0
 
 useUnpacked = False
