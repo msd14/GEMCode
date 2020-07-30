@@ -12,22 +12,20 @@ from efficiency.GEMRecHit import *
 from efficiency.L1Mu import *
 
 ## need to create directory structure - assume it does not exist yet
-if not os.path.exists("plots"):
-    os.mkdir("plots")
-    if not os.path.exists("plots/efficiency"):
-        os.mkdir("plots/efficiency")
-        if not os.path.exists("plots/efficiency/GEMSimHit"):
-            os.mkdir("plots/efficiency/GEMSimHit")
-        if not os.path.exists("plots/efficiency/GEMDigi"):
-            os.mkdir("plots/efficiency/GEMDigi")
-        if not os.path.exists("plots/efficiency/GEMStub"):
-            os.mkdir("plots/efficiency/GEMStub")
-        if not os.path.exists("plots/efficiency/CSCSimHit"):
-            os.mkdir("plots/efficiency/CSCSimHit")
-        if not os.path.exists("plots/efficiency/CSCDigi"):
-            os.mkdir("plots/efficiency/CSCDigi")
-        if not os.path.exists("plots/efficiency/CSCStub"):
-            os.mkdir("plots/efficiency/CSCStub")
+paths = [
+    "plots",
+    "plots/efficiency",
+    "plots/efficiency/GEMSimHit",
+    "plots/efficiency/GEMDigi",
+    "plots/efficiency/GEMStub",
+    "plots/efficiency/CSCSimHit",
+    "plots/efficiency/CSCDigi",
+    "plots/efficiency/CSCStub",
+]
+
+for p in paths:
+    if not os.path.exists(p):
+        os.mkdir(p)
 
 def makeEfficiencyPlots(plotter):
     CSCSimHit(plotter)

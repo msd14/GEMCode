@@ -40,6 +40,8 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     const bool odd(id.chamber()%2==1);
     const auto& clct = match_->bestClctInChamber(d);
 
+    if (!clct.isValid()) continue;
+
     auto fill = [clct, odd](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
@@ -78,6 +80,8 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     const bool odd(id.chamber()%2==1);
     const auto& alct = match_->bestAlctInChamber(d);
 
+    if (!alct.isValid()) continue;
+
     auto fill = [alct, odd](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_alct_odd[st] = true;
@@ -107,6 +111,9 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     const int gemstation(id.station());
 
     const auto& lct = match_->bestLctInChamber(d);
+
+    if (!lct.isValid()) continue;
+
     const GlobalPoint& gp = match_->getGlobalPosition(d, lct);
 
     const bool odd(id.chamber()%2==1);

@@ -62,7 +62,7 @@ process.GEMCSCAnalyzer = cms.EDAnalyzer(
 )
 
 ana = process.GEMCSCAnalyzer
-ana.simTrack.minEta = 1.2
+ana.simTrack.minEta = 0.9
 ana.simTrack.maxEta = 2.4
 ana.simTrack.minPt = 3
 ana.gemSimHit.verbose = 0
