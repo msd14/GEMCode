@@ -22,7 +22,7 @@ gStyle.SetMarkerStyle(1)
 def CSCALCT(plotter):
 
     ## variables for the plot
-    topTitle = " " * 11 + "CSC Stub matching" + " " * 35 + "CMS Simulation Preliminary"
+    topTitle = ""
     xTitle = "True muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
@@ -47,7 +47,7 @@ def CSCALCT(plotter):
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
 
-        h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_alct(st), "same", kRed)
+        h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_alct(st), "same", kBlue)
         #h11 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(ok_csc_sh(st),ok_csc_wire(st)), ok_csc_alct(st), "same", kOrange+1)
 
         leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
@@ -68,7 +68,7 @@ def CSCALCT(plotter):
 def CSCCLCT(plotter):
 
     ## variables for the plot
-    topTitle = " " * 11 + "CSC Stub matching" + " " * 35 + "CMS Simulation Preliminary"
+    topTitle = ""
     xTitle = "True muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
@@ -115,7 +115,7 @@ def CSCCLCT(plotter):
 def CSCAlctClct2(plotter):
 
     ## variables for the plot
-    topTitle = " " * 11 + "CSC Stub matching" + " " * 35 + "CMS Simulation Preliminary"
+    topTitle = ""
     xTitle = "True muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
@@ -167,7 +167,7 @@ def CSCAlctClct2(plotter):
 def CSCLCT(plotter):
 
     ## variables for the plot
-    topTitle = " " * 11 + "CSC Stub matching" + " " * 35 + "CMS Simulation Preliminary"
+    topTitle = ""
     xTitle = "True muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
@@ -201,7 +201,7 @@ def CSCLCT(plotter):
 #        h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(ok_csc_sh(st), ok_csc_alct(st), ok_csc_clct(st)), ok_csc_lct(st), "same", kRed)
         h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_lct(st), "same", kBlue)
 
-        leg = TLegend(0.10,0.2,.75,0.35, "", "brNDC");
+        leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
         leg.SetBorderSize(0)
         leg.SetFillStyle(0)
         leg.SetTextSize(0.04)
