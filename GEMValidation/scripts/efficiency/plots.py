@@ -21,6 +21,7 @@ paths = [
     "plots/efficiency/CSCSimHit",
     "plots/efficiency/CSCDigi",
     "plots/efficiency/CSCStub",
+    "plots/efficiency/L1Mu",
 ]
 
 for p in paths:
@@ -34,3 +35,4 @@ def makeEfficiencyPlots(plotter):
     GEMSimHit(plotter)
     GEMDigi(plotter)
     GEMStub(plotter)
+    L1Mu(plotter)

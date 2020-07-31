@@ -73,11 +73,11 @@ def ok_gem_cluster(st):
     return TCut("GEMStub.has_gem_cluster_even[%d] || GEMStub.has_gem_cluster_odd[%d]"%(st,st))
 
 ## L1Mu
-def ok_emtf():
-    return TCut("L1MuStruct.has_emtfTrack")
+def ok_emtf(pt):
+    return TCut("L1Mu.has_emtfTrack && L1Mu.emtf_pt > %f"%(pt))
 
-def ok_emtf():
-    return TCut("L1MuStruct.has_emtfRegCand")
+def ok_emtfcand():
+    return TCut("L1Mu.has_emtfRegCand")
 
 def ok_l1mu():
-    return TCut("L1MuStruct.has_gmtCand")
+    return TCut("L1Mu.has_gmtCand")
