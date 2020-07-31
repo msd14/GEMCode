@@ -31,7 +31,7 @@ def CSCALCT(plotter):
 
     for st in range(0,len(cscStations)):
 
-        h_bins = "(50,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
+        h_bins = "(25,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
@@ -77,7 +77,7 @@ def CSCCLCT(plotter):
 
     for st in range(0,len(cscStations)):
 
-        h_bins = "(50,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
+        h_bins = "(25,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
@@ -124,7 +124,7 @@ def CSCAlctClct2(plotter):
 
     for st in range(0,len(cscStations)):
 
-        h_bins = "(50,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
+        h_bins = "(25,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
@@ -176,7 +176,7 @@ def CSCLCT(plotter):
 
     for st in range(0,len(cscStations)):
 
-        h_bins = "(50,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
+        h_bins = "(25,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
@@ -219,7 +219,63 @@ def CSCLCT(plotter):
 
         del c, base, leg, csc, h2
 
+
+def GEMCSCLCT(plotter):
+
+    ## variables for the plot
+    topTitle = ""
+    xTitle = "True muon #eta"
+    yTitle = "Efficiency"
+    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+    toPlot = "TMath::Abs(eta)"
+    subdirectory = "efficiency/CSCStub/"
+
+    for st in [0,5]:
+
+        h_bins = "(25,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
+        nBins = int(h_bins[1:-1].split(',')[0])
+        minBin = float(h_bins[1:-1].split(',')[1])
+        maxBin = float(h_bins[1:-1].split(',')[2])
+
+        c = TCanvas("c","c",700,450)
+        c.Clear()
+        base  = TH1F("base",title,nBins,minBin,maxBin)
+        base.SetMinimum(plotter.yMin)
+        base.SetMaximum(plotter.yMax)
+        base.Draw("")
+        base.GetXaxis().SetLabelSize(0.05)
+        base.GetYaxis().SetLabelSize(0.05)
+        base.GetXaxis().SetTitleSize(0.05)
+        base.GetYaxis().SetTitleSize(0.05)
+
+        gemst = 1
+        if st==5:
+            gemst = 2
+
+        ok_alct_clct = ok_csc_clct(st) and ok_csc_alct(st) and ok_gem_pad(gemst)
+        ok_alct_gem = ok_csc_alct(st) and ok_gem_copad(gemst)
+        ok_clct_gem = ok_csc_clct(st) and ok_gem_copad(gemst)
+
+        ok_any_combination = ok_alct_clct or ok_alct_gem or ok_clct_gem
+
+        h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_any_combination, "same", kBlue)
+
+        leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
+        leg.SetBorderSize(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(0.04)
+        leg.AddEntry(h2, "LCT","l")
+        leg.Draw("same");
+
+        csc = drawCSCLabel(cscStations[st].label, 0.87,0.87,0.05)
+
+        c.Print("%sEff_GEMCSCLCT_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
+
+        del c, base, leg, csc, h2
+
+
 def CSCStub(plotter):
     CSCALCT(plotter)
     CSCCLCT(plotter)
     CSCLCT(plotter)
+    GEMCSCLCT(plotter)
