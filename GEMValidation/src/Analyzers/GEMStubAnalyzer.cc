@@ -126,7 +126,7 @@ void GEMStubAnalyzer::analyze(TreeManager& tree)
     GEMDetId id(d);
     const int st = id.station();
     const bool odd(id.chamber()%2==1);
-    const int nlayers(match_->nLayersWithClustersInSuperChamber(d));
+    const int nlayers(match_->nLayersWithDigisInSuperChamber(d));
     const int ilayer(id.layer());
 
     if (odd) tree.gemStub().has_gem_cluster_odd[st] = true;
