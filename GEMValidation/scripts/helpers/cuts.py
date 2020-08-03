@@ -4,6 +4,10 @@ from logic import ANDtwo, ORtwo, AND, OR
 
 nocut = TCut("")
 
+genpt = "GenParticle.pt"
+geneta = "GenParticle.eta"
+genphi = "GenParticle.phi"
+
 ## eta for a station
 def ok_eta(eta_min, eta_max):
     ok_eta_min = TCut("TMath::Abs(eta) > %f"%(eta_min))

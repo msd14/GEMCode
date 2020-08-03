@@ -473,7 +473,7 @@ def ThreeCSCLCTEta(plotter):
 
     del c, base, h1, leg
 
-def TwoCSCLCTPhi(plotter):
+def ThreeCSCLCTPhi(plotter):
 
     ## variables for the plot
     topTitle = ""

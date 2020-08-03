@@ -26,7 +26,7 @@ def EMTFPt(plotter):
     xTitle = "True muon p_{T} [GeV]"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "pt"
+    toPlot = genpt
     subdirectory = "efficiency/L1Mu/"
 
     h_bins = "(20,0,100)"
@@ -76,7 +76,7 @@ def EMTFEta(plotter):
     xTitle = "True muon |#eta|"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "TMath::Abs(eta)"
+    toPlot = "TMath::Abs(%s)"%(geneta)
     subdirectory = "efficiency/L1Mu/"
 
     h_bins = "(20,1.2,2.4)"
@@ -126,7 +126,7 @@ def EMTFEta2(plotter):
     xTitle = "True muon |#eta|"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "eta"
+    toPlot = geneta
     subdirectory = "efficiency/L1Mu/"
 
     h_bins = "(20,-2.4,2.4)"
@@ -176,7 +176,7 @@ def EMTFPhi(plotter):
     xTitle = "True muon #phi"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "phi"
+    toPlot = genphi
     subdirectory = "efficiency/L1Mu/"
 
     h_bins = "(20,-3.2,3.2)"
