@@ -274,8 +274,131 @@ def GEMCSCLCT(plotter):
         del c, base, leg, csc, h2
 
 
+
+def TwoCSCLCTPt(plotter):
+
+    ## variables for the plot
+    topTitle = ""
+    xTitle = "True muon p_{T} [GeV]"
+    yTitle = "Efficiency"
+    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+    toPlot = "pt"
+    subdirectory = "efficiency/CSCStub/"
+
+    h_bins = "(20,0,100)"
+    nBins = int(h_bins[1:-1].split(',')[0])
+    minBin = float(h_bins[1:-1].split(',')[1])
+    maxBin = float(h_bins[1:-1].split(',')[2])
+
+    c = TCanvas("c","c",800,600)
+    c.Clear()
+    base  = TH1F("base",title,nBins,minBin,maxBin)
+    base.SetMinimum(0)
+    base.SetMaximum(plotter.yMax)
+    base.Draw("")
+    base.GetXaxis().SetLabelSize(0.05)
+    base.GetYaxis().SetLabelSize(0.05)
+    base.GetXaxis().SetTitleSize(0.05)
+    base.GetYaxis().SetTitleSize(0.05)
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_2_csc_lcts(), "same", kBlue)
+
+    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
+    leg.SetBorderSize(0)
+    leg.SetFillStyle(0)
+    leg.SetTextSize(0.06)
+    leg.AddEntry(h1, "2 LCTs","l")
+    leg.Draw("same");
+
+    c.Print("%sEff_EMTF_pt_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+
+    del c, base, h1, leg
+
+
+def TwoCSCLCTEta(plotter):
+
+    ## variables for the plot
+    topTitle = ""
+    xTitle = "True muon |#eta|"
+    yTitle = "Efficiency"
+    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+    toPlot = "TMath::Abs(eta)"
+    subdirectory = "efficiency/CSCStub/"
+
+    h_bins = "(20,1.2,2.4)"
+    nBins = int(h_bins[1:-1].split(',')[0])
+    minBin = float(h_bins[1:-1].split(',')[1])
+    maxBin = float(h_bins[1:-1].split(',')[2])
+
+    c = TCanvas("c","c",800,600)
+    c.Clear()
+    base  = TH1F("base",title,nBins,minBin,maxBin)
+    base.SetMinimum(0)
+    base.SetMaximum(plotter.yMax)
+    base.Draw("")
+    base.GetXaxis().SetLabelSize(0.05)
+    base.GetYaxis().SetLabelSize(0.05)
+    base.GetXaxis().SetTitleSize(0.05)
+    base.GetYaxis().SetTitleSize(0.05)
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_2_csc_lcts(), "same", kBlue)
+
+    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
+    leg.SetBorderSize(0)
+    leg.SetFillStyle(0)
+    leg.SetTextSize(0.06)
+    leg.AddEntry(h1, "2 LCTs","l")
+    leg.Draw("same");
+
+    c.Print("%sEff_2LCTs_eta_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+
+    del c, base, h1, leg
+
+def TwoCSCLCTPhi(plotter):
+
+    ## variables for the plot
+    topTitle = ""
+    xTitle = "True muon #phi"
+    yTitle = "Efficiency"
+    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+    toPlot = "phi"
+    subdirectory = "efficiency/CSCStub/"
+
+    h_bins = "(20,-3.2,3.2)"
+    nBins = int(h_bins[1:-1].split(',')[0])
+    minBin = float(h_bins[1:-1].split(',')[1])
+    maxBin = float(h_bins[1:-1].split(',')[2])
+
+    c = TCanvas("c","c",800,600)
+    c.Clear()
+    base  = TH1F("base",title,nBins,minBin,maxBin)
+    base.SetMinimum(0)
+    base.SetMaximum(plotter.yMax)
+    base.Draw("")
+    base.GetXaxis().SetLabelSize(0.05)
+    base.GetYaxis().SetLabelSize(0.05)
+    base.GetXaxis().SetTitleSize(0.05)
+    base.GetYaxis().SetTitleSize(0.05)
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_2_csc_lcts(), "same", kBlue)
+
+    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
+    leg.SetBorderSize(0)
+    leg.SetFillStyle(0)
+    leg.SetTextSize(0.06)
+    leg.AddEntry(h1, "2 LCTs","l")
+    leg.Draw("same");
+
+    c.Print("%sEff_2LCTs_phi_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+
+    del c, base, h1, leg
+
+
 def CSCStub(plotter):
     CSCALCT(plotter)
     CSCCLCT(plotter)
     CSCLCT(plotter)
     GEMCSCLCT(plotter)
+    TwoCSCLCTPt(plotter)
+    TwoCSCLCTEta(plotter)
+    TwoCSCLCTPhi(plotter)

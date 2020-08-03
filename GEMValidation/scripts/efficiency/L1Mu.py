@@ -1,4 +1,4 @@
-from ROOT import gStyle, TH1F, TCanvas, TLegend, kRed, kBlue, kOrange, kGreen
+from ROOT import gStyle, TH1F, TCanvas, TLegend, kRed, kBlue, kOrange, kGreen, kBlack
 
 from helpers.cuts import *
 from helpers.Helpers import *
@@ -29,7 +29,7 @@ def EMTFPt(plotter):
     toPlot = "pt"
     subdirectory = "efficiency/L1Mu/"
 
-    h_bins = "(50,0,100)"
+    h_bins = "(20,0,100)"
     nBins = int(h_bins[1:-1].split(',')[0])
     minBin = float(h_bins[1:-1].split(',')[1])
     maxBin = float(h_bins[1:-1].split(',')[2])
@@ -45,13 +45,23 @@ def EMTFPt(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(0.9, 2.4), ok_emtf(20), "same", kBlue)
+    denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
     leg.AddEntry(h1, "EMTF, p_{T} > 20 GeV","l")
+    leg.AddEntry(h2, "EMTF, p_{T} > 15 GeV","l")
+    leg.AddEntry(h3, "EMTF, p_{T} > 10 GeV","l")
+    leg.AddEntry(h4, "EMTF, p_{T} > 5 GeV","l")
+    leg.AddEntry(h5, "EMTF, p_{T} > 0 GeV","l")
     leg.Draw("same");
 
     c.Print("%sEff_EMTF_pt_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
@@ -69,7 +79,7 @@ def EMTFEta(plotter):
     toPlot = "TMath::Abs(eta)"
     subdirectory = "efficiency/L1Mu/"
 
-    h_bins = "(30,0.9,2.4)"
+    h_bins = "(20,1.2,2.4)"
     nBins = int(h_bins[1:-1].split(',')[0])
     minBin = float(h_bins[1:-1].split(',')[1])
     maxBin = float(h_bins[1:-1].split(',')[2])
@@ -85,13 +95,23 @@ def EMTFEta(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(0.9, 2.4), ok_emtf(20), "same", kBlue)
+    denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
     leg.AddEntry(h1, "EMTF, p_{T} > 20 GeV","l")
+    leg.AddEntry(h2, "EMTF, p_{T} > 15 GeV","l")
+    leg.AddEntry(h3, "EMTF, p_{T} > 10 GeV","l")
+    leg.AddEntry(h4, "EMTF, p_{T} > 5 GeV","l")
+    leg.AddEntry(h5, "EMTF, p_{T} > 0 GeV","l")
     leg.Draw("same");
 
     c.Print("%sEff_EMTF_eta_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
@@ -109,7 +129,7 @@ def EMTFEta2(plotter):
     toPlot = "eta"
     subdirectory = "efficiency/L1Mu/"
 
-    h_bins = "(50,-2.4,2.4)"
+    h_bins = "(20,-2.4,2.4)"
     nBins = int(h_bins[1:-1].split(',')[0])
     minBin = float(h_bins[1:-1].split(',')[1])
     maxBin = float(h_bins[1:-1].split(',')[2])
@@ -125,13 +145,23 @@ def EMTFEta2(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(0.9, 2.4), ok_emtf(20), "same", kBlue)
+    denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
     leg.AddEntry(h1, "EMTF, p_{T} > 20 GeV","l")
+    leg.AddEntry(h2, "EMTF, p_{T} > 15 GeV","l")
+    leg.AddEntry(h3, "EMTF, p_{T} > 10 GeV","l")
+    leg.AddEntry(h4, "EMTF, p_{T} > 5 GeV","l")
+    leg.AddEntry(h5, "EMTF, p_{T} > 0 GeV","l")
     leg.Draw("same");
 
     c.Print("%sEff_EMTF2_eta_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
@@ -149,7 +179,7 @@ def EMTFPhi(plotter):
     toPlot = "phi"
     subdirectory = "efficiency/L1Mu/"
 
-    h_bins = "(64,-3.2,3.2)"
+    h_bins = "(20,-3.2,3.2)"
     nBins = int(h_bins[1:-1].split(',')[0])
     minBin = float(h_bins[1:-1].split(',')[1])
     maxBin = float(h_bins[1:-1].split(',')[2])
@@ -165,16 +195,26 @@ def EMTFPhi(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(0.9, 2.4), ok_emtf(20), "same", kBlue)
+    denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
+
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
     leg.AddEntry(h1, "EMTF, p_{T} > 20 GeV","l")
+    leg.AddEntry(h2, "EMTF, p_{T} > 15 GeV","l")
+    leg.AddEntry(h3, "EMTF, p_{T} > 10 GeV","l")
+    leg.AddEntry(h4, "EMTF, p_{T} > 5 GeV","l")
+    leg.AddEntry(h5, "EMTF, p_{T} > 0 GeV","l")
     leg.Draw("same");
 
-    c.Print("%sEff_EMTF2_phi_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_EMTF_phi_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg
 

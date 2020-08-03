@@ -40,6 +40,48 @@ def ok_csc_alct(st):
 def ok_csc_clct(st):
     return TCut("CSCStub.has_clct_even[%d] || CSCStub.has_clct_odd[%d]"%(st,st))
 
+ok_me11 = ok_csc_lct(0)
+ok_me12 = ok_csc_lct(3)
+ok_me13 = ok_csc_lct(4)
+
+ok_me21 = ok_csc_lct(5)
+ok_me22 = ok_csc_lct(6)
+ok_me31 = ok_csc_lct(7)
+
+ok_me32 = ok_csc_lct(8)
+ok_me41 = ok_csc_lct(9)
+ok_me42 = ok_csc_lct(10)
+
+
+def ok_2_csc_lcts():
+    ok_me1 = OR(ok_me11, ok_me12, ok_me13)
+    ok_me2 = OR(ok_me21, ok_me22)
+    ok_me3 = OR(ok_me31, ok_me32)
+    ok_me4 = OR(ok_me41, ok_me42)
+
+    ok_me1_me2 = AND(ok_me1, ok_me2)
+    ok_me1_me3 = AND(ok_me1, ok_me3)
+    ok_me1_me4 = AND(ok_me1, ok_me4)
+    ok_me2_me3 = AND(ok_me2, ok_me3)
+    ok_me2_me4 = AND(ok_me2, ok_me4)
+    ok_me3_me4 = AND(ok_me3, ok_me4)
+
+    return OR(ok_me1_me2, ok_me1_me3, ok_me1_me4, ok_me2_me3, ok_me2_me4, ok_me3_me4)
+
+def ok_3_csc_lcts():
+
+    ok_me1 = OR(ok_me11, ok_me12, ok_me13)
+    ok_me2 = OR(ok_me21, ok_me22)
+    ok_me3 = OR(ok_me31, ok_me32)
+    ok_me4 = OR(ok_me41, ok_me42)
+
+    ok_me1_me2_me3 = AND(ok_me1, ok_me2, ok_me3)
+    ok_me1_me2_me4 = AND(ok_me1, ok_me2, ok_me4)
+    ok_me1_me3_me4 = AND(ok_me1, ok_me3, ok_me4)
+    ok_me2_me3_me4 = AND(ok_me2, ok_me3, ok_me4)
+
+    return OR(ok_me1_me2_me3, ok_me1_me2_me4, ok_me1_me3_me4, ok_me2_me3_me4)
+
 #ok_lct_hs_min = TCut("hs_lct_odd > 4")
 #ok_lct_hs_max = TCut("hs_lct_odd < 125")
 #ok_lct_hs = AND(ok_lct_hs_min,ok_lct_hs_max)
