@@ -7,7 +7,7 @@ l1MuonPSet = cms.PSet(
         inputTag = cms.InputTag("simEmtfDigis"),
         minBX = cms.int32(0),
         maxBX = cms.int32(0),
-        deltaR = cms.double(0.5),
+        deltaR = cms.double(0.2),
     ),
     emtfCand = cms.PSet(
         verbose = cms.int32(0),

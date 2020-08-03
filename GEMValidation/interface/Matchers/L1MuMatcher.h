@@ -38,7 +38,7 @@ class L1MuMatcher
 
   void clear();
 
-  void matchEmtfTrackToSimTrack(const l1t::EMTFTrackCollection&);
+  void matchEmtfTrackToSimTrack(const SimTrack& t, const l1t::EMTFTrackCollection&);
   void matchRegionalMuonCandToSimTrack(const l1t::RegionalMuonCandBxCollection&);
   void matchGMTToSimTrack(const l1t::MuonBxCollection&);
 
@@ -66,6 +66,7 @@ class L1MuMatcher
   int verboseGMT_;
   double deltaRGMT_;
   bool runGMT_;
+
 
   std::shared_ptr<gem::EMTFTrack> emtfTrack_;
   std::shared_ptr<gem::EMTFCand> emtfCand_;

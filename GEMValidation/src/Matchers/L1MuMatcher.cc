@@ -59,7 +59,7 @@ void L1MuMatcher::match(const SimTrack& t, const SimVertex& v)
   cscStubMatcher_->match(t, v);
 
   if (runEMTFTrack_)
-    matchEmtfTrackToSimTrack(*emtfTrackHandle_.product());
+    matchEmtfTrackToSimTrack(t, *emtfTrackHandle_.product());
 
   if (runRegMuCand_)
     matchRegionalMuonCandToSimTrack(*emtfCandHandle_.product());
@@ -69,38 +69,67 @@ void L1MuMatcher::match(const SimTrack& t, const SimVertex& v)
 }
 
 void
-L1MuMatcher::matchEmtfTrackToSimTrack(const l1t::EMTFTrackCollection& tracks)
+L1MuMatcher::matchEmtfTrackToSimTrack(const SimTrack& simtrack, const l1t::EMTFTrackCollection& tracks)
 {
-  for (const auto& trk : tracks) {
-    int bx = trk.BX();
-    if ( bx < minBXEMTFTrack_ or bx > maxBXEMTFTrack_) continue;
-    int nMatchingStubs = 0;
-    int nMaxMatchingStubs = 0;
-    if (verboseEMTFTrack_)
-      std::cout <<"track BX "<< trk.BX()
-                <<  " pt "<< trk.Pt()
-                <<" eta "<< trk.Eta()
-                <<" phi "<< emtf::deg_to_rad(trk.Phi_glob())
-                <<" phi_local "<< emtf::deg_to_rad(trk.Phi_loc()) << std::endl;
-    for (const auto& stub : trk.Hits()){
-      const CSCCorrelatedLCTDigi& csc_stub = stub.CreateCSCCorrelatedLCTDigi();
-      const CSCDetId& csc_id = stub.CSC_DetId();
+  if (deltaREMTFTrack_ < 0) {
+    for (const auto& trk : tracks) {
+      int bx = trk.BX();
+      if ( bx < minBXEMTFTrack_ or bx > maxBXEMTFTrack_) continue;
+      int nMatchingStubs = 0;
+      int nMaxMatchingStubs = 0;
       if (verboseEMTFTrack_)
-        std::cout << "\tCSCDetId " << csc_id << " CSC stub "
-                  << csc_stub << " available stubs in this chamber: "
-                  << cscStubMatcher_->lctsInChamber(csc_id.rawId()).size() << std::endl;
-
-      for (const auto& sim_stub: cscStubMatcher_->lctsInChamber(csc_id.rawId())){
+        std::cout <<"track BX "<< trk.BX()
+                  <<  " pt "<< trk.Pt()
+                  <<" eta "<< trk.Eta()
+                  <<" phi "<< emtf::deg_to_rad(trk.Phi_glob())
+                  <<" phi_local "<< emtf::deg_to_rad(trk.Phi_loc()) << std::endl;
+      for (const auto& stub : trk.Hits()){
+        const CSCCorrelatedLCTDigi& csc_stub = stub.CreateCSCCorrelatedLCTDigi();
+        const CSCDetId& csc_id = stub.CSC_DetId();
         if (verboseEMTFTrack_)
-          std::cout << "\tSIM " << csc_id << " " << sim_stub << std::endl;
-        if (csc_stub == sim_stub) {
-          nMatchingStubs++;
+          std::cout << "\tCSCDetId " << csc_id << " CSC stub "
+                    << csc_stub << " available stubs in this chamber: "
+                    << cscStubMatcher_->lctsInChamber(csc_id.rawId()).size() << std::endl;
+
+        for (const auto& sim_stub: cscStubMatcher_->lctsInChamber(csc_id.rawId())){
+          if (verboseEMTFTrack_)
+            std::cout << "\tSIM " << csc_id << " " << sim_stub << std::endl;
+          if (csc_stub == sim_stub) {
+            nMatchingStubs++;
+          }
+        }
+        if (nMatchingStubs>=2) {
+          if (nMatchingStubs > nMaxMatchingStubs){
+            emtfTrack_.reset(new gem::EMTFTrack(trk));
+            nMaxMatchingStubs = nMatchingStubs;
+          }
         }
       }
-      if (nMatchingStubs>=2) {
-        if (nMatchingStubs > nMaxMatchingStubs){
+    }
+  }
+  else {
+    float mindREMTFTrack = 10.0;
+    for (const auto& trk : tracks) {
+      if (verboseEMTFTrack_)
+        std::cout <<"track BX "<< trk.BX()
+                  <<  " pt "<< trk.Pt()
+                  <<" eta "<< trk.Eta()
+                  <<" phi "<< emtf::deg_to_rad(trk.Phi_glob())
+                  <<" phi_local "<< emtf::deg_to_rad(trk.Phi_loc()) << std::endl;
+      int bx = trk.BX();
+      if ( bx < minBXEMTFTrack_ or bx > maxBXEMTFTrack_) continue;
+
+      float dR = deltaR(float(simtrack.momentum().eta()), float(simtrack.momentum().phi()),
+                        trk.Eta(), emtf::deg_to_rad(trk.Phi_glob()));
+
+      if (verboseEMTFTrack_)
+        std::cout <<"dR (track, sim) "<< dR <<" deltaREMTFTrack_ "
+                  << deltaREMTFTrack_ << std::endl;
+      if (dR < deltaREMTFTrack_){
+        if (dR < mindREMTFTrack){
+          mindREMTFTrack = dR;
           emtfTrack_.reset(new gem::EMTFTrack(trk));
-          nMaxMatchingStubs = nMatchingStubs;
+          mindREMTFTrack = dR;
         }
       }
     }
