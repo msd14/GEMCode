@@ -52,13 +52,12 @@ ok_me32 = ok_csc_lct(8)
 ok_me41 = ok_csc_lct(9)
 ok_me42 = ok_csc_lct(10)
 
+ok_me1 = OR(ok_me11, ok_me12, ok_me13)
+ok_me2 = OR(ok_me21, ok_me22)
+ok_me3 = OR(ok_me31, ok_me32)
+ok_me4 = OR(ok_me41, ok_me42)
 
 def ok_2_csc_lcts():
-    ok_me1 = OR(ok_me11, ok_me12, ok_me13)
-    ok_me2 = OR(ok_me21, ok_me22)
-    ok_me3 = OR(ok_me31, ok_me32)
-    ok_me4 = OR(ok_me41, ok_me42)
-
     ok_me1_me2 = AND(ok_me1, ok_me2)
     ok_me1_me3 = AND(ok_me1, ok_me3)
     ok_me1_me4 = AND(ok_me1, ok_me4)
@@ -69,11 +68,6 @@ def ok_2_csc_lcts():
     return OR(ok_me1_me2, ok_me1_me3, ok_me1_me4, ok_me2_me3, ok_me2_me4, ok_me3_me4)
 
 def ok_3_csc_lcts():
-
-    ok_me1 = OR(ok_me11, ok_me12, ok_me13)
-    ok_me2 = OR(ok_me21, ok_me22)
-    ok_me3 = OR(ok_me31, ok_me32)
-    ok_me4 = OR(ok_me41, ok_me42)
 
     ok_me1_me2_me3 = AND(ok_me1, ok_me2, ok_me3)
     ok_me1_me2_me4 = AND(ok_me1, ok_me2, ok_me4)
