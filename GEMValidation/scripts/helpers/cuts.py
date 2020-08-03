@@ -8,16 +8,20 @@ genpt = "GenParticle.pt"
 geneta = "GenParticle.eta"
 genphi = "GenParticle.phi"
 
+## cut on the generator pT
+def ok_pt(pt_min):
+    return TCut("GenParticle.pt > %f"%(pt_min))
+
 ## eta for a station
 def ok_eta(eta_min, eta_max):
-    ok_eta_min = TCut("TMath::Abs(eta) > %f"%(eta_min))
-    ok_eta_max = TCut("TMath::Abs(eta) < %f"%(eta_max))
+    ok_eta_min = TCut("TMath::Abs(GenParticle.eta) > %f"%(eta_min))
+    ok_eta_max = TCut("TMath::Abs(GenParticle.eta) < %f"%(eta_max))
     ok_eta = AND(ok_eta_min,ok_eta_max)
     return ok_eta
 
 def ok_phi(phi_min, phi_max):
-    ok_phi_min = TCut("phi > %f"%(phi_min))
-    ok_phi_max = TCut("phi < %f"%(phi_max))
+    ok_phi_min = TCut("GenParticle.phi > %f"%(phi_min))
+    ok_phi_max = TCut("GenParticle.phi < %f"%(phi_max))
     ok_phi = AND(ok_phi_min,ok_phi_max)
     return ok_phi
 

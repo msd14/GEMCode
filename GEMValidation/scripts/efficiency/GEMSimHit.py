@@ -24,7 +24,7 @@ def GEMSimHitEta(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM SimHit matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
+    xTitle = "Generator muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -70,7 +70,7 @@ def GEMSimHitPhi(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM SimHit matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #phi"
+    xTitle = "Generator muon #phi"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"

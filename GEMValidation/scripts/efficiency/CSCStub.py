@@ -23,7 +23,7 @@ def CSCALCT(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #eta"
+    xTitle = "Generator muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -69,7 +69,7 @@ def CSCCLCT(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #eta"
+    xTitle = "Generator muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -116,7 +116,7 @@ def CSCAlctClct2(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #eta"
+    xTitle = "Generator muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -168,7 +168,7 @@ def CSCLCT(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #eta"
+    xTitle = "Generator muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -224,7 +224,7 @@ def GEMCSCLCT(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #eta"
+    xTitle = "Generator muon #eta"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -279,7 +279,7 @@ def TwoCSCLCTPt(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon p_{T} [GeV]"
+    xTitle = "Generator muon p_{T} [GeV]"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "pt"
@@ -319,7 +319,7 @@ def TwoCSCLCTEta(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon |#eta|"
+    xTitle = "Generator muon |#eta|"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -358,7 +358,7 @@ def TwoCSCLCTPhi(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #phi"
+    xTitle = "Generator muon #phi"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"
@@ -398,7 +398,7 @@ def ThreeCSCLCTPt(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon p_{T} [GeV]"
+    xTitle = "Generator muon p_{T} [GeV]"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "pt"
@@ -438,7 +438,7 @@ def ThreeCSCLCTEta(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon |#eta|"
+    xTitle = "Generator muon |#eta|"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
@@ -477,7 +477,7 @@ def ThreeCSCLCTPhi(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #phi"
+    xTitle = "Generator muon #phi"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"

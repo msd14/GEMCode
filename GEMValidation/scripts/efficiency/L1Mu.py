@@ -23,7 +23,7 @@ def EMTFPt(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon p_{T} [GeV]"
+    xTitle = "Generator muon p_{T} [GeV]"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = genpt
@@ -36,9 +36,11 @@ def EMTFPt(plotter):
 
     c = TCanvas("c","c",800,600)
     c.Clear()
+    c.SetGridx(1)
+    c.SetGridy(2)
     base  = TH1F("base",title,nBins,minBin,maxBin)
     base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
+    base.SetMaximum(1.0)
     base.Draw("")
     base.GetXaxis().SetLabelSize(0.05)
     base.GetYaxis().SetLabelSize(0.05)
@@ -73,7 +75,7 @@ def EMTFEta(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon |#eta|"
+    xTitle = "Generator muon |#eta|"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(%s)"%(geneta)
@@ -86,9 +88,11 @@ def EMTFEta(plotter):
 
     c = TCanvas("c","c",800,600)
     c.Clear()
+    c.SetGridx(1)
+    c.SetGridy(2)
     base  = TH1F("base",title,nBins,minBin,maxBin)
     base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
+    base.SetMaximum(1.0)
     base.Draw("")
     base.GetXaxis().SetLabelSize(0.05)
     base.GetYaxis().SetLabelSize(0.05)
@@ -97,11 +101,11 @@ def EMTFEta(plotter):
 
     denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
-    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
-    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
-    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
-    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
@@ -123,7 +127,7 @@ def EMTFEta2(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon |#eta|"
+    xTitle = "Generator muon |#eta|"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = geneta
@@ -136,9 +140,11 @@ def EMTFEta2(plotter):
 
     c = TCanvas("c","c",800,600)
     c.Clear()
+    c.SetGridx(1)
+    c.SetGridy(2)
     base  = TH1F("base",title,nBins,minBin,maxBin)
     base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
+    base.SetMaximum(1.0)
     base.Draw("")
     base.GetXaxis().SetLabelSize(0.05)
     base.GetYaxis().SetLabelSize(0.05)
@@ -147,11 +153,11 @@ def EMTFEta2(plotter):
 
     denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
-    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
-    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
-    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
-    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
@@ -173,7 +179,7 @@ def EMTFPhi(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "True muon #phi"
+    xTitle = "Generator muon #phi"
     yTitle = "Efficiency"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = genphi
@@ -186,9 +192,11 @@ def EMTFPhi(plotter):
 
     c = TCanvas("c","c",800,600)
     c.Clear()
+    c.SetGridx(1)
+    c.SetGridy(2)
     base  = TH1F("base",title,nBins,minBin,maxBin)
     base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
+    base.SetMaximum(1.0)
     base.Draw("")
     base.GetXaxis().SetLabelSize(0.05)
     base.GetYaxis().SetLabelSize(0.05)
@@ -197,11 +205,11 @@ def EMTFPhi(plotter):
 
     denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
-    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
-    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+1)
-    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+1)
-    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_emtf(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_emtf(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_emtf(10), "same", kGreen+1)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_emtf(5), "same", kOrange+1)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_emtf(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
