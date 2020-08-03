@@ -4,6 +4,7 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
+#include "GEMCode/GEMValidation/interface/Structs/GenParticleStruct.h"
 #include "GEMCode/GEMValidation/interface/Structs/SimTrackStruct.h"
 #include "GEMCode/GEMValidation/interface/Structs/GEMSimHitStruct.h"
 #include "GEMCode/GEMValidation/interface/Structs/GEMDigiStruct.h"
@@ -34,6 +35,7 @@ class TreeManager
 
   void fill();
 
+  gem::GenParticleStruct& genParticle() { return genParticleSt_; }
   gem::SimTrackStruct& simTrack() { return simTrackSt_; }
   gem::GEMSimHitStruct& gemSimHit() { return gemSimHitSt_; }
   gem::GEMDigiStruct& gemDigi() { return gemDigiSt_; }
@@ -49,6 +51,7 @@ class TreeManager
 
  private:
 
+  TTree* genParticleTree_;
   TTree* simTrackTree_;
   TTree* gemSimHitTree_;
   TTree* gemDigiTree_;
@@ -62,6 +65,7 @@ class TreeManager
   TTree* l1MuTree_;
   TTree* recoTrackTree_;
 
+  gem::GenParticleStruct genParticleSt_;
   gem::SimTrackStruct simTrackSt_;
   gem::GEMSimHitStruct gemSimHitSt_;
   gem::GEMDigiStruct gemDigiSt_;

@@ -2,6 +2,7 @@
 
 AnalyzerManager::AnalyzerManager(const edm::ParameterSet& conf)
 {
+  gent_.reset(new GenParticleAnalyzer(conf));
   simt_.reset(new SimTrackAnalyzer(conf));
   gemsh_.reset(new GEMSimHitAnalyzer(conf));
   gemdg_.reset(new GEMDigiAnalyzer(conf));
@@ -21,6 +22,7 @@ void AnalyzerManager::init(const edm::Event& iEvent, const edm::EventSetup& iSet
 
 void AnalyzerManager::setManager(const MatcherManager& manager)
 {
+  gent_->setMatcher(*manager.genParticles());
   gemsh_->setMatcher(*manager.gemSimHits());
   gemdg_->setMatcher(*manager.gemDigis());
   gemstub_->setMatcher(*manager.gemDigis());
@@ -35,6 +37,7 @@ void AnalyzerManager::setManager(const MatcherManager& manager)
 void
 AnalyzerManager::analyze(TreeManager& tree, const SimTrack& t)
 {
+  gent_->analyze(tree);
   simt_->analyze(tree, t);
   gemsh_->analyze(tree);
   gemdg_->analyze(tree);

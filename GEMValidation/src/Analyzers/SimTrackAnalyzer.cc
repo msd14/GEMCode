@@ -10,7 +10,7 @@ void SimTrackAnalyzer::init()
 
 void SimTrackAnalyzer::analyze(TreeManager& tree, const SimTrack& t)
 {
-  // track properties
+  // simtrack properties
   tree.simTrack().pt = t.momentum().pt();
   tree.simTrack().pz = t.momentum().pz();
   tree.simTrack().phi = t.momentum().phi();
