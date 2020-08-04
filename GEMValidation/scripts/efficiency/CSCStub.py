@@ -19,15 +19,15 @@ gStyle.SetPadBottomMargin(0.13)
 gStyle.SetOptStat(0)
 gStyle.SetMarkerStyle(1)
 
+topTitle = ""
+xTitle = "Generated muon #eta"
+yTitle = "Efficiency"
+subdirectory = "efficiency/CSCStub/"
+title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+
 def CSCALCT(plotter):
 
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCStub/"
 
     for st in range(0,len(cscStations)):
 
@@ -67,13 +67,7 @@ def CSCALCT(plotter):
 
 def CSCCLCT(plotter):
 
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCStub/"
 
     for st in range(0,len(cscStations)):
 
@@ -114,13 +108,7 @@ def CSCCLCT(plotter):
 
 def CSCAlctClct2(plotter):
 
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCStub/"
 
     for st in range(0,len(cscStations)):
 
@@ -145,7 +133,7 @@ def CSCAlctClct2(plotter):
                         OR(ok_csc_alct(st), ok_csc_clct(st)), "same", kOrange)
         h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), AND(ok_csc_alct(st), ok_csc_clct(st)), "same",kBlue)
         h21 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(ok_csc_sh(st), ok_csc_wire(st), ok_csc_strip(st)),
-                        AND(ok_csc_alct(st), ok_csc_clct(st)), "same",kGreen+1)
+                        AND(ok_csc_alct(st), ok_csc_clct(st)), "same",kGreen+2)
 
         leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
         leg.SetBorderSize(0)
@@ -166,13 +154,7 @@ def CSCAlctClct2(plotter):
 
 def CSCLCT(plotter):
 
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCStub/"
 
     for st in range(0,len(cscStations)):
 
@@ -222,13 +204,7 @@ def CSCLCT(plotter):
 
 def GEMCSCLCT(plotter):
 
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCStub/"
 
     for st in [0,5]:
 
@@ -275,15 +251,12 @@ def GEMCSCLCT(plotter):
 
 
 
-def TwoCSCLCTPt(plotter):
+def MultipleCSCLCTPt(plotter):
 
-    ## variables for the plot
     topTitle = ""
-    xTitle = "Generator muon p_{T} [GeV]"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon p_{T} [GeV]"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "pt"
-    subdirectory = "efficiency/CSCStub/"
+    toPlot = genpt
 
     h_bins = "(20,0,100)"
     nBins = int(h_bins[1:-1].split(',')[0])
@@ -301,26 +274,29 @@ def TwoCSCLCTPt(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_2_csc_lcts(), "same", kBlue)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(2), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(3), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(4), "same", kGreen+2)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
-    leg.AddEntry(h1, "2 LCTs","l")
+    leg.AddEntry(h1, "#geq 2 LCTs","l")
+    leg.AddEntry(h2, "#geq 3 LCTs","l")
+    leg.AddEntry(h3, "4 LCTs","l")
     leg.Draw("same");
 
-    c.Print("%sEff_2LCTs_pt_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_MultiLCTs_pt_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg
 
 
-def TwoCSCLCTEta(plotter):
+def MultipleCSCLCTEta(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "Generator muon |#eta|"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon |#eta|"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
     subdirectory = "efficiency/CSCStub/"
@@ -341,28 +317,30 @@ def TwoCSCLCTEta(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_2_csc_lcts(), "same", kBlue)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(2), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(3), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(4), "same", kGreen+2)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
-    leg.AddEntry(h1, "2 LCTs","l")
+    leg.AddEntry(h1, "#geq 2 LCTs","l")
+    leg.AddEntry(h2, "#geq 3 LCTs","l")
+    leg.AddEntry(h3, "4 LCTs","l")
     leg.Draw("same");
 
-    c.Print("%sEff_2LCTs_eta_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_MultiLCTs_eta_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg
 
-def TwoCSCLCTPhi(plotter):
+def MultipleCSCLCTPhi(plotter):
 
     ## variables for the plot
     topTitle = ""
-    xTitle = "Generator muon #phi"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon #phi"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "phi"
-    subdirectory = "efficiency/CSCStub/"
+    toPlot = genphi
 
     h_bins = "(20,-3.2,3.2)"
     nBins = int(h_bins[1:-1].split(',')[0])
@@ -380,135 +358,20 @@ def TwoCSCLCTPhi(plotter):
     base.GetXaxis().SetTitleSize(0.05)
     base.GetYaxis().SetTitleSize(0.05)
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_2_csc_lcts(), "same", kBlue)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(2), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(3), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_csc_lcts(4), "same", kGreen+2)
 
-    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
+    leg = TLegend(0.2,0.2,.5,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.06)
-    leg.AddEntry(h1, "2 LCTs","l")
+    leg.AddEntry(h1, "#geq 2 LCTs","l")
+    leg.AddEntry(h2, "#geq 3 LCTs","l")
+    leg.AddEntry(h3, "4 LCTs","l")
     leg.Draw("same");
 
-    c.Print("%sEff_2LCTs_phi_%s"%(plotter.targetDir + subdirectory, plotter.ext))
-
-    del c, base, h1, leg
-
-
-def ThreeCSCLCTPt(plotter):
-
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon p_{T} [GeV]"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "pt"
-    subdirectory = "efficiency/CSCStub/"
-
-    h_bins = "(20,0,100)"
-    nBins = int(h_bins[1:-1].split(',')[0])
-    minBin = float(h_bins[1:-1].split(',')[1])
-    maxBin = float(h_bins[1:-1].split(',')[2])
-
-    c = TCanvas("c","c",800,600)
-    c.Clear()
-    base  = TH1F("base",title,nBins,minBin,maxBin)
-    base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
-    base.Draw("")
-    base.GetXaxis().SetLabelSize(0.05)
-    base.GetYaxis().SetLabelSize(0.05)
-    base.GetXaxis().SetTitleSize(0.05)
-    base.GetYaxis().SetTitleSize(0.05)
-
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_3_csc_lcts(), "same", kBlue)
-
-    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
-    leg.SetBorderSize(0)
-    leg.SetFillStyle(0)
-    leg.SetTextSize(0.06)
-    leg.AddEntry(h1, "3 LCTs","l")
-    leg.Draw("same");
-
-    c.Print("%sEff_3LCTs_pt_%s"%(plotter.targetDir + subdirectory, plotter.ext))
-
-    del c, base, h1, leg
-
-
-def ThreeCSCLCTEta(plotter):
-
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon |#eta|"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCStub/"
-
-    h_bins = "(20,1.2,2.4)"
-    nBins = int(h_bins[1:-1].split(',')[0])
-    minBin = float(h_bins[1:-1].split(',')[1])
-    maxBin = float(h_bins[1:-1].split(',')[2])
-
-    c = TCanvas("c","c",800,600)
-    c.Clear()
-    base  = TH1F("base",title,nBins,minBin,maxBin)
-    base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
-    base.Draw("")
-    base.GetXaxis().SetLabelSize(0.05)
-    base.GetYaxis().SetLabelSize(0.05)
-    base.GetXaxis().SetTitleSize(0.05)
-    base.GetYaxis().SetTitleSize(0.05)
-
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_3_csc_lcts(), "same", kBlue)
-
-    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
-    leg.SetBorderSize(0)
-    leg.SetFillStyle(0)
-    leg.SetTextSize(0.06)
-    leg.AddEntry(h1, "3 LCTs","l")
-    leg.Draw("same");
-
-    c.Print("%sEff_3LCTs_eta_%s"%(plotter.targetDir + subdirectory, plotter.ext))
-
-    del c, base, h1, leg
-
-def ThreeCSCLCTPhi(plotter):
-
-    ## variables for the plot
-    topTitle = ""
-    xTitle = "Generator muon #phi"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "phi"
-    subdirectory = "efficiency/CSCStub/"
-
-    h_bins = "(20,-3.2,3.2)"
-    nBins = int(h_bins[1:-1].split(',')[0])
-    minBin = float(h_bins[1:-1].split(',')[1])
-    maxBin = float(h_bins[1:-1].split(',')[2])
-
-    c = TCanvas("c","c",800,600)
-    c.Clear()
-    base  = TH1F("base",title,nBins,minBin,maxBin)
-    base.SetMinimum(0)
-    base.SetMaximum(plotter.yMax)
-    base.Draw("")
-    base.GetXaxis().SetLabelSize(0.05)
-    base.GetYaxis().SetLabelSize(0.05)
-    base.GetXaxis().SetTitleSize(0.05)
-    base.GetYaxis().SetTitleSize(0.05)
-
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_eta(1.2, 2.4), ok_3_csc_lcts(), "same", kBlue)
-
-    leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
-    leg.SetBorderSize(0)
-    leg.SetFillStyle(0)
-    leg.SetTextSize(0.06)
-    leg.AddEntry(h1, "3 LCTs","l")
-    leg.Draw("same");
-
-    c.Print("%sEff_3LCTs_phi_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_MultiLCTs_phi_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg
 
@@ -519,10 +382,6 @@ def CSCStub(plotter):
     CSCLCT(plotter)
     GEMCSCLCT(plotter)
 
-    TwoCSCLCTPt(plotter)
-    TwoCSCLCTEta(plotter)
-    TwoCSCLCTPhi(plotter)
-
-    ThreeCSCLCTPt(plotter)
-    ThreeCSCLCTEta(plotter)
-    ThreeCSCLCTPhi(plotter)
+    MultipleCSCLCTPt(plotter)
+    MultipleCSCLCTEta(plotter)
+    MultipleCSCLCTPhi(plotter)

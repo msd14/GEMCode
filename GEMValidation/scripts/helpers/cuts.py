@@ -76,7 +76,6 @@ def ok_2_csc_lcts():
     return OR(ok_me1_me2, ok_me1_me3, ok_me1_me4, ok_me2_me3, ok_me2_me4, ok_me3_me4)
 
 def ok_3_csc_lcts():
-
     ok_me1_me2_me3 = AND(ok_me1, ok_me2, ok_me3)
     ok_me1_me2_me4 = AND(ok_me1, ok_me2, ok_me4)
     ok_me1_me3_me4 = AND(ok_me1, ok_me3, ok_me4)
@@ -84,10 +83,18 @@ def ok_3_csc_lcts():
 
     return OR(ok_me1_me2_me3, ok_me1_me2_me4, ok_me1_me3_me4, ok_me2_me3_me4)
 
-#ok_lct_hs_min = TCut("hs_lct_odd > 4")
-#ok_lct_hs_max = TCut("hs_lct_odd < 125")
-#ok_lct_hs = AND(ok_lct_hs_min,ok_lct_hs_max)
-#ok_lct_hs = AND(ok_lct,ok_lct_hs)
+def ok_4_csc_lcts():
+    return AND(ok_me1, ok_me2, ok_me3, ok_me4)
+
+def ok_csc_lcts(n_min = 2):
+    if n_min == 2:
+        return ok_2_csc_lcts()
+    elif n_min == 3:
+        return ok_3_csc_lcts()
+    elif n_min == 4:
+        return ok_4_csc_lcts()
+    else:
+        return ok_2_csc_lcts()
 
 ## GEM simhit
 def ok_gem_sh(st):
