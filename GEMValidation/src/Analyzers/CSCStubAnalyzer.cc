@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/CSCStubAnalyzer.h"
 #include "L1Trigger/CSCCommonTrigger/interface/CSCPatternLUT.h"
-// #include "L1Trigger/CSCTriggerPrimitives/interface/CSCComparatorCodeLUT.h"
+#include "L1Trigger/CSCTriggerPrimitives/interface/CSCComparatorCodeLUT.h"
 
 CSCStubAnalyzer::CSCStubAnalyzer(const edm::ParameterSet& conf)
 {
@@ -42,7 +42,9 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
 
     if (!clct.isValid()) continue;
 
-    auto fill = [clct, odd](gem::CSCStubStruct& cscStubTree, int st) mutable {
+    const float slope(getSlope(clct));
+
+    auto fill = [clct, odd, slope](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
         // cscStubTree.chamber_dg_odd[st] = id.chamber();
@@ -51,7 +53,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.hs_clct_odd[st] = clct.getKeyStrip();
         cscStubTree.qs_clct_odd[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_odd[st] = clct.getKeyStrip(8);
-        //        cscStubTree.slope_clct_odd[st] = getSlope(clct);
+        cscStubTree.slope_clct_odd[st] = slope;
       }
       else {
         cscStubTree.has_clct_even[st] = true;
@@ -61,7 +63,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.hs_clct_even[st] = clct.getKeyStrip();
         cscStubTree.qs_clct_even[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_even[st] = clct.getKeyStrip(8);
-        //cscStubTree.slope_clct_even[st] = getSlope(clct);
+        cscStubTree.slope_clct_even[st] = slope;
       }
     };
 
@@ -198,50 +200,48 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
   }
 }
 
-// float CSCStubAnalyzer::getSlope(const CSCCLCTDigi& lct) const
-// {
-//   return getSlope(lct.getPattern(), lct.getCompCode());
-// }
+float CSCStubAnalyzer::getSlope(const CSCCLCTDigi& lct) const
+{
+  return getSlope(lct.getPattern(), lct.getCompCode());
+}
 
-// float CSCStubAnalyzer::getSlope(int pattern, int compCode) const
-// {
-//   if (compCode == -1) return getAverageSlopeLegacy(pattern);
-//   else return getSlopeRun3(pattern, compCode);
-// }
+float CSCStubAnalyzer::getSlope(int pattern, int compCode) const
+{
+  if (compCode == -1) return getAverageSlopeLegacy(pattern);
+  else return getSlopeRun3(pattern, compCode);
+}
 
-// float CSCStubAnalyzer::getMaxSlopeLegacy(int pattern) const
-// {
-//   // slope in number of strips/layer
-//   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
-//     0, 0, 5, -5, 4, -4, 3, -3, 2, -2, 1};
-//   return float(slope[pattern]/5.);
-// }
+float CSCStubAnalyzer::getMaxSlopeLegacy(int pattern) const
+{
+  // slope in number of strips/layer
+  int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
+    0, 0, 5, -5, 4, -4, 3, -3, 2, -2, 1};
+  return float(slope[pattern]/5.);
+}
 
-// float CSCStubAnalyzer::getMinSlopeLegacy(int pattern) const
-// {
-//   // slope in number of strips/layer
-//   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
-//     0, 0, 3, -3, 2, -2, 1, -1, 0, 0, -1};
-//   return float(slope[pattern]/5.);
-// }
+float CSCStubAnalyzer::getMinSlopeLegacy(int pattern) const
+{
+  // slope in number of strips/layer
+  int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
+    0, 0, 3, -3, 2, -2, 1, -1, 0, 0, -1};
+  return float(slope[pattern]/5.);
+}
 
-// float CSCStubAnalyzer::getAverageSlopeLegacy(int pattern) const
-// {
-//   // slope in number of strips/layer
-//   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
-//     0, 0, 4, -4, 3, -3, 2, -2, 1, -1, 0};
-//   return float(slope[pattern]/5.);
+float CSCStubAnalyzer::getAverageSlopeLegacy(int pattern) const
+{
+  // slope in number of strips/layer
+  int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
+    0, 0, 4, -4, 3, -3, 2, -2, 1, -1, 0};
+  return float(slope[pattern]/5.);
+}
 
-// }
-
-// float CSCStubAnalyzer::getSlopeRun3(int pattern, int compCode) const
-// {
-//   // need to access the LUTs in CMSSW!
-//   std::string lutstring("L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat" + std::to_string(pattern) + "_v1.txt");
-//   std::unique_ptr<CSCComparatorCodeLUT> lut(new CSCComparatorCodeLUT(lutstring));
-//   return lut->lookup(compCode);
-// }
-
+float CSCStubAnalyzer::getSlopeRun3(int pattern, int compCode) const
+{
+  // need to access the LUTs in CMSSW!
+  std::string lutstring("L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat" + std::to_string(pattern) + "_v1.txt");
+  std::unique_ptr<CSCComparatorCodeLUT> lut(new CSCComparatorCodeLUT(lutstring));
+  return lut->lookup(compCode);
+}
 
 std::pair<GEMDigi, GlobalPoint>
 CSCStubAnalyzer::bestGEMDigi(const GEMDetId& gemId,
