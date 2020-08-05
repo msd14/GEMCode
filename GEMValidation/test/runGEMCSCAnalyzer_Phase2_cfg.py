@@ -54,10 +54,10 @@ process.GEMCSCAnalyzer = cms.EDAnalyzer(
     runReco = cms.bool(False),
     verbose = cms.untracked.int32(1),
     minNHitsChamberGEMSimHit = cms.int32(1),
-    minNHitsChamberCSCSimHit = cms.int32(4),
+    minNHitsChamberCSCSimHit = cms.int32(3),
     minNHitsChamberCSCDigi = cms.int32(4),
     minNHitsChamberGEMDigi = cms.int32(1),
-    minNHitsChamberCSCStub = cms.int32(4),
+    minNHitsChamberCSCStub = cms.int32(3),
 )
 
 ana = process.GEMCSCAnalyzer
@@ -75,6 +75,7 @@ ana.cscWireDigi.verbose = 0
 ana.cscALCT.verbose = 0
 ana.cscCLCT.verbose = 0
 ana.cscLCT.verbose = 0
+ana.cscLCT.addGhostLCTs = cms.bool(True)
 
 ana.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigis","","ReL1")
 ana.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigis","","ReL1")
@@ -86,9 +87,21 @@ if useUnpacked:
     ana.gemStripDigi.inputTag = "muonGEMDigis"
     ana.muon.inputTag = cms.InputTag("gmtStage2Digis","Muon")
 
+process.GEMCSCAnalyzerRun3 = process.GEMCSCAnalyzer.clone()
+process.GEMCSCAnalyzerRun3.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
+process.GEMCSCAnalyzerRun3.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
+process.GEMCSCAnalyzerRun3.cscLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
+process.GEMCSCAnalyzerRun3.cscMPLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","MPCSORTED","ReL1")
+
+process.GEMCSCAnalyzerRun3CCLUT = process.GEMCSCAnalyzer.clone()
+process.GEMCSCAnalyzerRun3CCLUT.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")
+process.GEMCSCAnalyzerRun3CCLUT.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")
+process.GEMCSCAnalyzerRun3CCLUT.cscLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")
+process.GEMCSCAnalyzerRun3CCLUT.cscMPLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","MPCSORTED","ReL1")
+
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 
-process.p = cms.Path(process.GEMCSCAnalyzer)
+process.p = cms.Path(process.GEMCSCAnalyzer * process.GEMCSCAnalyzerRun3 * process.GEMCSCAnalyzerRun3CCLUT)
 
 ## messages
 print

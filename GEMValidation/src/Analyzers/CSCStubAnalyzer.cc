@@ -47,23 +47,27 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     auto fill = [clct, odd, slope](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
-        // cscStubTree.chamber_dg_odd[st] = id.chamber();
         cscStubTree.quality_clct_odd[st] = clct.getQuality();
         cscStubTree.bx_clct_odd[st] = clct.getBX();
         cscStubTree.hs_clct_odd[st] = clct.getKeyStrip();
         cscStubTree.qs_clct_odd[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_odd[st] = clct.getKeyStrip(8);
         cscStubTree.slope_clct_odd[st] = slope;
+        cscStubTree.fhs_clct_odd[st] = clct.getFractionalStrip(2);
+        cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
+        cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
       }
       else {
         cscStubTree.has_clct_even[st] = true;
-        // cscStubTree.chamber_dg_even[st] = id.chamber();
         cscStubTree.quality_clct_even[st] = clct.getQuality();
         cscStubTree.bx_clct_even[st] = clct.getBX();
         cscStubTree.hs_clct_even[st] = clct.getKeyStrip();
         cscStubTree.qs_clct_even[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_even[st] = clct.getKeyStrip(8);
         cscStubTree.slope_clct_even[st] = slope;
+        cscStubTree.fhs_clct_even[st] = clct.getFractionalStrip(2);
+        cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
+        cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);
       }
     };
 
