@@ -35,12 +35,15 @@ def drawPuLabel(pu, x=0.17, y=0.35, font_size=0.):
 
 
 #_______________________________________________________________________________
-def draw_1D(t,title, h_name, h_bins, to_draw, extra_cut,
+def draw_1D(t, title, h_bins, to_draw, extra_cut, opt = "",
              color = kBlue, marker_st = 20):
-    """Make an efficiency plot"""
 
-    t.Draw(to_draw + ">>num_" + h_name + h_bins, extra_cut, "goff")
-    num = TH1F(gDirectory.Get("num_" + h_name).Clone("num_" + h_name))
+    nBins  = int(h_bins[1:-1].split(',')[0])
+    minBin = float(h_bins[1:-1].split(',')[1])
+    maxBin = float(h_bins[1:-1].split(',')[2])
+
+    num = TH1F("num", "", nBins, minBin, maxBin)
+    t.Draw(to_draw + ">>num", extra_cut, "goff")
 
     num.SetTitle(title)
     num.SetLineWidth(2)
@@ -49,34 +52,6 @@ def draw_1D(t,title, h_name, h_bins, to_draw, extra_cut,
     num.SetMarkerColor(color)
     num.SetMarkerSize(.5)
     return num
-
-
-#_______________________________________________________________________________
-def draw_eff(t,title, h_name, h_bins, to_draw, denom_cut, extra_num_cut,
-             color = kBlue, marker_st = 20):
-    """Make an efficiency plot"""
-
-    ## total numerator selection cut
-    num_cut = AND(denom_cut,extra_num_cut)
-
-    t.Draw(to_draw + ">>num_" + h_name + h_bins, num_cut, "goff")
-    num = TH1F(gDirectory.Get("num_" + h_name).Clone("num_" + h_name))
-    t.Draw(to_draw + ">>denom_" + h_name + h_bins, denom_cut, "goff")
-    den = TH1F(gDirectory.Get("denom_" + h_name).Clone("denom_" + h_name))
-
-    useTEfficiency = True
-    if useTEfficiency:
-        eff = TEfficiency(num, den)
-    else:
-        eff = TGraphAsymmErrors(num, den)
-
-    eff.SetTitle(title)
-    eff.SetLineWidth(2)
-    eff.SetLineColor(color)
-    eff.SetMarkerStyle(marker_st)
-    eff.SetMarkerColor(color)
-    eff.SetMarkerSize(.5)
-    return eff
 
 
 #_______________________________________________________________________________

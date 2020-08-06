@@ -29,7 +29,7 @@ def CSCCLCT(plotter):
 
     for st in range(0,len(cscStations)):
 
-        h_bins = "(100,-1,-1)"
+        h_bins = "(100,-1.5,1.5)"
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
@@ -45,9 +45,9 @@ def CSCCLCT(plotter):
         base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
-        toPlot1 = "CSCStub.delta_fhs_clct_odd[%d]"%st
-        toPlot2 = "CSCStub.delta_fqs_clct_odd[%d]"%st
-        toPlot3 = "CSCStub.delta_fes_clct_odd[%d]"%st
+        toPlot1 = "CSCStub.delta_fhs_clct_odd[%d]"%(st)
+        toPlot2 = "CSCStub.delta_fqs_clct_odd[%d]"%(st)
+        toPlot3 = "CSCStub.delta_fes_clct_odd[%d]"%(st)
 
         h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
         h2 = draw_1D(plotter.tree, title, h_bins, toPlot2, "", "same", kBlue)
@@ -66,7 +66,7 @@ def CSCCLCT(plotter):
 
         c.Print("%sRes_CSCCLCT_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
 
-        del c, base, h2, leg, csc
+        del c, base, h2, leg, csc, h1, h3
 
 
 def CSCStub(plotter):
