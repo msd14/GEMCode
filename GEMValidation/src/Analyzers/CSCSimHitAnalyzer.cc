@@ -48,8 +48,9 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     match_->LocalBendingInChamber(d);
 
     const bool odd(id.chamber()%2==1);
-    const auto& simhits = match_->hitsInDetId(id);
+    const auto& simhits = match_->hitsInChamber(id);
     const auto& keygp(match_->simHitsMeanPosition(simhits));
+    const auto& nearestStrip = match_->simHitsMeanStrip(simhits);
     const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
 
     if (odd) {
@@ -60,6 +61,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
       tree.cscSimHit().phi_csc_sh_odd[st] = keygp.phi();
       tree.cscSimHit().perp_csc_sh_odd[st] = keygp.perp();
       tree.cscSimHit().bend_csc_sh_odd[st] = csc_simhits_gv.phi();
+      tree.cscSimHit().strip_csc_sh_odd[st] = nearestStrip;
     }
     else {
       tree.cscSimHit().chamber_sh_even[st] = id.chamber();
@@ -69,6 +71,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
       tree.cscSimHit().phi_csc_sh_even[st] = keygp.phi();
       tree.cscSimHit().perp_csc_sh_even[st] = keygp.perp();
       tree.cscSimHit().bend_csc_sh_even[st] = csc_simhits_gv.phi();
+      tree.cscSimHit().strip_csc_sh_even[st] = nearestStrip;
     }
 
     // case ME11
@@ -81,6 +84,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
         tree.cscSimHit().phi_csc_sh_odd[0] = keygp.phi();
         tree.cscSimHit().perp_csc_sh_odd[0] = keygp.perp();
         tree.cscSimHit().bend_csc_sh_odd[0] = csc_simhits_gv.phi();
+        tree.cscSimHit().strip_csc_sh_odd[0] = nearestStrip;
       }
       else {
         tree.cscSimHit().chamber_sh_even[0] = id.chamber();
@@ -89,22 +93,10 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
         tree.cscSimHit().eta_csc_sh_even[0] = keygp.eta();
         tree.cscSimHit().phi_csc_sh_even[0] = keygp.phi();
         tree.cscSimHit().perp_csc_sh_even[0] = keygp.perp();
-        tree.cscSimHit().bend_csc_sh_odd[0] = csc_simhits_gv.phi();
+        tree.cscSimHit().bend_csc_sh_even[0] = csc_simhits_gv.phi();
+        tree.cscSimHit().strip_csc_sh_even[0] = nearestStrip;
       }
     }
-
-    // const auto& cscid(id);
-    // const CSCDetId cscid1(cscid.endcap(), cscid.station(), cscid.ring(), cscid.chamber(), 1);
-    // const CSCDetId cscid6(cscid.endcap(), cscid.station(), cscid.ring(), cscid.chamber(), 6);
-
-    // const edm::PSimHitContainer& hits1 =  match_->hitsInDetId(cscid1.rawId());
-    // const edm::PSimHitContainer& hits6 =  match_->hitsInDetId(cscid6.rawId());
-
-    // const GlobalPoint& gp1 =  match_->simHitsMeanPosition( match_->hitsInDetId(cscid1.rawId()));
-    // const GlobalPoint& gp6 =  match_->simHitsMeanPosition( match_->hitsInDetId(cscid6.rawId()));
-
-    // cout << gp1 << endl;
-    // cout << gp6 << endl;
   }
 }
 

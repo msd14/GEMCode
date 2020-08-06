@@ -102,6 +102,15 @@ namespace gem {
     float fes_clct_odd[nStations];
     float fes_clct_even[nStations];
 
+    float delta_fhs_clct_odd[nStations];
+    float delta_fhs_clct_even[nStations];
+
+    float delta_fqs_clct_odd[nStations];
+    float delta_fqs_clct_even[nStations];
+
+    float delta_fes_clct_odd[nStations];
+    float delta_fes_clct_even[nStations];
+
     void init() {
       for (unsigned i = 0 ; i < nStations; i++) {
 
@@ -149,6 +158,15 @@ namespace gem {
 
         fes_clct_odd[i] = -1;
         fes_clct_even[i] = -1;
+
+        delta_fhs_clct_odd[i] = -1;
+        delta_fhs_clct_even[i] = -1;
+
+        delta_fqs_clct_odd[i] = -1;
+        delta_fqs_clct_even[i] = -1;
+
+        delta_fes_clct_odd[i] = -1;
+        delta_fes_clct_even[i] = -1;
 
         wg_alct_odd[i] = -1;
         wg_alct_even[i] = -1;
@@ -257,6 +275,15 @@ namespace gem {
 
       t->Branch("fes_clct_odd", fes_clct_odd, "fes_clct_odd[11]/F");
       t->Branch("fes_clct_even", fes_clct_even, "fes_clct_even[11]/F");
+
+      t->Branch("delta_fhs_clct_odd", delta_fhs_clct_odd, "delta_fhs_clct_odd[11]/F");
+      t->Branch("delta_fhs_clct_even", delta_fhs_clct_even, "delta_fhs_clct_even[11]/F");
+
+      t->Branch("delta_fqs_clct_odd", delta_fqs_clct_odd, "delta_fqs_clct_odd[11]/F");
+      t->Branch("delta_fqs_clct_even", delta_fqs_clct_even, "delta_fqs_clct_even[11]/F");
+
+      t->Branch("delta_fes_clct_odd", delta_fes_clct_odd, "delta_fes_clct_odd[11]/F");
+      t->Branch("delta_fes_clct_even", delta_fes_clct_even, "delta_fes_clct_even[11]/F");
 
       t->Branch("wg_alct_odd", wg_alct_odd, "wg_alct_odd[11]/I");
       t->Branch("wg_alct_even", wg_alct_even, "wg_alct_even[11]/I");

@@ -55,10 +55,10 @@ process.GEMCSCAnalyzer = cms.EDAnalyzer(
     runReco = cms.bool(False),
     verbose = cms.untracked.int32(1),
     minNHitsChamberGEMSimHit = cms.int32(1),
-    minNHitsChamberCSCSimHit = cms.int32(4),
+    minNHitsChamberCSCSimHit = cms.int32(3),
     minNHitsChamberCSCDigi = cms.int32(4),
     minNHitsChamberGEMDigi = cms.int32(1),
-    minNHitsChamberCSCStub = cms.int32(4),
+    minNHitsChamberCSCStub = cms.int32(3),
 )
 
 ana = process.GEMCSCAnalyzer
@@ -76,6 +76,7 @@ ana.cscWireDigi.verbose = 0
 ana.cscALCT.verbose = 0
 ana.cscCLCT.verbose = 0
 ana.cscLCT.verbose = 0
+ana.cscLCT.addGhostLCTs = cms.bool(True)
 
 useUnpacked = False
 if useUnpacked:
