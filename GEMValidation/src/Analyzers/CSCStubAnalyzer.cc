@@ -72,10 +72,10 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fhs_clct_even[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);
+        // deltas
         cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-      }
       }
     };
 
