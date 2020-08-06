@@ -51,6 +51,9 @@ def draw_1D(t, title, h_bins, to_draw, extra_cut, opt = "",
     num.SetMarkerStyle(marker_st)
     num.SetMarkerColor(color)
     num.SetMarkerSize(.5)
+    num.Draw(opt + " same")
+
+    SetOwnership(num, False)
     return num
 
 
@@ -99,10 +102,10 @@ def draw_geff(t, title, h_bins, to_draw, den_cut, extra_num_cut,
 
     eff.SetLineWidth(2)
     eff.SetLineColor(color)
-    eff.Draw(opt + " same")
     eff.SetMarkerStyle(marker_st)
     eff.SetMarkerColor(color)
     eff.SetMarkerSize(marker_sz)
+    eff.Draw(opt + " same")
 
     SetOwnership(eff, False)
     return eff

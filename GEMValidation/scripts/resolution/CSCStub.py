@@ -50,8 +50,8 @@ def CSCCLCT(plotter):
         toPlot3 = "CSCStub.delta_fes_clct_odd[%d]"%(st)
 
         h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
-        h2 = draw_1D(plotter.tree, title, h_bins, toPlot2, "", "same", kBlue)
-        h3 = draw_1D(plotter.tree, title, h_bins, toPlot3, "", "same", kBlue)
+        h2 = draw_1D(plotter.tree, title, h_bins, toPlot2, "", "same", kGreen+2)
+        h3 = draw_1D(plotter.tree, title, h_bins, toPlot3, "", "same", kRed+1)
 
         leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
         leg.SetBorderSize(0)
