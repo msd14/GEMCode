@@ -44,7 +44,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
 
     const float slope(getSlope(clct));
 
-    auto fill = [clct, odd, slope](gem::CSCStubStruct& cscStubTree, int st) mutable {
+    auto fill = [clct, odd, slope, tree](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
         cscStubTree.quality_clct_odd[st] = clct.getQuality();
@@ -56,6 +56,10 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fhs_clct_odd[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
+        // deltas
+        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
       }
       else {
         cscStubTree.has_clct_even[st] = true;
@@ -68,6 +72,10 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fhs_clct_even[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);
+        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
+      }
       }
     };
 
@@ -137,9 +145,6 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.es_lct_odd[st] = lct.getStrip(8);
         cscStubTree.wg_lct_odd[st] = lct.getKeyWG();
         cscStubTree.quality_lct_odd[st] = lct.getQuality();
-        // cscStubTree.dphi_lct_odd[st] =
-        // reco::deltaPhi(float(cscStubTree.phi_lct_odd[st]),
-        //                float(tree.cscSimHit().phi_csc_sh_odd[st]));
       }
       else {
         cscStubTree.has_lct_even[st] = true;
@@ -153,9 +158,6 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.es_lct_odd[st] = lct.getStrip(8);
         cscStubTree.wg_lct_even[st] = lct.getKeyWG();
         cscStubTree.quality_lct_even[st] = lct.getQuality();
-        // cscStubTree.dphi_lct_even[st] =
-        // reco::deltaPhi(float(cscStubTree.phi_lct_even[st]),
-        //                float(tree.cscSimHit().phi_csc_sh_even[st]));
       }
     };
 

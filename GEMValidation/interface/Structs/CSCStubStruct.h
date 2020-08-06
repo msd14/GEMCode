@@ -102,6 +102,15 @@ namespace gem {
     float fes_clct_odd[nStations];
     float fes_clct_even[nStations];
 
+    float delta_fhs_clct_odd[nStations];
+    float delta_fhs_clct_even[nStations];
+
+    float delta_fqs_clct_odd[nStations];
+    float delta_fqs_clct_even[nStations];
+
+    float delta_fes_clct_odd[nStations];
+    float delta_fes_clct_even[nStations];
+
     void init() {
       for (unsigned i = 0 ; i < nStations; i++) {
 
@@ -149,6 +158,15 @@ namespace gem {
 
         fes_clct_odd[i] = -1;
         fes_clct_even[i] = -1;
+
+        delta_fhs_clct_odd[i] = -1;
+        delta_fhs_clct_even[i] = -1;
+
+        delta_fqs_clct_odd[i] = -1;
+        delta_fqs_clct_even[i] = -1;
+
+        delta_fes_clct_odd[i] = -1;
+        delta_fes_clct_even[i] = -1;
 
         wg_alct_odd[i] = -1;
         wg_alct_even[i] = -1;

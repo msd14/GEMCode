@@ -56,6 +56,9 @@ namespace gem {
     float z_layer6_sh_odd[nStations];
     float z_layer6_sh_even[nStations];
 
+    float strip_csc_sh_even[nStations];
+    float strip_csc_sh_odd[nStations];
+
     void init() {
       for (unsigned i = 0 ; i < nStations; i++) {
 
@@ -82,6 +85,9 @@ namespace gem {
 
         bend_csc_sh_even[i] = -10;
         bend_csc_sh_odd[i] = -10;
+
+        strip_csc_sh_even[i] = -10;
+        strip_csc_sh_odd[i] = -10;
       }
     };
 
@@ -110,6 +116,9 @@ namespace gem {
 
       t->Branch("dphi_sh_odd", dphi_sh_odd, "dphi_sh_odd[11]/F");
       t->Branch("dphi_sh_even", dphi_sh_even, "dphi_sh_even[11]/F");
+
+      t->Branch("strip_csc_sh_even", strip_csc_sh_even, "strip_csc_sh_even[11]/F");
+      t->Branch("strip_csc_sh_odd", strip_csc_sh_odd, "strip_csc_sh_odd[11]/F");
     }
   };
 }  // namespace
