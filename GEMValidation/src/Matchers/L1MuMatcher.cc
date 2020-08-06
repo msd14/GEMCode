@@ -119,8 +119,8 @@ L1MuMatcher::matchEmtfTrackToSimTrack(const SimTrack& simtrack, const l1t::EMTFT
       int bx = trk.BX();
       if ( bx < minBXEMTFTrack_ or bx > maxBXEMTFTrack_) continue;
 
-      float dR = deltaR(float(simtrack.momentum().eta()), float(simtrack.momentum().phi()),
-                        trk.Eta(), emtf::deg_to_rad(trk.Phi_glob()));
+      float dR = deltaR(float(simtrack.momentum().eta()), float(reco::reduceRange(simtrack.momentum().phi())),
+                        trk.Eta(), reco::reduceRange(emtf::deg_to_rad(trk.Phi_glob())));
 
       if (verboseEMTFTrack_)
         std::cout <<"dR (track, sim) "<< dR <<" deltaREMTFTrack_ "
