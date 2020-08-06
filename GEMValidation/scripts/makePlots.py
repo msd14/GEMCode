@@ -38,7 +38,7 @@ makeEfficiencyPlots(plotter)
 #from occupancy.plots import *
 #makeOccupancyPlots()
 
-#from resolution.plots import *
-#makeResolutionPlots()
+from resolution.plots import *
+makeResolutionPlots()
 
 #from datavsemulator.plots import *

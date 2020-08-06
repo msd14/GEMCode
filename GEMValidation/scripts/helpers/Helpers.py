@@ -35,6 +35,23 @@ def drawPuLabel(pu, x=0.17, y=0.35, font_size=0.):
 
 
 #_______________________________________________________________________________
+def draw_1D(t,title, h_name, h_bins, to_draw, extra_cut,
+             color = kBlue, marker_st = 20):
+    """Make an efficiency plot"""
+
+    t.Draw(to_draw + ">>num_" + h_name + h_bins, extra_cut, "goff")
+    num = TH1F(gDirectory.Get("num_" + h_name).Clone("num_" + h_name))
+
+    num.SetTitle(title)
+    num.SetLineWidth(2)
+    num.SetLineColor(color)
+    num.SetMarkerStyle(marker_st)
+    num.SetMarkerColor(color)
+    num.SetMarkerSize(.5)
+    return num
+
+
+#_______________________________________________________________________________
 def draw_eff(t,title, h_name, h_bins, to_draw, denom_cut, extra_num_cut,
              color = kBlue, marker_st = 20):
     """Make an efficiency plot"""
