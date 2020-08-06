@@ -276,6 +276,15 @@ namespace gem {
       t->Branch("fes_clct_odd", fes_clct_odd, "fes_clct_odd[11]/F");
       t->Branch("fes_clct_even", fes_clct_even, "fes_clct_even[11]/F");
 
+      t->Branch("delta_fhs_clct_odd", delta_fhs_clct_odd, "delta_fhs_clct_odd[11]/F");
+      t->Branch("delta_fhs_clct_even", delta_fhs_clct_even, "delta_fhs_clct_even[11]/F");
+
+      t->Branch("delta_fqs_clct_odd", delta_fqs_clct_odd, "delta_fqs_clct_odd[11]/F");
+      t->Branch("delta_fqs_clct_even", delta_fqs_clct_even, "delta_fqs_clct_even[11]/F");
+
+      t->Branch("delta_fes_clct_odd", delta_fes_clct_odd, "delta_fes_clct_odd[11]/F");
+      t->Branch("delta_fes_clct_even", delta_fes_clct_even, "delta_fes_clct_even[11]/F");
+
       t->Branch("wg_alct_odd", wg_alct_odd, "wg_alct_odd[11]/I");
       t->Branch("wg_alct_even", wg_alct_even, "wg_alct_even[11]/I");
 

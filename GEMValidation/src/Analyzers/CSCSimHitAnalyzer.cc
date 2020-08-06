@@ -48,7 +48,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     match_->LocalBendingInChamber(d);
 
     const bool odd(id.chamber()%2==1);
-    const auto& simhits = match_->hitsInDetId(id);
+    const auto& simhits = match_->hitsInChamber(id);
     const auto& keygp(match_->simHitsMeanPosition(simhits));
     const auto& nearestStrip = match_->simHitsMeanStrip(simhits);
     const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
