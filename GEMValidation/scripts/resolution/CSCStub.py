@@ -52,8 +52,14 @@ def CSCCLCT(plotter):
         h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
         h2 = draw_1D(plotter.tree, title, h_bins, toPlot2, "", "same", kGreen+2)
         h3 = draw_1D(plotter.tree, title, h_bins, toPlot3, "", "same", kRed+1)
+        h1.Scale(1./h1.GetEntries())
+        h2.Scale(1./h2.GetEntries())
+        h3.Scale(1./h3.GetEntries())
+        h1.Draw("histsame")
+        h2.Draw("histsame")
+        h3.Draw("histsame")
 
-        leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
+        leg = TLegend(0.15,0.6,.45,0.9, "", "brNDC");
         leg.SetBorderSize(0)
         leg.SetFillStyle(0)
         leg.SetTextSize(0.05)

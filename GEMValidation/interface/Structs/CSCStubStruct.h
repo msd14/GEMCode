@@ -150,23 +150,23 @@ namespace gem {
         es_clct_odd[i] = 0;
         es_clct_even[i] = 0;
 
-        fhs_clct_odd[i] = -1;
-        fhs_clct_even[i] = -1;
+        fhs_clct_odd[i] = -9;
+        fhs_clct_even[i] = -9;
 
-        fqs_clct_odd[i] = -1;
-        fqs_clct_even[i] = -1;
+        fqs_clct_odd[i] = -9;
+        fqs_clct_even[i] = -9;
 
-        fes_clct_odd[i] = -1;
-        fes_clct_even[i] = -1;
+        fes_clct_odd[i] = -9;
+        fes_clct_even[i] = -9;
 
-        delta_fhs_clct_odd[i] = -1;
-        delta_fhs_clct_even[i] = -1;
+        delta_fhs_clct_odd[i] = -9.;
+        delta_fhs_clct_even[i] = -9.;
 
-        delta_fqs_clct_odd[i] = -1;
-        delta_fqs_clct_even[i] = -1;
+        delta_fqs_clct_odd[i] = -9.;
+        delta_fqs_clct_even[i] = -9.;
 
-        delta_fes_clct_odd[i] = -1;
-        delta_fes_clct_even[i] = -1;
+        delta_fes_clct_odd[i] = -9.;
+        delta_fes_clct_even[i] = -9.;
 
         wg_alct_odd[i] = -1;
         wg_alct_even[i] = -1;

@@ -86,8 +86,8 @@ namespace gem {
         bend_csc_sh_even[i] = -10;
         bend_csc_sh_odd[i] = -10;
 
-        strip_csc_sh_even[i] = -10;
-        strip_csc_sh_odd[i] = -10;
+        strip_csc_sh_even[i] = -100;
+        strip_csc_sh_odd[i] = -100;
       }
     };
 

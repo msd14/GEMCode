@@ -51,7 +51,6 @@ def draw_1D(t, title, h_bins, to_draw, extra_cut, opt = "",
     num.SetMarkerStyle(marker_st)
     num.SetMarkerColor(color)
     num.SetMarkerSize(.5)
-    num.Draw(opt + " same")
 
     SetOwnership(num, False)
     return num
