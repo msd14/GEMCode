@@ -5,55 +5,48 @@ import ROOT
 ROOT.gROOT.SetBatch(1)
 #ROOT.gErrorIgnoreLevel=1001
 
-cscstations = [ [0,0],
-                [1,1], [1,2], [1,3],
+cscstations = [ [1,1], [1,2], [1,3],
                 [2,1], [2,2],
                 [3,1], [3,2],
                 [4,1], [4,2],]
 csclabel = {
     1 : {
-        0 : {
-            0 : ["pAll", 'ME+']
-            },
         1 : {
             1 : ["pME11","ME+1/1"],
             2 : ["pME12","ME+1/2"],
             3 : ["pME13","ME+1/3"]
-            },
+        },
         2 : {
             1 : ["pME21","ME+2/1"],
             2 : ["pME22","ME+2/2"]
-            },
+        },
         3 : {
             1 : ["pME31","ME+3/1"],
             2 : ["pME32","ME+3/2"]
-            },
+        },
         4 : {
             1 : ["pME41","ME+4/1"],
             2 : ["pME42","ME+4/2"]
-            },
         },
+    },
     2 : {
-        0 : {
-            0 : ["mAll","ME-"]
-            },
         1 : {
             1 : ["mME11","ME-1/1"],
             2 : ["mME12","ME-1/2"],
             3 : ["mME13","ME-1/3"]
-            },
+        },
         2 : {
             1 : ["mME21","ME-2/1"],
             2 : ["mME22","ME-2/2"]
-            },
+        },
         3 : {
             1 : ["mME31","ME-3/1"],
             2 : ["mME32","ME-3/2"]
-            },
+        },
         4 : {
             1 : ["mME41","ME-4/1"],
             2 : ["mME42","ME-4/2"]
-            },
+        },
         },
     }
 gROOT.SetBatch(1)
@@ -67,7 +60,7 @@ fc.Add("step2bis_pu200.root")
 fc.Print()
 ch.AddFileInfoList(fc.GetList())
 #file = TFile("step2bis_pu200.root")
-outputdirectory = "LCT_comparison_RelValSingleMuFlatPt2To100_PU200_CMSSW_11_2_X/"
+outputdirectory = "LCT_comparison_RelValSingleMuFlatPt2To100_PU200_CMSSW_11_2_X_20200806/"
 tree = ch#.Get("Events")
 
 csccorrelatedlctdigi = {
@@ -139,21 +132,15 @@ def compareLCTs(collections, endcap, station, ring, variable, bxpar):
     c.cd()
 
     def addCollection(collection, index):
-        print endcap, station, ring
         collection_substring = collection[len('CSCDetIdCSCCorrelatedLCTDigiMuonDigiCollection_'):] + "_" + varstr + "_" + csclabel[endcap][station][ring][0]
         hist = TH1D(collection_substring,"CSCCorrelatedLCTDigi " + varstr + " " +
                    csclabel[endcap][station][ring][1] + "; " + varstr + "; Entries",varnbin,varminbin,varmaxbin)
 
-        if station==0 and realRing==0:
-            tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
-                      collection + ".obj.data_.first.endcap() == %d &&"%(endcap) +
-                      collection + ".obj.data_.second." + extraCut)
-        else:
-            tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
-                      collection + ".obj.data_.first.endcap() == %d && "%(endcap) +
-                      collection + ".obj.data_.first.station()==%d && "%(station) +
-                      collection + ".obj.data_.first.ring()==%d && "%(realRing) +
-                      collection + ".obj.data_.second." + extraCut)
+        tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
+                  collection + ".obj.data_.first.endcap() == %d && "%(endcap) +
+                  collection + ".obj.data_.first.station()==%d && "%(station) +
+                  collection + ".obj.data_.first.ring()==%d && "%(realRing) +
+                  collection + ".obj.data_.second." + extraCut)
 
         hist.SetLineColor(colors[index])
 
@@ -211,14 +198,10 @@ def compareALCTs(collections, endcap, station, ring, variable):
         hist = TH1D(collection_substring,"CSCALCTDigi " + varstr + " " +
                    csclabel[endcap][station][ring][1] + "; " + varstr + "; Entries",varnbin,varminbin,varmaxbin)
 
-        if station==0 and ring==0:
-            tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
-                      collection + ".obj.data_.first.endcap() == %d"%(endcap))
-        else:
-            tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
-                      collection + ".obj.data_.first.endcap() == %d && "%(endcap) +
-                      collection + ".obj.data_.first.station()==%d && "%(station) +
-                      collection + ".obj.data_.first.ring()==%d"%(ring))
+        tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
+                  collection + ".obj.data_.first.endcap() == %d && "%(endcap) +
+                  collection + ".obj.data_.first.station()==%d && "%(station) +
+                  collection + ".obj.data_.first.ring()==%d"%(ring))
 
         hist.SetLineColor(colors[index])
         if index==0:
@@ -275,15 +258,11 @@ def compareCLCTs(collections, endcap, station, ring, variable):
         extraCut = "getKeyStrip() >=0"
         realRing = ring
 
-        if station==0 and realRing==0:
-            tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
-                      collection + ".obj.data_.first.endcap() == %d"%(endcap))
-        else:
-            tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
-                      collection + ".obj.data_.first.endcap() == %d && "%(endcap) +
-                      collection + ".obj.data_.first.station()==%d && "%(station) +
-                      collection + ".obj.data_.first.ring()==%d && "%(realRing) +
-                      collection + ".obj.data_.second." + extraCut)
+        tree.Draw(collection + ".obj.data_.second." + var + ">>" + hist.GetName(),
+                  collection + ".obj.data_.first.endcap() == %d && "%(endcap) +
+                  collection + ".obj.data_.first.station()==%d && "%(station) +
+                  collection + ".obj.data_.first.ring()==%d && "%(realRing) +
+                  collection + ".obj.data_.second." + extraCut)
 
         hist.SetLineColor(colors[index])
         if index==0:
@@ -324,10 +303,12 @@ def compareLCTsAll(collections):
             compareLCTs(collections,1,p[0],p[1],i,-1)
         for p in cscstations:
             compareLCTs(collections,2,p[0],p[1],i,-1)
+        """
         for p in cscstations:
             compareLCTs(collections,1,p[0],p[1],i,8)
         for p in cscstations:
             compareLCTs(collections,2,p[0],p[1],i,8)
+        """
 
 def compareALCTsAll(collections):
     for i in range(0,6):
@@ -360,7 +341,6 @@ clct_collections = [
     'CSCDetIdCSCCLCTDigiMuonDigiCollection_simCscTriggerPrimitiveDigis__HLT',
 ]
 
-compareLCTsAll(lct_collections)
 compareLCTsAll(lct_collections)
 compareALCTsAll(alct_collections)
 compareCLCTsAll(clct_collections)
