@@ -1,6 +1,6 @@
 // CMSSW
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/one/EDAnalyzer.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/ESHandle.h"
@@ -17,7 +17,7 @@
 #include <math.h>
 #include <bitset>
 
-class GEMCSCAnalyzer : public edm::EDAnalyzer {
+class GEMCSCAnalyzer : public edm::one::EDAnalyzer<> {
 public:
   explicit GEMCSCAnalyzer(const edm::ParameterSet&);
 
