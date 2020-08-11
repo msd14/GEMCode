@@ -74,7 +74,7 @@ process.FEVTDEBUGoutput = cms.OutputModule("PoolOutputModule",
         dataTier = cms.untracked.string('GEN-SIM-DIGI-L1'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:step2bis.root'),
+    fileName = cms.untracked.string('file:step2bis_run3.root'),
     outputCommands = process.FEVTDEBUGEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
