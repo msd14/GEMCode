@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 # the analyzer configuration
 from GEMCode.GEMValidation.simTrackMatching_cfi import simTrackPSet
-process.GEMCSCAnalyzer = cms.EDAnalyzer(
+GEMCSCAnalyzer = cms.EDAnalyzer(
     "GEMCSCAnalyzer",
     simTrackPSet,
     runSim = cms.bool(True),
@@ -18,19 +18,18 @@ process.GEMCSCAnalyzer = cms.EDAnalyzer(
     minNHitsChamberCSCStub = cms.int32(3),
 )
 
-ana = process.GEMCSCAnalyzer
-ana.simTrack.minEta = 0.9
-ana.simTrack.maxEta = 2.4
-ana.simTrack.minPt = 3
-ana.gemSimHit.verbose = 0
-ana.gemStripDigi.verbose = 0
-ana.gemStripDigi.matchDeltaStrip = 2
-ana.gemPadDigi.verbose = 0
-ana.gemCoPadDigi.verbose = 0
-ana.gemPadCluster.verbose = 0
-ana.cscComparatorDigi.verbose = 0
-ana.cscWireDigi.verbose = 0
-ana.cscALCT.verbose = 0
-ana.cscCLCT.verbose = 0
-ana.cscLCT.verbose = 0
-ana.cscLCT.addGhostLCTs = cms.bool(True)
+GEMCSCAnalyzer.simTrack.minEta = 0.9
+GEMCSCAnalyzer.simTrack.maxEta = 2.4
+GEMCSCAnalyzer.simTrack.minPt = 3
+GEMCSCAnalyzer.gemSimHit.verbose = 0
+GEMCSCAnalyzer.gemStripDigi.verbose = 0
+GEMCSCAnalyzer.gemStripDigi.matchDeltaStrip = 2
+GEMCSCAnalyzer.gemPadDigi.verbose = 0
+GEMCSCAnalyzer.gemCoPadDigi.verbose = 0
+GEMCSCAnalyzer.gemPadCluster.verbose = 0
+GEMCSCAnalyzer.cscComparatorDigi.verbose = 0
+GEMCSCAnalyzer.cscWireDigi.verbose = 0
+GEMCSCAnalyzer.cscALCT.verbose = 0
+GEMCSCAnalyzer.cscCLCT.verbose = 0
+GEMCSCAnalyzer.cscLCT.verbose = 0
+GEMCSCAnalyzer.cscLCT.addGhostLCTs = cms.bool(True)
