@@ -1,4 +1,5 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/CSCStubAnalyzer.h"
+#include "GEMCode/GEMValidation/interface/Helpers.h"
 #include "L1Trigger/CSCCommonTrigger/interface/CSCPatternLUT.h"
 #include "L1Trigger/CSCTriggerPrimitives/interface/CSCComparatorCodeLUT.h"
 
@@ -45,7 +46,13 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     const float slope(getSlope(clct));
     std::cout << id << " " << clct << std::endl;
 
-    auto fill = [clct, odd, slope, tree](gem::CSCStubStruct& cscStubTree, int st) mutable {
+    int deltaStrip = 0;
+    if (id.station() == 1 and id.ring() == 1 and clct.getKeyStrip() > CSCConstants::MAX_HALF_STRIP_ME1B)
+      deltaStrip = CSCConstants::MAX_NUM_STRIPS_ME1B;
+
+    int deltaStripSIM = 0;
+
+    auto fill = [clct, odd, slope, tree, deltaStrip](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
         cscStubTree.quality_clct_odd[st] = clct.getQuality();
@@ -58,12 +65,13 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
         // deltas
-        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-        std::cout << "delta hs " << cscStubTree.delta_fhs_clct_odd[st] << " hs " << cscStubTree.fhs_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << std::endl;
-        std::cout << "delta qs " << cscStubTree.delta_fqs_clct_odd[st] << " qs " << cscStubTree.fqs_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << std::endl;
-        std::cout << "delta es " << cscStubTree.delta_fes_clct_odd[st] << " es " << cscStubTree.fes_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << std::endl;      }
+        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        std::cout << "delta hs " << cscStubTree.delta_fhs_clct_odd[st] << " hs " << cscStubTree.fhs_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << " " << tree.cscSimHit().phi_csc_sh_odd[st] << std::endl;
+        std::cout << "delta qs " << cscStubTree.delta_fqs_clct_odd[st] << " qs " << cscStubTree.fqs_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << " " << tree.cscSimHit().phi_csc_sh_odd[st] << std::endl;
+        std::cout << "delta es " << cscStubTree.delta_fes_clct_odd[st] << " es " << cscStubTree.fes_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << " " << tree.cscSimHit().phi_csc_sh_odd[st] << std::endl;
+      }
       else {
         cscStubTree.has_clct_even[st] = true;
         cscStubTree.quality_clct_even[st] = clct.getQuality();
@@ -76,12 +84,12 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);
         // deltas
-        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - tree.cscSimHit().strip_csc_sh_odd[st];
-        std::cout << "delta hs " << cscStubTree.delta_fhs_clct_odd[0] << " hs " << cscStubTree.fhs_clct_odd[0] << " true " << tree.cscSimHit().strip_csc_sh_odd[0] << std::endl;
-        std::cout << "delta qs " << cscStubTree.delta_fqs_clct_odd[0] << " qs " << cscStubTree.fqs_clct_odd[0] << " true " << tree.cscSimHit().strip_csc_sh_odd[0] << std::endl;
-        std::cout << "delta es " << cscStubTree.delta_fes_clct_odd[0] << " es " << cscStubTree.fes_clct_odd[0] << " true " << tree.cscSimHit().strip_csc_sh_odd[0] << std::endl;
+        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        std::cout << "delta hs " << cscStubTree.delta_fhs_clct_odd[st] << " hs " << cscStubTree.fhs_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << tree.cscSimHit().phi_csc_sh_odd[st] << std::endl;
+        std::cout << "delta qs " << cscStubTree.delta_fqs_clct_odd[st] << " qs " << cscStubTree.fqs_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << tree.cscSimHit().phi_csc_sh_odd[st] << std::endl;
+        std::cout << "delta es " << cscStubTree.delta_fes_clct_odd[st] << " es " << cscStubTree.fes_clct_odd[st] << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << tree.cscSimHit().phi_csc_sh_odd[st] << std::endl;
       }
     };
 

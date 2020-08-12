@@ -148,4 +148,8 @@ namespace gem {
 
 }  // namespace gemvalidation
 
+namespace csc {
+  unsigned get_csc_max_strip(int station, int ring);
+}
+
 #endif

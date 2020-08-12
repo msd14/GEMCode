@@ -232,3 +232,25 @@ int gem::detIdToMEStation(int st, int ri)
   const auto& p(std::make_pair(st, ri));
   return std::find(cscStationsCo_.begin(), cscStationsCo_.end(), p) - cscStationsCo_.begin();
 }
+
+unsigned csc::get_csc_max_strip(int station, int ring) {
+  int max_strip = 0;                // halfstrip
+  if (station == 1 && ring == 4) {  // ME1/1a
+    max_strip = 48;
+  } else if (station == 1 && ring == 1) {  // ME1/1b
+    // In the CSC local trigger
+    // ME1/a is taken together with ME1/b
+    max_strip = 64;
+  } else if (station == 1 && ring == 2) {  // ME1/2
+    max_strip = 80;
+  } else if (station == 1 && ring == 3) {  // ME1/3
+    max_strip = 64;
+  } else if (station == 2 && ring == 1) {  // ME2/1
+    max_strip = 80;
+  } else if (station >= 3 && ring == 1) {  // ME3/1, ME4/1
+    max_strip = 80;
+  } else if (station >= 2 && ring == 2) {  // ME2/2, ME3/2, ME4/2
+    max_strip = 80;
+  }
+  return max_strip;
+}
