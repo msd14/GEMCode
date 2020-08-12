@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-RelValSingleMuPt10_110X_mcRun4_realistic_v2_2026D49PU200 = [
+RelValSingleMuPt10_110X_mcRun4_realistic_v3_2026D49PU200 = [
     '/store/relval/CMSSW_11_0_0/RelValSingleMuPt10/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/14703A08-82E2-4D40-A877-B6576F108E25.root',
     '/store/relval/CMSSW_11_0_0/RelValSingleMuPt10/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/174E0807-A515-F540-950D-A3BB521A7093.root',
     '/store/relval/CMSSW_11_0_0/RelValSingleMuPt10/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/17993A0C-AE99-7245-B770-6DB67A3A9445.root',
@@ -93,7 +93,7 @@ RelValSingleMuPt10_110X_mcRun4_realistic_v2_2026D49PU200 = [
     '/store/relval/CMSSW_11_0_0/RelValSingleMuPt10/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/113EC162-2A5D-0842-96DF-B4DF022C4C49.root',
 ]
 
-RelValSingleMuFlatPt2To100_110X_mcRun4_realistic_v2_2026D49PU200 = [
+RelValSingleMuFlatPt2To100_110X_mcRun4_realistic_v3_2026D49PU200 = [
     '/store/relval/CMSSW_11_0_0/RelValSingleMuFlatPt2To100/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/FE5B56BE-AECE-4F45-B66F-E5FE1B8CC760.root',
     '/store/relval/CMSSW_11_0_0/RelValSingleMuFlatPt2To100/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/FA1B16F1-2326-4946-8C12-F141E3ED7722.root',
     '/store/relval/CMSSW_11_0_0/RelValSingleMuFlatPt2To100/GEN-SIM-DIGI-RAW/PU25ns_110X_mcRun4_realistic_v3_2026D49PU200-v1/20000/F743F89A-904A-FB47-BD64-B1B5FECF5977.root',
