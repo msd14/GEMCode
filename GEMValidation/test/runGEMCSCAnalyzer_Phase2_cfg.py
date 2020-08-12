@@ -29,7 +29,7 @@ process.MessageLogger = cms.Service("MessageLogger",
 """
 process.source = cms.Source(
   "PoolSource",
-  fileNames = cms.untracked.vstring('file:step2bis.root'),
+  fileNames = cms.untracked.vstring('file:step2bis_phase2.root'),
 )
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-100) )
