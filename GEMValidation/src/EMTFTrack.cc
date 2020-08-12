@@ -25,7 +25,7 @@ gem::EMTFTrack::~EMTFTrack()
 
 unsigned int gem::EMTFTrack::nStubs() const
 {
-  unsigned returnValue;
+  unsigned returnValue = 0;
   for (const auto& stub : emtfHits_) {
     if (stub.Is_CSC()) returnValue++;
   }
