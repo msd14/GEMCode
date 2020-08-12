@@ -14,7 +14,7 @@ import style.CMS_lumi as CMS_lumi
 from style.canvas import newCanvas
 
 topTitle = ""
-xTitle = "Resolution [strips]"
+xTitle = "Strip_{L1T} - Strip_{SIM}"
 yTitle = "Entries"
 subdirectory = "resolution/CSCStub/"
 title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
@@ -37,7 +37,7 @@ def CSCCLCT(plotter):
         c = newCanvas()
         base  = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(0)
-        base.SetMaximum(1000)
+        base.SetMaximum(0.04)
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
