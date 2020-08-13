@@ -41,7 +41,7 @@ process.maxEvents = cms.untracked.PSet(
 from GEMCode.GEMValidation.relValSamples import *
 from GEMCode.GEMValidation.relValSamplesPU200 import *
 
-inputFiles = RelValSingleMuPt10_110X_mcRun4_realistic_v3_2026D49noPU
+inputFiles = RelValSingleMuPt10_110X_mcRun4_realistic_v2_2026D49noPU
 if options.usePileUp:
     inputFiles = RelValSingleMuPt10_110X_mcRun4_realistic_v3_2026D49PU200
 
