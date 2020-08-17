@@ -2,18 +2,21 @@ import sys
 import os
 
 from ROOT import TFile, TDirectory, TTree, gROOT
+from efficiency.plots import *
+from resolution.plots import *
 
 ## run quiet mode
 sys.argv.append( '-b' )
 gROOT.SetBatch(1)
 
 class GEMCSCStubPlotter():
-  def __init__(self):
+  def __init__(self, analyzer = "GEMCSCAnalyzer"):
     self.inputDir = os.getenv("CMSSW_BASE") + "/src/"
-    self.inputFile = self.inputDir + "out_ana.root"
-    self.targetDir = "plots/"
+    self.inputFile = self.inputDir + "out_ana_phase2.root"
+    self.baseDir = "plots/"
     self.ext = ".png"
-    self.analyzer = "GEMCSCAnalyzer"
+    self.analyzer = analyzer
+    self.targetDir = self.baseDir + self.analyzer + "/"
     self.file = TFile.Open(self.inputFile)
     self.dirAna = (self.file).Get(self.analyzer)
     self.tree = self.dirAna.Get("SimTrack")
@@ -27,18 +30,9 @@ class GEMCSCStubPlotter():
 
 ## needs to be cleaned up
 plotter = GEMCSCStubPlotter()
-
-## plots - most do not work yet
-from efficiency.plots import *
 makeEfficiencyPlots(plotter)
-
-#from timing.plots import *
-#makeTimingPlots()
-
-#from occupancy.plots import *
-#makeOccupancyPlots()
-
-from resolution.plots import *
 makeResolutionPlots(plotter)
 
-#from datavsemulator.plots import *
+plotter2 = GEMCSCStubPlotter("GEMCSCAnalyzerRun3CCLUT")
+makeEfficiencyPlots(plotter2)
+makeResolutionPlots(plotter2)

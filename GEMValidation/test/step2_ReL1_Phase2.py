@@ -118,7 +118,6 @@ process = addCSCTriggerRun3(process)
 
 process.SimL1Emulator = cms.Sequence(
     process.simCscTriggerPrimitiveDigis
-    * process.simCscTriggerPrimitiveDigisRun3
     * process.simCscTriggerPrimitiveDigisRun3CCLUT
     * process.simEmtfDigis
 )

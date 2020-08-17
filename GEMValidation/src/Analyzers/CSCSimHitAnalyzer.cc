@@ -50,7 +50,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     const bool odd(id.chamber()%2==1);
     const auto& simhits = match_->hitsInChamber(id);
     const auto& keygp(match_->simHitsMeanPosition(simhits));
-    const auto& nearestStrip = match_->simHitsMeanStripKeyLayer(simhits);
+    const auto& nearestStrip = match_->simHitsMeanStripKeyLayer(simhits) - 0.25;
     const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
 
     if (odd) {
