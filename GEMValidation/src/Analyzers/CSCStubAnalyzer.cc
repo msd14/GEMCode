@@ -1,7 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/CSCStubAnalyzer.h"
 #include "GEMCode/GEMValidation/interface/Helpers.h"
 #include "L1Trigger/CSCCommonTrigger/interface/CSCPatternLUT.h"
-#include "L1Trigger/CSCTriggerPrimitives/interface/CSCComparatorCodeLUT.h"
 
 CSCStubAnalyzer::CSCStubAnalyzer(const edm::ParameterSet& conf)
 {
@@ -66,9 +65,6 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
-        std::cout << "delta hs " << cscStubTree.delta_fhs_clct_odd[st] << " hs " << cscStubTree.fhs_clct_odd[st] - deltaStrip << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << std::endl;
-        std::cout << "delta qs " << cscStubTree.delta_fqs_clct_odd[st] << " qs " << cscStubTree.fqs_clct_odd[st] - deltaStrip << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << std::endl;
-        std::cout << "delta es " << cscStubTree.delta_fes_clct_odd[st] << " es " << cscStubTree.fes_clct_odd[st] - deltaStrip << " true " << tree.cscSimHit().strip_csc_sh_odd[st] << std::endl;
       }
       else {
         cscStubTree.has_clct_even[st] = true;
@@ -85,9 +81,6 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.delta_fhs_clct_even[st] = cscStubTree.fhs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         cscStubTree.delta_fqs_clct_even[st] = cscStubTree.fqs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         cscStubTree.delta_fes_clct_even[st] = cscStubTree.fes_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
-        std::cout << "delta hs " << cscStubTree.delta_fhs_clct_even[st] << " hs " << cscStubTree.fhs_clct_even[st] - deltaStrip << " true " << tree.cscSimHit().strip_csc_sh_even[st] << std::endl;
-        std::cout << "delta qs " << cscStubTree.delta_fqs_clct_even[st] << " qs " << cscStubTree.fqs_clct_even[st] - deltaStrip << " true " << tree.cscSimHit().strip_csc_sh_even[st] << std::endl;
-        std::cout << "delta es " << cscStubTree.delta_fes_clct_even[st] << " es " << cscStubTree.fes_clct_even[st] - deltaStrip << " true " << tree.cscSimHit().strip_csc_sh_even[st] << std::endl;
       }
     };
 
@@ -220,13 +213,8 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
 
 float CSCStubAnalyzer::getSlope(const CSCCLCTDigi& lct) const
 {
-  return getSlope(lct.getPattern(), lct.getCompCode());
-}
-
-float CSCStubAnalyzer::getSlope(int pattern, int compCode) const
-{
-  if (compCode == -1) return getAverageSlopeLegacy(pattern);
-  else return getSlopeRun3(pattern, compCode);
+  if (lct.getCompCode() != -1) return lct.getSlope();
+  else return getAverageSlopeLegacy(lct.getPattern());
 }
 
 float CSCStubAnalyzer::getMaxSlopeLegacy(int pattern) const
@@ -251,14 +239,6 @@ float CSCStubAnalyzer::getAverageSlopeLegacy(int pattern) const
   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
     0, 0, 4, -4, 3, -3, 2, -2, 1, -1, 0};
   return float(slope[pattern]/5.);
-}
-
-float CSCStubAnalyzer::getSlopeRun3(int pattern, int compCode) const
-{
-  // need to access the LUTs in CMSSW!
-  std::string lutstring("L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat" + std::to_string(pattern) + "_v1.txt");
-  std::unique_ptr<CSCComparatorCodeLUT> lut(new CSCComparatorCodeLUT(lutstring));
-  return lut->lookup(compCode);
 }
 
 std::pair<GEMDigi, GlobalPoint>
