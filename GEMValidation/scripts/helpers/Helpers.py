@@ -45,7 +45,6 @@ def draw_1D(t, title, h_bins, to_draw, extra_cut, opt = "",
     num = TH1F("num", "", nBins, minBin, maxBin)
     t.Draw(to_draw + ">>num", extra_cut, "goff")
 
-    num.SetTitle(title)
     num.SetLineWidth(2)
     num.SetLineColor(color)
     num.SetMarkerStyle(marker_st)

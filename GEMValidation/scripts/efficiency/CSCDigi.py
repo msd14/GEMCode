@@ -3,32 +3,24 @@ from ROOT import gStyle, TH1F, TCanvas, TLegend, kRed, kBlue, kOrange, kGreen
 from helpers.cuts import *
 from helpers.Helpers import *
 from helpers.stations import *
+from style.tdrstyle import *
+import style.CMS_lumi as CMS_lumi
+from style.canvas import newCanvas
 
-gStyle.SetTitleStyle(0)
-gStyle.SetTitleAlign(13) ##coord in top left
-gStyle.SetTitleX(0.)
-gStyle.SetTitleY(1.)
-gStyle.SetTitleW(1)
-gStyle.SetTitleH(0.058)
-gStyle.SetTitleBorderSize(0)
+topTitle = ""
+xTitle = "Generated muon |#eta|"
+yTitle = "Efficiency"
+toPlot = "TMath::Abs(eta)"
+subdirectory = "efficiency/CSCDigi/"
+title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
 
-gStyle.SetPadLeftMargin(0.126)
-gStyle.SetPadRightMargin(0.04)
-gStyle.SetPadTopMargin(0.06)
-gStyle.SetPadBottomMargin(0.13)
-gStyle.SetOptStat(0)
-gStyle.SetMarkerStyle(1)
+setTDRStyle()
+
+iPeriod = 0
+iPos = 0
+if( iPos==0 ): CMS_lumi.relPosX = 0.12
 
 def CSCComp(plotter):
-
-    ## variables for the plot
-    topTitle = " " * 11 + "CSC Digi matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCDigi/"
-
 
     for st in range(0,len(cscStations)):
 
@@ -37,16 +29,16 @@ def CSCComp(plotter):
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
-        c = TCanvas("c","c",700,450)
-        c.Clear()
+        c = newCanvas()
         base  = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_strip(st), "same")
 
@@ -65,15 +57,6 @@ def CSCComp(plotter):
 
 def CSCWire(plotter):
 
-    ## variables for the plot
-    topTitle = " " * 11 + "CSC Digi matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCDigi/"
-
-
     for st in range(0,len(cscStations)):
 
         h_bins = "(50,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
@@ -81,16 +64,16 @@ def CSCWire(plotter):
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
-        c = TCanvas("c","c",700,450)
-        c.Clear()
+        c = newCanvas()
         base  = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_wire(st), "same", kRed)
 
@@ -109,15 +92,6 @@ def CSCWire(plotter):
 
 def CSCCompWire(plotter):
 
-    ## variables for the plot
-    topTitle = " " * 11 + "CSC Digi matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
-    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
-    toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/CSCDigi/"
-
-
     for st in range(0,len(cscStations)):
 
         h_bins = "(50,%f,%f)"%(cscStations[st].eta_min,cscStations[st].eta_max)
@@ -125,16 +99,16 @@ def CSCCompWire(plotter):
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
-        c = TCanvas("c","c",700,450)
-        c.Clear()
+        c = newCanvas()
         base  = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), AND(ok_csc_wire(st), ok_csc_strip(st)), "same")
 

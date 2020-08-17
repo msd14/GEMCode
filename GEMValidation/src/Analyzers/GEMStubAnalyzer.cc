@@ -45,6 +45,9 @@ void GEMStubAnalyzer::analyze(TreeManager& tree)
     const auto& bestP(bestPad(id, match_->padsInChamber(id)).first);
     const auto& bestGP(bestPad(id, match_->padsInChamber(id)).second);
 
+    // (10/180*pi)/192/2
+    const float offset(0.00045451283);
+
     if (ilayer == 1) {
       if (odd) {
         tree.gemStub().pad1_odd[st] = bestP.pad();
@@ -54,7 +57,7 @@ void GEMStubAnalyzer::analyze(TreeManager& tree)
         tree.gemStub().phi_pad1_odd[st] = bestGP.phi();
         tree.gemStub().dphi_pad1_odd[st] =
           reco::deltaPhi(float(tree.gemStub().phi_pad1_odd[st]),
-                         float(tree.gemSimHit().phi_gem_sh_odd[st]));
+                         float(tree.gemSimHit().phi_gem_sh_odd[st])) + offset;
       }
       else {
         tree.gemStub().pad1_even[st] = bestP.pad();
@@ -64,7 +67,7 @@ void GEMStubAnalyzer::analyze(TreeManager& tree)
         tree.gemStub().phi_pad1_even[st] = bestGP.phi();
         tree.gemStub().dphi_pad1_even[st] =
           reco::deltaPhi(float(tree.gemStub().phi_pad1_even[st]),
-                         float(tree.gemSimHit().phi_gem_sh_even[st]));
+                         float(tree.gemSimHit().phi_gem_sh_even[st])) + offset;
       }
     }
     else {
@@ -76,7 +79,7 @@ void GEMStubAnalyzer::analyze(TreeManager& tree)
         tree.gemStub().phi_pad2_odd[st] = bestGP.phi();
         tree.gemStub().dphi_pad2_odd[st] =
           reco::deltaPhi(float(tree.gemStub().phi_pad2_odd[st]),
-                         float(tree.gemSimHit().phi_gem_sh_odd[st]));
+                         float(tree.gemSimHit().phi_gem_sh_odd[st])) + offset;
       }
       else {
         tree.gemStub().pad2_even[st] = bestP.pad();
@@ -86,7 +89,7 @@ void GEMStubAnalyzer::analyze(TreeManager& tree)
         tree.gemStub().phi_pad2_even[st] = bestGP.phi();
         tree.gemStub().dphi_pad2_even[st] =
           reco::deltaPhi(float(tree.gemStub().phi_pad2_even[st]),
-                         float(tree.gemSimHit().phi_gem_sh_even[st]));
+                         float(tree.gemSimHit().phi_gem_sh_even[st])) + offset;
       }
     }
   }

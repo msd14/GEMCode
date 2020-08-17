@@ -49,19 +49,13 @@ def ok_csc_clct(st):
     return TCut("CSCStub.has_clct_even[%d] || CSCStub.has_clct_odd[%d]"%(st,st))
 
 def delta_fhs_clct(st):
-    even = "CSCStub.delta_fhs_clct_even[%d] && CSCStub.delta_fhs_clct_even[%d] != -9"%(st, st)
-    odd = "CSCStub.delta_fhs_clct_odd[%d] && CSCStub.delta_fhs_clct_odd[%d] != -9"%(st, st)
-    return "%s || %s"%(even, odd)
+    return "max(CSCStub.delta_fhs_clct_even[%d], CSCStub.delta_fhs_clct_odd[%d])"%(st,st)
 
 def delta_fqs_clct(st):
-    even = "CSCStub.delta_fqs_clct_even[%d] && CSCStub.delta_fqs_clct_even[%d] != -9"%(st, st)
-    odd = "CSCStub.delta_fqs_clct_odd[%d] && CSCStub.delta_fqs_clct_odd[%d] != -9"%(st, st)
-    return "%s || %s"%(even, odd)
+    return "max(CSCStub.delta_fqs_clct_even[%d], CSCStub.delta_fqs_clct_odd[%d])"%(st,st)
 
 def delta_fes_clct(st):
-    even = "CSCStub.delta_fes_clct_even[%d] && CSCStub.delta_fes_clct_even[%d] != -9"%(st, st)
-    odd = "CSCStub.delta_fes_clct_odd[%d] && CSCStub.delta_fes_clct_odd[%d] != -9"%(st, st)
-    return "%s || %s"%(even, odd)
+    return "max(CSCStub.delta_fes_clct_even[%d], CSCStub.delta_fes_clct_odd[%d])"%(st,st)
 
 ok_me11 = ok_csc_lct(0)
 ok_me12 = ok_csc_lct(3)
@@ -139,9 +133,7 @@ def ok_gem_cluster(st):
     return TCut("GEMStub.has_gem_cluster_even[%d] || GEMStub.has_gem_cluster_odd[%d]"%(st,st))
 
 def dphi_pad1(st):
-    even = "GEMStub.dphi_pad1_even[%d] && GEMStub.dphi_pad1_even[%d] != -9"%(st, st)
-    odd = "GEMStub.dphi_pad1_odd[%d] && GEMStub.dphi_pad1_odd[%d] != -9"%(st, st)
-    return "%s || %s"%(even, odd)
+    return "max(GEMStub.dphi_pad1_even[%d], GEMStub.dphi_pad1_odd[%d])"%(st,st)
 
 ## L1Mu
 def ok_emtf(pt):
