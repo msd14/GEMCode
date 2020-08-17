@@ -64,7 +64,7 @@ def EMTFPt(plotter):
 
     c.Print("%sEff_EMTF_pt_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
-    del c, base, h1, leg
+    del c, base, h1, leg, h2, h3, h4, h5
 
 
 def EMTFEta(plotter):
@@ -112,7 +112,7 @@ def EMTFEta(plotter):
 
     c.Print("%sEff_EMTF_eta_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
-    del c, base, h1, leg
+    del c, base, h1, leg, h2, h3, h4, h5
 
 
 def EMTFEta2(plotter):
@@ -160,7 +160,7 @@ def EMTFEta2(plotter):
 
     c.Print("%sEff_EMTF2_eta_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
-    del c, base, h1, leg
+    del c, base, h1, leg, h2, h3, h4, h5
 
 
 def EMTFPhi(plotter):
@@ -208,9 +208,7 @@ def EMTFPhi(plotter):
 
     c.Print("%sEff_EMTF_phi_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
-    del c, base, h1, leg
-
-
+    del c, base, h1, leg, h2, h3, h4, h5
 
 def L1Mu(plotter):
     EMTFPt(plotter)
