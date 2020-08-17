@@ -52,6 +52,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     const auto& keygp(match_->simHitsMeanPosition(simhits));
     const auto& nearestStrip = match_->simHitsMeanStripKeyLayer(simhits) - 0.25;
     const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
+    const auto& delta_strip = match_->deltaStripInChamber(d) / 5;
 
     if (odd) {
       tree.cscSimHit().chamber_sh_odd[st] = id.chamber();
@@ -60,7 +61,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
       tree.cscSimHit().eta_csc_sh_odd[st] = keygp.eta();
       tree.cscSimHit().phi_csc_sh_odd[st] = keygp.phi();
       tree.cscSimHit().perp_csc_sh_odd[st] = keygp.perp();
-      tree.cscSimHit().bend_csc_sh_odd[st] = csc_simhits_gv.phi();
+      tree.cscSimHit().bend_csc_sh_odd[st] = delta_strip;
       tree.cscSimHit().strip_csc_sh_odd[st] = nearestStrip;
     }
     else {
@@ -70,7 +71,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
       tree.cscSimHit().eta_csc_sh_even[st] = keygp.eta();
       tree.cscSimHit().phi_csc_sh_even[st] = keygp.phi();
       tree.cscSimHit().perp_csc_sh_even[st] = keygp.perp();
-      tree.cscSimHit().bend_csc_sh_even[st] = csc_simhits_gv.phi();
+      tree.cscSimHit().bend_csc_sh_even[st] = delta_strip;
       tree.cscSimHit().strip_csc_sh_even[st] = nearestStrip;
     }
 
@@ -83,7 +84,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
         tree.cscSimHit().eta_csc_sh_odd[0] = keygp.eta();
         tree.cscSimHit().phi_csc_sh_odd[0] = keygp.phi();
         tree.cscSimHit().perp_csc_sh_odd[0] = keygp.perp();
-        tree.cscSimHit().bend_csc_sh_odd[0] = csc_simhits_gv.phi();
+        tree.cscSimHit().bend_csc_sh_odd[0] = delta_strip;
         tree.cscSimHit().strip_csc_sh_odd[0] = nearestStrip;
       }
       else {
@@ -93,7 +94,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
         tree.cscSimHit().eta_csc_sh_even[0] = keygp.eta();
         tree.cscSimHit().phi_csc_sh_even[0] = keygp.phi();
         tree.cscSimHit().perp_csc_sh_even[0] = keygp.perp();
-        tree.cscSimHit().bend_csc_sh_even[0] = csc_simhits_gv.phi();
+        tree.cscSimHit().bend_csc_sh_even[0] = delta_strip;
         tree.cscSimHit().strip_csc_sh_even[0] = nearestStrip;
       }
     }

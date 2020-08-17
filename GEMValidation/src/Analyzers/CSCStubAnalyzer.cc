@@ -43,7 +43,6 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     if (!clct.isValid()) continue;
 
     const float slope(getSlope(clct));
-    std::cout << id << " " << clct << std::endl;
 
     int deltaStrip = 0;
     if (id.station() == 1 and id.ring() == 4 and clct.getKeyStrip() > CSCConstants::MAX_HALF_STRIP_ME1B)
@@ -61,10 +60,13 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fhs_clct_odd[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
-        // deltas
+        // position deltas
         cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        // bending deltas
+        cscStubTree.dslope_clct_odd[st] = cscStubTree.slope_clct_odd[st] - tree.cscSimHit().bend_csc_sh_odd[st];
+        std::cout << "CSCStubAnalyzer " << cscStubTree.slope_clct_odd[st] << " " << tree.cscSimHit().bend_csc_sh_odd[st] << " " <<  cscStubTree.dslope_clct_odd[st] << std::endl;
       }
       else {
         cscStubTree.has_clct_even[st] = true;
@@ -81,6 +83,8 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.delta_fhs_clct_even[st] = cscStubTree.fhs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         cscStubTree.delta_fqs_clct_even[st] = cscStubTree.fqs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         cscStubTree.delta_fes_clct_even[st] = cscStubTree.fes_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
+        cscStubTree.dslope_clct_even[st] = cscStubTree.slope_clct_even[st] - tree.cscSimHit().bend_csc_sh_even[st];
+        std::cout << "CSCStubAnalyzer " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << std::endl;
       }
     };
 
