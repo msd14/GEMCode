@@ -57,6 +57,10 @@ def delta_fqs_clct(st):
 def delta_fes_clct(st):
     return "max(CSCStub.delta_fes_clct_even[%d], CSCStub.delta_fes_clct_odd[%d])"%(st,st)
 
+def delta_strip_clct(st):
+    return "max(CSCStub.dslope_clct_odd[%d], CSCStub.dslope_clct_even[%d])"%(st,st)
+
+
 ok_me11 = ok_csc_lct(0)
 ok_me12 = ok_csc_lct(3)
 ok_me13 = ok_csc_lct(4)

@@ -214,10 +214,12 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     }
   }
 }
-
 float CSCStubAnalyzer::getSlope(const CSCCLCTDigi& lct) const
 {
-  if (lct.getCompCode() != -1) return lct.getSlope();
+  if (lct.getCompCode() != -1) {
+    std::cout << "Run-3 slope " << lct.getSlope() << " " << lct.getBend() << " " << (1 - 2*lct.getBend())*lct.getSlope()/(1.5 * 5) << std::endl;
+    return (-1 + 2*lct.getBend())*lct.getSlope()/(1.5 * 5);
+  }
   else return getAverageSlopeLegacy(lct.getPattern());
 }
 
@@ -226,7 +228,7 @@ float CSCStubAnalyzer::getMaxSlopeLegacy(int pattern) const
   // slope in number of strips/layer
   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
     0, 0, 5, -5, 4, -4, 3, -3, 2, -2, 1};
-  return float(slope[pattern]/5.);
+  return float(2*slope[pattern]/5.);
 }
 
 float CSCStubAnalyzer::getMinSlopeLegacy(int pattern) const
@@ -234,7 +236,7 @@ float CSCStubAnalyzer::getMinSlopeLegacy(int pattern) const
   // slope in number of strips/layer
   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
     0, 0, 3, -3, 2, -2, 1, -1, 0, 0, -1};
-  return float(slope[pattern]/5.);
+  return float(2*slope[pattern]/5.);
 }
 
 float CSCStubAnalyzer::getAverageSlopeLegacy(int pattern) const
@@ -242,7 +244,7 @@ float CSCStubAnalyzer::getAverageSlopeLegacy(int pattern) const
   // slope in number of strips/layer
   int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
     0, 0, 4, -4, 3, -3, 2, -2, 1, -1, 0};
-  return float(slope[pattern]/5.);
+  return float(2*slope[pattern]/5.);
 }
 
 std::pair<GEMDigi, GlobalPoint>

@@ -25,7 +25,7 @@ def GEMPadDigi(plotter):
 
     for st in range(0,len(gemStations)):
 
-        h_bins = "(50,-0.002,0.002)"
+        h_bins = "(50,-0.0015,0.0015)"
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])

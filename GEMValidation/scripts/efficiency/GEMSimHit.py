@@ -20,7 +20,7 @@ if( iPos==0 ): CMS_lumi.relPosX = 0.12
 def GEMSimHitEta(plotter):
 
     ## variables for the plot
-    xTitle = "Generated muon |#eta"|
+    xTitle = "Generated muon |#eta|"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
 

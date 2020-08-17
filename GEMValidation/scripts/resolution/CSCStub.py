@@ -25,7 +25,7 @@ iPeriod = 0
 iPos = 0
 if( iPos==0 ): CMS_lumi.relPosX = 0.12
 
-def CSCCLCT(plotter):
+def CSCCLCTPos(plotter):
 
     for st in range(0,len(cscStations)):
 
@@ -71,10 +71,52 @@ def CSCCLCT(plotter):
 
         csc = drawCSCLabel(cscStations[st].label, 0.85,0.85,0.05)
 
-        c.Print("%sRes_CSCCLCT_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
+        c.Print("%sRes_CSCCLCT_pos_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
 
         del c, base, h2, leg, csc, h1, h3
 
 
+def CSCCLCTBend(plotter):
+
+    for st in range(0,len(cscStations)):
+
+        h_bins = "(100,-1.5,1.5)"
+        nBins = int(h_bins[1:-1].split(',')[0])
+        minBin = float(h_bins[1:-1].split(',')[1])
+        maxBin = float(h_bins[1:-1].split(',')[2])
+
+        c = newCanvas()
+        base  = TH1F("base",title,nBins,minBin,maxBin)
+        base.SetMinimum(0)
+        base.SetMaximum(0.08)
+        base.GetXaxis().SetLabelSize(0.05)
+        base.GetYaxis().SetLabelSize(0.05)
+        base.GetXaxis().SetTitleSize(0.05)
+        base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
+
+        toPlot1 = delta_strip_clct(st)
+
+        h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
+
+        h1.Scale(1./h1.GetEntries())
+        h1.Draw("histsame")
+
+        leg = TLegend(0.15,0.6,.45,0.9, "", "brNDC");
+        leg.SetBorderSize(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(0.05)
+        leg.AddEntry(h1, "CLCT","pl")
+        leg.Draw("same");
+
+        csc = drawCSCLabel(cscStations[st].label, 0.85,0.85,0.05)
+
+        c.Print("%sRes_CSCCLCT_bend_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
+
+        del c, base, leg, csc, h1
+
+
 def CSCStub(plotter):
-    CSCCLCT(plotter)
+    CSCCLCTPos(plotter)
+    CSCCLCTBend(plotter)
