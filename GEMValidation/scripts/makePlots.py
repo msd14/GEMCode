@@ -16,6 +16,7 @@ class GEMCSCStubPlotter():
     self.baseDir = "plots/"
     self.ext = ".png"
     self.analyzer = analyzer
+    self.analyzers = ["GEMCSCAnalyzer", "GEMCSCAnalyzerRun3CCLUT"]
     self.targetDir = self.baseDir + self.analyzer + "/"
     self.file = TFile.Open(self.inputFile)
     self.dirAna = (self.file).Get(self.analyzer)

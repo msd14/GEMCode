@@ -45,13 +45,14 @@ def CSCCLCT(plotter):
         base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
-        toPlot1 = "CSCStub.delta_fhs_clct_odd[%d]"%(st)
-        toPlot2 = "CSCStub.delta_fqs_clct_odd[%d]"%(st)
-        toPlot3 = "CSCStub.delta_fes_clct_odd[%d]"%(st)
+        toPlot1 = delta_fhs_clct(st)
+        toPlot2 = delta_fqs_clct(st)
+        toPlot3 = delta_fes_clct(st)
 
         h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
         h2 = draw_1D(plotter.tree, title, h_bins, toPlot2, "", "same", kGreen+2)
         h3 = draw_1D(plotter.tree, title, h_bins, toPlot3, "", "same", kRed+1)
+
         h1.Scale(1./h1.GetEntries())
         h2.Scale(1./h2.GetEntries())
         h3.Scale(1./h3.GetEntries())

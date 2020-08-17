@@ -245,6 +245,22 @@ namespace gem {
       t->Branch("phi_copad_even", phi_copad_even, "phi_copad_even[3]/F");
 
 
+      t->Branch("dphi_pad1_odd", dphi_pad1_odd, "dphi_pad1_odd[3]/F");
+      t->Branch("dphi_pad1_even", dphi_pad1_even, "dphi_pad1_even[3]/F");
+      t->Branch("deta_pad1_odd", deta_pad1_odd, "deta_pad1_odd[3]/F");
+      t->Branch("deta_pad1_even", deta_pad1_even, "deta_pad1_even[3]/F");
+
+      t->Branch("dphi_pad2_odd", dphi_pad2_odd, "dphi_pad2_odd[3]/F");
+      t->Branch("dphi_pad2_even", dphi_pad2_even, "dphi_pad2_even[3]/F");
+      t->Branch("deta_pad2_odd", deta_pad2_odd, "deta_pad2_odd[3]/F");
+      t->Branch("deta_pad2_even", deta_pad2_even, "deta_pad2_even[3]/F");
+
+      t->Branch("dphi_copad_odd", dphi_copad_odd, "dphi_copad_odd[3]/F");
+      t->Branch("dphi_copad_even", dphi_copad_even, "dphi_copad_even[3]/F");
+      t->Branch("deta_copad_odd", deta_copad_odd, "deta_copad_odd[3]/F");
+      t->Branch("deta_copad_even", deta_copad_even, "deta_copad_even[3]/F");
+
+
       t->Branch("dphi_lct_pad1_odd", dphi_lct_pad1_odd, "dphi_lct_pad1_odd[3]/F");
       t->Branch("dphi_lct_pad1_even", dphi_lct_pad1_even, "dphi_lct_pad1_even[3]/F");
       t->Branch("deta_lct_pad1_odd", deta_lct_pad1_odd, "deta_lct_pad1_odd[3]/F");

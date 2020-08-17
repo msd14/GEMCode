@@ -3,31 +3,26 @@ from ROOT import gStyle, TH1F, TCanvas, TLegend, kRed, kBlue, kOrange, kGreen
 from helpers.cuts import *
 from helpers.Helpers import *
 from helpers.stations import *
+from style.tdrstyle import *
+import style.CMS_lumi as CMS_lumi
+from style.canvas import newCanvas
 
-gStyle.SetTitleStyle(0)
-gStyle.SetTitleAlign(13) ##coord in top left
-gStyle.SetTitleX(0.)
-gStyle.SetTitleY(1.)
-gStyle.SetTitleW(1)
-gStyle.SetTitleH(0.058)
-gStyle.SetTitleBorderSize(0)
+topTitle = ""
+yTitle = "Efficiency"
+subdirectory = "efficiency/GEMStub/"
 
-gStyle.SetPadLeftMargin(0.126)
-gStyle.SetPadRightMargin(0.04)
-gStyle.SetPadTopMargin(0.06)
-gStyle.SetPadBottomMargin(0.13)
-gStyle.SetOptStat(0)
-gStyle.SetMarkerStyle(1)
+setTDRStyle()
+
+iPeriod = 0
+iPos = 0
+if( iPos==0 ): CMS_lumi.relPosX = 0.12
 
 def GEMPadEta(plotter):
 
     ## variables for the plot
-    topTitle = " " * 11 + "GEM Pad matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon |#eta|"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/GEMStub/"
 
     for st in range(0,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -46,6 +41,7 @@ def GEMPadEta(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_pad(st), "same")
 
@@ -69,11 +65,10 @@ def GEMPadPhi(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM Pad matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #phi"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon #phi [rad]"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"
-    subdirectory = "efficiency/GEMStub/"
+
 
     for st in range(0,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -92,6 +87,7 @@ def GEMPadPhi(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_pad(st), "same")
 
@@ -112,11 +108,10 @@ def GEMPadEta2(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM Pad matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon |#eta|"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/GEMStub/"
+
 
     for st in range(1,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -135,6 +130,7 @@ def GEMPadEta2(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_pad2(st), "same")
 
@@ -158,11 +154,10 @@ def GEMPadPhi2(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM Pad matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #phi"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon #phi [rad]"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"
-    subdirectory = "efficiency/GEMStub/"
+
 
     for st in range(1,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -181,6 +176,7 @@ def GEMPadPhi2(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_pad2(st), "same")
 
@@ -201,11 +197,10 @@ def GEMCoPadEta(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM CoPad matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon |#eta|"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/GEMStub/"
+
 
     for st in range(1,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -224,6 +219,7 @@ def GEMCoPadEta(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_copad(st), "same")
 
@@ -247,11 +243,10 @@ def GEMCoPadPhi(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM CoPad matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #phi"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon #phi [rad]"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"
-    subdirectory = "efficiency/GEMStub/"
+
 
     for st in range(1,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -270,6 +265,7 @@ def GEMCoPadPhi(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_copad(st), "same")
 
@@ -290,11 +286,10 @@ def GEMClusterEta(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM Cluster matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #eta"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon |#eta|"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "TMath::Abs(eta)"
-    subdirectory = "efficiency/GEMStub/"
+
 
     for st in range(1,len(gemStations)):
         c = TCanvas("c","c",700,450)
@@ -313,6 +308,7 @@ def GEMClusterEta(plotter):
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_cluster(st), "same")
 
@@ -336,11 +332,9 @@ def GEMClusterPhi(plotter):
 
     ## variables for the plot
     topTitle = " " * 11 + "GEM Cluster matching" + " " * 35 + "CMS Simulation Preliminary"
-    xTitle = "True muon #phi"
-    yTitle = "Efficiency"
+    xTitle = "Generated muon #phi [rad]"
     title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
     toPlot = "phi"
-    subdirectory = "efficiency/GEMStub/"
 
     for st in range(1,len(gemStations)):
         c = TCanvas("c","c",700,450)

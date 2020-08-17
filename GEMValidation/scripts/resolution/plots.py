@@ -21,4 +21,4 @@ def makeDir(plotter):
 def makeResolutionPlots(plotter):
     makeDir(plotter)
     CSCStub(plotter)
-    #GEMStub(plotter)
+    GEMStub(plotter)
