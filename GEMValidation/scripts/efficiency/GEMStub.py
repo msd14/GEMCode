@@ -25,22 +25,20 @@ def GEMPadEta(plotter):
     toPlot = "TMath::Abs(eta)"
 
     for st in range(0,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
-
         h_bins = "(50,%f,%f)"%(gemStations[st].eta_min,gemStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_pad(st), "same")
@@ -71,22 +69,20 @@ def GEMPadPhi(plotter):
 
 
     for st in range(0,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
-
         h_bins = "(50,%f,%f)"%(gemStations[st].phi_min,gemStations[st].phi_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_pad(st), "same")
@@ -114,22 +110,21 @@ def GEMPadEta2(plotter):
 
 
     for st in range(1,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
 
         h_bins = "(50,%f,%f)"%(gemStations[st].eta_min,gemStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_pad2(st), "same")
@@ -160,22 +155,21 @@ def GEMPadPhi2(plotter):
 
 
     for st in range(1,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
 
         h_bins = "(50,%f,%f)"%(gemStations[st].phi_min,gemStations[st].phi_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_pad2(st), "same")
@@ -203,22 +197,21 @@ def GEMCoPadEta(plotter):
 
 
     for st in range(1,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
 
         h_bins = "(50,%f,%f)"%(gemStations[st].eta_min,gemStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_copad(st), "same")
@@ -249,23 +242,22 @@ def GEMCoPadPhi(plotter):
 
 
     for st in range(1,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
 
         h_bins = "(50,%f,%f)"%(gemStations[st].phi_min,gemStations[st].phi_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
+        base.Draw("")
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh2(st), ok_gem_copad(st), "same")
 
@@ -292,23 +284,22 @@ def GEMClusterEta(plotter):
 
 
     for st in range(1,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
 
         h_bins = "(50,%f,%f)"%(gemStations[st].eta_min,gemStations[st].eta_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
+        base.Draw("")
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_cluster(st), "same")
 
@@ -337,22 +328,22 @@ def GEMClusterPhi(plotter):
     toPlot = "phi"
 
     for st in range(1,len(gemStations)):
-        c = TCanvas("c","c",700,450)
-        c.Clear()
 
         h_bins = "(50,%f,%f)"%(gemStations[st].phi_min,gemStations[st].phi_max)
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])
 
+        c = newCanvas()
         base = TH1F("base",title,nBins,minBin,maxBin)
         base.SetMinimum(plotter.yMin)
         base.SetMaximum(plotter.yMax)
-        base.Draw("")
         base.GetXaxis().SetLabelSize(0.05)
         base.GetYaxis().SetLabelSize(0.05)
         base.GetXaxis().SetTitleSize(0.05)
         base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
         h1 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_gem_sh(st), ok_gem_cluster(st), "same")
 
