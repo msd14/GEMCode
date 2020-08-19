@@ -78,6 +78,9 @@ class TreeManager
   gem::RPCRecHitStruct rpcRecHitSt_;
   gem::L1MuStruct l1MuSt_;
   gem::RecoTrackStruct recoTrackSt_;
+
+  // new stuff
+  TTree* flatTree_;
 };
 
 #endif

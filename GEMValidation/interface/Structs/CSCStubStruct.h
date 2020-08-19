@@ -314,11 +314,11 @@ namespace gem {
 
       t->Branch("lct_type", lct_type, "lct_type[11]/I");
 
-      t->Branch("dslope_clct_odd", dslope_clct_odd, "dslope_clct_odd[11]/I");
-      t->Branch("dslope_clct_even", dslope_clct_even, "dslope_clct_even[11]/I");
+      t->Branch("dslope_clct_odd", dslope_clct_odd, "dslope_clct_odd[11]/F");
+      t->Branch("dslope_clct_even", dslope_clct_even, "dslope_clct_even[11]/F");
 
-      t->Branch("slope_clct_odd", slope_clct_odd, "slope_clct_odd[11]/I");
-      t->Branch("slope_clct_even", slope_clct_even, "slope_clct_even[11]/I");
+      t->Branch("slope_clct_odd", slope_clct_odd, "slope_clct_odd[11]/F");
+      t->Branch("slope_clct_even", slope_clct_even, "slope_clct_even[11]/F");
     }
   };
 }  // namespace

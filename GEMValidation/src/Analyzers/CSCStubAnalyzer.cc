@@ -42,13 +42,15 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
 
     if (!clct.isValid()) continue;
 
-    const float slope(getSlope(clct));
+    const float slope(clct.getFloatSlope());
 
     int deltaStrip = 0;
     if (id.station() == 1 and id.ring() == 4 and clct.getKeyStrip() > CSCConstants::MAX_HALF_STRIP_ME1B)
       deltaStrip = CSCConstants::MAX_NUM_STRIPS_ME1B;
 
-    auto fill = [clct, odd, slope, tree, deltaStrip](gem::CSCStubStruct& cscStubTree, int st) mutable {
+    int flip = -1;
+
+    auto fill = [clct, odd, slope, tree, deltaStrip, id, flip](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
         cscStubTree.quality_clct_odd[st] = clct.getQuality();
@@ -61,12 +63,12 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
         // position deltas
-        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
-        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
-        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
+        cscStubTree.delta_fhs_clct_odd[st] = cscStubTree.fhs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st] * flip;
+        cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st] * flip;
+        cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st] * flip;
         // bending deltas
         cscStubTree.dslope_clct_odd[st] = cscStubTree.slope_clct_odd[st] - tree.cscSimHit().bend_csc_sh_odd[st];
-        std::cout << "CSCStubAnalyzer " << cscStubTree.slope_clct_odd[st] << " " << tree.cscSimHit().bend_csc_sh_odd[st] << " " <<  cscStubTree.dslope_clct_odd[st] << std::endl;
+        // std::cout << "CSCStubAnalyzer " << id << " " << cscStubTree.slope_clct_odd[st] << " " << tree.cscSimHit().bend_csc_sh_odd[st] << " " <<  cscStubTree.dslope_clct_odd[st] << std::endl;
       }
       else {
         cscStubTree.has_clct_even[st] = true;
@@ -80,11 +82,11 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);
         // deltas
-        cscStubTree.delta_fhs_clct_even[st] = cscStubTree.fhs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
-        cscStubTree.delta_fqs_clct_even[st] = cscStubTree.fqs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
-        cscStubTree.delta_fes_clct_even[st] = cscStubTree.fes_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
+        cscStubTree.delta_fhs_clct_even[st] = cscStubTree.fhs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st] * flip;
+        cscStubTree.delta_fqs_clct_even[st] = cscStubTree.fqs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st] * flip;
+        cscStubTree.delta_fes_clct_even[st] = cscStubTree.fes_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st] * flip;
         cscStubTree.dslope_clct_even[st] = cscStubTree.slope_clct_even[st] - tree.cscSimHit().bend_csc_sh_even[st];
-        std::cout << "CSCStubAnalyzer " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << std::endl;
+        // std::cout << "CSCStubAnalyzer " << id << " " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << std::endl;
       }
     };
 
@@ -214,37 +216,16 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     }
   }
 }
-float CSCStubAnalyzer::getSlope(const CSCCLCTDigi& lct) const
-{
-  if (lct.getCompCode() != -1) {
-    std::cout << "Run-3 slope " << lct.getSlope() << " " << lct.getBend() << " " << (1 - 2*lct.getBend())*lct.getSlope()/(1.5 * 5) << std::endl;
-    return (-1 + 2*lct.getBend())*lct.getSlope()/(1.5 * 5);
-  }
-  else return getAverageSlopeLegacy(lct.getPattern());
-}
 
-float CSCStubAnalyzer::getMaxSlopeLegacy(int pattern) const
-{
-  // slope in number of strips/layer
-  int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
-    0, 0, 5, -5, 4, -4, 3, -3, 2, -2, 1};
-  return float(2*slope[pattern]/5.);
-}
+float CSCStubAnalyzer::getSlope(const CSCCLCTDigi& lct) const {
+  // std::cout << "halfstrip " << lct.getFractionalStrip(2) << " run-3 pattern " << lct.getRun3Pattern() << " slope " << lct.getSlope() << " run-3 slope " << lct.getFloatSlope(5) << std::endl;
+  // for (const auto& p : lct.getHits()) {
+  //   for (auto q : p) {
+  //     std::cout << "\t" << q/2. << std::endl;
+  //   }
+  // }
 
-float CSCStubAnalyzer::getMinSlopeLegacy(int pattern) const
-{
-  // slope in number of strips/layer
-  int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
-    0, 0, 3, -3, 2, -2, 1, -1, 0, 0, -1};
-  return float(2*slope[pattern]/5.);
-}
-
-float CSCStubAnalyzer::getAverageSlopeLegacy(int pattern) const
-{
-  // slope in number of strips/layer
-  int slope[CSCConstants::NUM_CLCT_PATTERNS] = {
-    0, 0, 4, -4, 3, -3, 2, -2, 1, -1, 0};
-  return float(2*slope[pattern]/5.);
+  return lct.getFloatSlope();
 }
 
 std::pair<GEMDigi, GlobalPoint>

@@ -26,9 +26,7 @@ public:
 
   // all in strips / layer
   float getSlope(const CSCCLCTDigi& lct) const;
-  float getMaxSlopeLegacy(int pattern) const;
-  float getMinSlopeLegacy(int pattern) const;
-  float getAverageSlopeLegacy(int pattern) const;
+  float getRun3Slope(int pattern, int slope) const;
 
   // best here means "closest in phi"
   std::pair<GEMDigi, GlobalPoint>

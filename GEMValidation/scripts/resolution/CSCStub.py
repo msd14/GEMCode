@@ -96,7 +96,7 @@ def CSCCLCTBend(plotter):
         base.Draw("")
         CMS_lumi.CMS_lumi(c, iPeriod, iPos)
 
-        toPlot1 = delta_strip_clct(st)
+        toPlot1 = delta_bend_clct(st)
 
         h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
 

@@ -42,17 +42,23 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
       }
     }
 
+    // check if the strip numbering is flipped
+    const auto& layergeoms = dynamic_cast<const CSCGeometry*>(match_->geometry())->chamber(id)->layer(1)->geometry();
+    const int pstrip(layergeoms->strip(LocalPoint(5,0,0)));
+    const int nstrip(layergeoms->strip(LocalPoint(-5,0,0)));
+
+    int flip = 1;
+    // if (pstrip < nstrip and id.endcap() == 1) flip = -1;
+
     // layer requirement (typically 4)
     if (nlayers < minNHitsChamber_) continue;
-
-    match_->LocalBendingInChamber(d);
 
     const bool odd(id.chamber()%2==1);
     const auto& simhits = match_->hitsInChamber(id);
     const auto& keygp(match_->simHitsMeanPosition(simhits));
     const auto& nearestStrip = match_->simHitsMeanStripKeyLayer(simhits) - 0.25;
     const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
-    const auto& delta_strip = match_->deltaStripInChamber(d) / 5;
+    const auto& delta_strip = match_->deltaStripInChamber(d) / 5 * flip;
 
     if (odd) {
       tree.cscSimHit().chamber_sh_odd[st] = id.chamber();
