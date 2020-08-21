@@ -15,7 +15,7 @@ from style.canvas import newCanvas
 
 topTitle = ""
 xTitle = "Strip_{L1T} - Strip_{SIM}"
-yTitle = "Entries"
+yTitle = "Normalized"
 subdirectory = "resolution/CSCStub/"
 title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
 
