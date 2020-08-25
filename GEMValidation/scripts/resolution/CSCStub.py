@@ -25,6 +25,47 @@ iPeriod = 0
 iPos = 0
 if( iPos==0 ): CMS_lumi.relPosX = 0.12
 
+def CSCCLCTPos1(plotter):
+
+    for st in range(0,len(cscStations)):
+
+        h_bins = "(100,-1.5,1.5)"
+        nBins = int(h_bins[1:-1].split(',')[0])
+        minBin = float(h_bins[1:-1].split(',')[1])
+        maxBin = float(h_bins[1:-1].split(',')[2])
+
+        c = newCanvas()
+        base  = TH1F("base",title,nBins,minBin,maxBin)
+        base.SetMinimum(0)
+        base.SetMaximum(0.08)
+        base.GetXaxis().SetLabelSize(0.05)
+        base.GetYaxis().SetLabelSize(0.05)
+        base.GetXaxis().SetTitleSize(0.05)
+        base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
+
+        toPlot1 = delta_fhs_clct(st)
+        h1 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlue)
+
+        h1.Scale(1./h1.GetEntries())
+        #base.SetMaximum(h3.GetBinContent(h3.GetMaximumBin()) * 1.1)
+        h1.Draw("histsame")
+
+        leg = TLegend(0.15,0.6,.45,0.9, "", "brNDC");
+        leg.SetBorderSize(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(0.05)
+        leg.AddEntry(h1, "1/2 strip","pl")
+        leg.Draw("same");
+
+        csc = drawCSCLabel(cscStations[st].label, 0.85,0.85,0.05)
+
+        c.Print("%sRes_CSCCLCT_pos1_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
+
+        del base, leg, csc, h1, c
+
+
 def CSCCLCTPos(plotter):
 
     for st in range(0,len(cscStations)):
@@ -53,9 +94,14 @@ def CSCCLCTPos(plotter):
         h2 = draw_1D(plotter.tree, title, h_bins, toPlot2, "", "same", kGreen+2)
         h3 = draw_1D(plotter.tree, title, h_bins, toPlot3, "", "same", kRed+1)
 
+        #print h1.GetBinContent(h1.GetMaximumBin()), h1.GetMaximumBin(), h1.GetEntries()
+        #print h2.GetBinContent(h2.GetMaximumBin()), h2.GetMaximumBin(), h2.GetEntries()
+        #print h3.GetBinContent(h3.GetMaximumBin()), h3.GetMaximumBin(), h3.GetEntries()
+
         h1.Scale(1./h1.GetEntries())
         h2.Scale(1./h2.GetEntries())
         h3.Scale(1./h3.GetEntries())
+        base.SetMaximum(h3.GetBinContent(h3.GetMaximumBin()) * 1.1)
         h1.Draw("histsame")
         h2.Draw("histsame")
         h3.Draw("histsame")
@@ -119,4 +165,5 @@ def CSCCLCTBend(plotter):
 
 def CSCStub(plotter):
     CSCCLCTPos(plotter)
+    CSCCLCTPos1(plotter)
     CSCCLCTBend(plotter)

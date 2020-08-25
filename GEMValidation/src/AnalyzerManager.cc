@@ -35,10 +35,10 @@ void AnalyzerManager::setManager(const MatcherManager& manager)
 }
 
 void
-AnalyzerManager::analyze(TreeManager& tree, const SimTrack& t)
+AnalyzerManager::analyze(TreeManager& tree, const SimTrack& t, const SimVertex& v)
 {
   gent_->analyze(tree);
-  simt_->analyze(tree, t);
+  simt_->analyze(tree, t, v);
   gemsh_->analyze(tree);
   gemdg_->analyze(tree);
   gemstub_->analyze(tree);

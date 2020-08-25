@@ -60,6 +60,10 @@ def delta_fes_clct(st):
 def delta_strip_clct(st):
     return "max(CSCStub.dslope_clct_odd[%d], CSCStub.dslope_clct_even[%d])"%(st,st)
 
+def ok_pattern(st, ipat):
+    c1 = TCut("CSCStub.pattern_clct_even[%d] >= %d"%(st,ipat))
+    c2 = TCut("CSCStub.pattern_clct_odd[%d] >= %d"%(st,ipat))
+    return OR(c1,c2)
 
 ok_me11 = ok_csc_lct(0)
 ok_me12 = ok_csc_lct(3)

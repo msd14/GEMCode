@@ -6,7 +6,7 @@
 namespace gem {
 
   struct SimTrackStruct {
-    float pt, eta, phi, pz, dxy;
+    float pt, eta, phi, pz, px, py, vx, vy, vz;
     int charge;
     int endcap;
     int pdgid;
@@ -15,7 +15,13 @@ namespace gem {
       pt = 0.;
       phi = 0.;
       eta = -9.;
-      dxy = -999.;
+      px = 0.;
+      py = 0.;
+      pz = 0.;
+      // in cm
+      vx = -9999.;
+      vy = -9999.;
+      vz = -9999.;
       charge = -9;
       endcap = -9;
       pdgid = -9999;
@@ -23,10 +29,14 @@ namespace gem {
 
     void book(TTree* t) {
       t->Branch("pt", &pt);
+      t->Branch("px", &pz);
+      t->Branch("py", &pz);
       t->Branch("pz", &pz);
       t->Branch("eta", &eta);
-      t->Branch("dxy", &dxy);
       t->Branch("phi", &phi);
+      t->Branch("vx", &vz);
+      t->Branch("vy", &vz);
+      t->Branch("vz", &vz);
       t->Branch("charge", &charge);
       t->Branch("endcap", &endcap);
       t->Branch("pdgid", &pdgid);

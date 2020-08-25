@@ -107,19 +107,19 @@ void GEMCSCAnalyzer::analyze(const edm::Event& ev, const edm::EventSetup& es) {
   }
 }
 
-void GEMCSCAnalyzer::analyze(const SimTrack& track, const SimVertex& v)
+void GEMCSCAnalyzer::analyze(const SimTrack& track, const SimVertex& vertex)
 {
   // reset all structs
   tree_->init();
 
   // match the track
-  matcher_->match(track, v);
+  matcher_->match(track, vertex);
 
   // initialize the track analyzers
   analyzer_->setManager(*matcher_);
 
   // analyze the track
-  analyzer_->analyze(*tree_, track);
+  analyzer_->analyze(*tree_, track, vertex);
 
   // fill all trees
   tree_->fill();

@@ -18,7 +18,7 @@ public:
   void init();
 
   // initialize the event
-  void analyze(TreeManager& tree, const SimTrack& t);
+  void analyze(TreeManager& tree, const SimTrack& t, const SimVertex& v);
 };
 
 #endif

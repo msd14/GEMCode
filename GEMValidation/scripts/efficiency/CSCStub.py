@@ -1,4 +1,4 @@
-from ROOT import gStyle, TH1F, TCanvas, TLegend, kRed, kBlue, kOrange, kGreen
+from ROOT import gStyle, TH1F, TCanvas, TLegend, kRed, kBlue, kOrange, kGreen, kBlack
 
 from helpers.cuts import *
 from helpers.Helpers import *
@@ -93,6 +93,63 @@ def CSCCLCT(plotter):
         c.Print("%sEff_CSCCLCT_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
 
         del c, base, h2, leg, csc
+
+
+def CSCCLCTPattern(plotter):
+
+    toPlot = "pt"
+
+    for st in range(0,len(cscStations)):
+
+        topTitle = ""
+        xTitle = "Generated p_{T} GeV"
+        yTitle = "Efficiency"
+        title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+
+        h_bins = "(20,0,20)"
+        nBins = int(h_bins[1:-1].split(',')[0])
+        minBin = float(h_bins[1:-1].split(',')[1])
+        maxBin = float(h_bins[1:-1].split(',')[2])
+
+        c = newCanvas()
+        base  = TH1F("base",title,nBins,minBin,maxBin)
+        base.SetMinimum(0.0)
+        base.SetMaximum(1.1)
+        base.GetXaxis().SetLabelSize(0.05)
+        base.GetYaxis().SetLabelSize(0.05)
+        base.GetXaxis().SetTitleSize(0.05)
+        base.GetYaxis().SetTitleSize(0.05)
+        base.Draw("")
+        CMS_lumi.CMS_lumi(c, iPeriod, iPos)
+
+        def ok_csc_clct_pattern(st, p1, p2):
+            return AND(ok_csc_clct(st),
+                       OR(ok_pattern(st, p1),
+                          ok_pattern(st, p2)) )
+
+        h2 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_clct_pattern(st, 2, 3), "same",kBlack)
+        h3 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_clct_pattern(st, 4, 5), "same",kRed)
+        h4 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_clct_pattern(st, 6, 7), "same",kBlue)
+        h5 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_clct_pattern(st, 8, 9), "same",kOrange)
+        h6 = draw_geff(plotter.tree, title, h_bins, toPlot, ok_csc_sh(st), ok_csc_clct_pattern(st, 10, 10), "same",kGreen+2)
+
+        leg = TLegend(0.7,0.15,.95,0.45, "", "brNDC");
+        leg.SetBorderSize(0)
+        leg.SetFillStyle(0)
+        leg.SetTextSize(0.05)
+        leg.SetHeader("PID")
+        leg.AddEntry(h2, "#geq 2","pl")
+        leg.AddEntry(h3, "#geq 4","pl")
+        leg.AddEntry(h4, "#geq 6","pl")
+        leg.AddEntry(h5, "#geq 8","pl")
+        leg.AddEntry(h6, "#geq 10","pl")
+        leg.Draw("same");
+
+        csc = drawCSCLabel(cscStations[st].label, 0.85,0.85,0.05)
+
+        c.Print("%sEff_CSCCLCT_pattern_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
+
+        del c, base, h2, leg, csc, h3, h4, h5, h6
 
 
 def CSCLCT(plotter):
@@ -307,7 +364,7 @@ def CSCStub(plotter):
     CSCCLCT(plotter)
     CSCLCT(plotter)
     GEMCSCLCT(plotter)
-
+    CSCCLCTPattern(plotter)
     MultipleCSCLCTPt(plotter)
     MultipleCSCLCTEta(plotter)
     MultipleCSCLCTPhi(plotter)

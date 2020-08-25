@@ -102,8 +102,8 @@ namespace gem {
       t->Branch("nlayers_csc_sh_odd", nlayers_csc_sh_odd, "nlayers_csc_sh_odd[11]/I");
       t->Branch("nlayers_csc_sh_even", nlayers_csc_sh_even, "nlayers_csc_sh_even[11]/I");
 
-      t->Branch("bend_csc_sh_even", bend_csc_sh_even, "bend_csc_sh_even[11]/I");
-      t->Branch("bend_csc_sh_odd", bend_csc_sh_odd, "bend_csc_sh_odd[11]/I");
+      t->Branch("bend_csc_sh_even", bend_csc_sh_even, "bend_csc_sh_even[11]/F");
+      t->Branch("bend_csc_sh_odd", bend_csc_sh_odd, "bend_csc_sh_odd[11]/F");
 
       t->Branch("perp_csc_sh_odd", perp_csc_sh_odd, "perp_csc_sh_odd[11]/F");
       t->Branch("perp_csc_sh_even", perp_csc_sh_even, "perp_csc_sh_even[11]/F");
