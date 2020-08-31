@@ -119,14 +119,18 @@ def CSCCLCTPos(plotter):
 
         c.Print("%sRes_CSCCLCT_pos_%s%s"%(plotter.targetDir + subdirectory, cscStations[st].labelc,  plotter.ext))
 
-        del c, base, h2, leg, csc, h1, h3
+        del base, h2, leg, csc, h1, h3, c
 
 
 def CSCCLCTBend(plotter):
 
+    xTitle = "Slope_{L1T} - Slope_{SIM} [Strips/layer]"
+    yTitle = "Normalized"
+    title = "%s;%s;%s"%(topTitle,xTitle,yTitle)
+
     for st in range(0,len(cscStations)):
 
-        h_bins = "(100,-1.5,1.5)"
+        h_bins = "(100,-2.,2.)"
         nBins = int(h_bins[1:-1].split(',')[0])
         minBin = float(h_bins[1:-1].split(',')[1])
         maxBin = float(h_bins[1:-1].split(',')[2])

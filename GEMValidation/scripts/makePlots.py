@@ -37,3 +37,6 @@ makeResolutionPlots(plotter)
 plotter2 = GEMCSCStubPlotter("GEMCSCAnalyzerRun3CCLUT")
 makeEfficiencyPlots(plotter2)
 makeResolutionPlots(plotter2)
+
+## efficiency comparison
+makeEfficiencyComparisonPlots(plotter, plotter2)

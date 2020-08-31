@@ -40,3 +40,6 @@ def makeEfficiencyPlots(plotter):
     GEMDigi(plotter)
     GEMStub(plotter)
     L1Mu(plotter)
+
+def makeEfficiencyComparisonPlots(plotter, plotter2):
+    CSCStubComparison(plotter, plotter2)
