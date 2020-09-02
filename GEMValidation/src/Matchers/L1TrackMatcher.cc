@@ -11,12 +11,14 @@ L1TrackMatcher::L1TrackMatcher(const edm::ParameterSet& ps, edm::ConsumesCollect
   maxBXTrack_ = l1Track.getParameter<int>("maxBX");
   verboseTrack_ = l1Track.getParameter<int>("verbose");
   deltaRTrack_ = l1Track.getParameter<double>("deltaR");
+  runTrack_ = l1Track.getParameter<bool>("run");
 
   const auto& l1TrackMuon = ps.getParameter<edm::ParameterSet>("l1TkMuon");
   minBXTrackMuon_ = l1TrackMuon.getParameter<int>("minBX");
   maxBXTrackMuon_ = l1TrackMuon.getParameter<int>("maxBX");
   verboseTrackMuon_ = l1TrackMuon.getParameter<int>("verbose");
   deltaRTrackMuon_ = l1TrackMuon.getParameter<double>("deltaR");
+  runTrackMuon_ = l1TrackMuon.getParameter<bool>("run");
 
   l1TrackToken_ = iC.consumes<L1TTTrackCollectionType>(l1Track.getParameter<edm::InputTag>("inputTag"));
   l1TrackMuonToken_ = iC.consumes<l1t::TkMuonCollection>(l1TrackMuon.getParameter<edm::InputTag>("inputTag"));
@@ -44,9 +46,11 @@ void L1TrackMatcher::match(const SimTrack& t, const SimVertex& v)
   clear();
 
   l1MuonMatcher_->match(t, v);
+  if (runTrack_)
+    matchL1TrackToSimTrack(*l1TrackHandle_.product(), t);
 
-  matchL1TrackToSimTrack(*l1TrackHandle_.product(), t);
-  matchTrackMuonToSimTrack(*l1TrackMuonHandle_.product());
+  if (runTrackMuon_)
+    matchTrackMuonToSimTrack(*l1TrackMuonHandle_.product());
 }
 
 void

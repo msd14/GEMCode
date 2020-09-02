@@ -52,10 +52,12 @@ class L1TrackMatcher
   int minBXTrack_, maxBXTrack_;
   int verboseTrack_;
   double deltaRTrack_;
+  bool runTrack_;
 
   int minBXTrackMuon_, maxBXTrackMuon_;
   int verboseTrackMuon_;
   double deltaRTrackMuon_;
+  bool runTrackMuon_;
 
   std::shared_ptr<L1TTTrackType> l1Track_;
   std::shared_ptr<l1t::TkMuon> l1TrackMuon_;
