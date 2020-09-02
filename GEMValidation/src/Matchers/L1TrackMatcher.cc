@@ -87,8 +87,11 @@ L1TrackMatcher::matchL1TrackToSimTrack(const L1TTTrackCollectionType& tracks, co
                                                          l1Tk.z0(), l1Tk.d0(), l1Tk.chi2(),
                                                          l1Tk.trkMVA1(), l1Tk.trkMVA2(), l1Tk.trkMVA3(),
                                                          l1Tk.hitPattern(), l1Tk.nFitPars(), 0));
+    l1Track_->setEtaSector(l1Tk.etaSector());
+    l1Track_->setPhiSector(l1Tk.phiSector());
+     l1Track_->setBField(3.8);
 
-    cout<<"Best Track "<<bestTrackIndex<<endl;
+    cout<<"Best Track " << bestTrackIndex << endl;
     cout<<"Best l1Tk_eta "<<l1Track_->momentum().eta()<<endl;
     cout<<"Best l1Tk_phi "<<l1Track_->momentum().barePhi()<<endl;
   }
@@ -105,8 +108,10 @@ L1TrackMatcher::matchTrackMuonToSimTrack(const l1t::TkMuonCollection& trackmuons
 
     // matching depends on the matched track and the matched muon
     for (const auto& trackmuon : trackmuons) {
-      const double muon_eta = trackmuon.muRef()->hwEta();
-      const double muon_phi = trackmuon.muRef()->hwPhi();
+      const double muon_eta = trackmuon.eta();
+      //trackmuon.muRef()->hwEta() * 0.010875;
+      const double muon_phi = trackmuon.phi();
+      //normalizedPhi((((trackmuon.muRef()->hwPhi() + trackmuon.muRef()->processor() * 96 + 576 + 24) % 576) / 576.) * 2.0 * 3.1415926);
       std::cout << "\tcandidate L1TkMu eta " << muon_eta << std::endl;
       std::cout << "\tcandidate L1TkMu phi " << muon_phi << std::endl;
 
@@ -116,13 +121,13 @@ L1TrackMatcher::matchTrackMuonToSimTrack(const l1t::TkMuonCollection& trackmuons
 
         l1TrackMuon_.reset(new l1t::TkMuon(trackmuon));
 
-        const double l1Tk_eta = trackmuon.trkPtr()->momentum().eta();
-        const double l1Tk_phi = trackmuon.trkPtr()->momentum().barePhi();
+        const double l1Tk_eta = l1TrackMuon_->trkPtr()->momentum().eta();
+        const double l1Tk_phi = l1TrackMuon_->trkPtr()->momentum().barePhi();
 
          cout<<"\tBest l1Tk_eta "<<l1Tk_eta<<endl;
          cout<<"\tBest l1Tk_phi "<<l1Tk_phi<<endl;
-         cout<<"\tBest muon_eta "<<l1TrackMuon_->muRef()->hwEta()<<endl;
-         cout<<"\tBest muon_phi "<<l1TrackMuon_->muRef()->hwPhi()<<endl;
+         // cout<<"\tBest muon_eta "<< l1TrackMuon_->muRef()->hwEta() * 0.010875 <<endl;
+         // cout<<"\tBest muon_phi "<< normalizedPhi((((l1TrackMuon_->muRef()->hwPhi() + l1TrackMuon_->muRef()->processor() * 96 + 576 + 24) % 576) / 576.) * 2.0 * 3.1415926) <<endl;
       }
     }
   }
