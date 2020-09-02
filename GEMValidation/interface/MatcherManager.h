@@ -5,6 +5,7 @@
 #include "GEMCode/GEMValidation/interface/Matchers/ME0RecHitMatcher.h"
 #include "GEMCode/GEMValidation/interface/Matchers/L1MuMatcher.h"
 #include "GEMCode/GEMValidation/interface/Matchers/L1TrackMatcher.h"
+#include "GEMCode/GEMValidation/interface/Matchers/L1TkMuMatcher.h"
 #include "GEMCode/GEMValidation/interface/Matchers/RecoTrackMatcher.h"
 
 class MatcherManager
@@ -45,6 +46,7 @@ public:
   std::shared_ptr<L1MuMatcher> l1Muons() const { return l1Muons_; }
   std::shared_ptr<L1TrackMatcher> l1Tracks() const { return l1Tracks_; }
   std::shared_ptr<RecoTrackMatcher> recoTracks() const { return recoTracks_; }
+  std::shared_ptr<L1TkMuMatcher> l1TkMuons() const { return l1TkMuons_; }
 
 private:
   // top level matcher right now
@@ -53,6 +55,7 @@ private:
   std::shared_ptr<ME0RecHitMatcher> me0_rechits_;
   std::shared_ptr<L1MuMatcher> l1Muons_;
   std::shared_ptr<L1TrackMatcher> l1Tracks_;
+  std::shared_ptr<L1TkMuMatcher> l1TkMuons_;
   std::shared_ptr<RecoTrackMatcher> recoTracks_;
 };
 

@@ -57,7 +57,7 @@ def delta_fqs_clct(st):
 def delta_fes_clct(st):
     return "max(CSCStub.delta_fes_clct_even[%d], CSCStub.delta_fes_clct_odd[%d])"%(st,st)
 
-def delta_strip_clct(st):
+def delta_bend_clct(st):
     return "max(CSCStub.dslope_clct_odd[%d], CSCStub.dslope_clct_even[%d])"%(st,st)
 
 def ok_pattern(st, ipat):
