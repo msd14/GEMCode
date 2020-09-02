@@ -16,6 +16,7 @@
 #include "GEMCode/GEMValidation/interface/Structs/RPCDigiStruct.h"
 #include "GEMCode/GEMValidation/interface/Structs/RPCRecHitStruct.h"
 #include "GEMCode/GEMValidation/interface/Structs/L1MuStruct.h"
+#include "GEMCode/GEMValidation/interface/Structs/L1TrackStruct.h"
 #include "GEMCode/GEMValidation/interface/Structs/RecoTrackStruct.h"
 
 #include "TTree.h"
@@ -47,6 +48,7 @@ class TreeManager
   gem::RPCDigiStruct& rpcDigi() { return rpcDigiSt_; }
   gem::RPCRecHitStruct& rpcRecHit() { return rpcRecHitSt_; }
   gem::L1MuStruct& l1mu() { return l1MuSt_; }
+  gem::L1TrackStruct& l1track() { return l1TrackSt_; }
   gem::RecoTrackStruct& recoTrack() { return recoTrackSt_; }
 
  private:
@@ -63,6 +65,7 @@ class TreeManager
   TTree* rpcDigiTree_;
   TTree* rpcRecHitTree_;
   TTree* l1MuTree_;
+  TTree* l1TrackTree_;
   TTree* recoTrackTree_;
 
   gem::GenParticleStruct genParticleSt_;
@@ -77,6 +80,7 @@ class TreeManager
   gem::RPCDigiStruct rpcDigiSt_;
   gem::RPCRecHitStruct rpcRecHitSt_;
   gem::L1MuStruct l1MuSt_;
+  gem::L1TrackStruct l1TrackSt_;
   gem::RecoTrackStruct recoTrackSt_;
 
   // new stuff

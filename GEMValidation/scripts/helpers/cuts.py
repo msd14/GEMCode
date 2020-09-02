@@ -152,3 +152,10 @@ def ok_emtfcand():
 
 def ok_l1mu():
     return TCut("L1Mu.has_gmtCand")
+
+## L1Track
+def ok_l1track(pt):
+    return TCut("L1Track.has_L1Track && L1Track.L1Track_pt > %f"%(pt))
+
+def ok_l1trackmuon(pt):
+    return TCut("L1Track.has_L1TrackMuon && L1Track.L1TrackMuon_pt > %f"%(pt))

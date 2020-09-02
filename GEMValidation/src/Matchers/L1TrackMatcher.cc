@@ -109,25 +109,21 @@ L1TrackMatcher::matchTrackMuonToSimTrack(const l1t::TkMuonCollection& trackmuons
     // matching depends on the matched track and the matched muon
     for (const auto& trackmuon : trackmuons) {
       const double muon_eta = trackmuon.eta();
-      //trackmuon.muRef()->hwEta() * 0.010875;
       const double muon_phi = trackmuon.phi();
-      //normalizedPhi((((trackmuon.muRef()->hwPhi() + trackmuon.muRef()->processor() * 96 + 576 + 24) % 576) / 576.) * 2.0 * 3.1415926);
-      std::cout << "\tcandidate L1TkMu eta " << muon_eta << std::endl;
-      std::cout << "\tcandidate L1TkMu phi " << muon_phi << std::endl;
+
+      std::cout << "Candidate L1TkMu eta " << muon_eta << std::endl;
+      std::cout << "Candidate L1TkMu phi " << muon_phi << std::endl;
 
       // need to do the conversion!!
+      double bestdR  = 999;
+      const double dR_l1Tk = reco::deltaR(best_eta, best_phi,
+                                          muon_eta, muon_phi);
 
-      if (std::abs(best_eta - muon_eta)<0.01 and std::abs(best_phi - muon_phi)<0.01) {
-
+      if (dR_l1Tk <0.3 and dR_l1Tk < bestdR) {
+        std::cout << "\t...was matched" << std::endl;
+        bestdR = dR_l1Tk;
         l1TrackMuon_.reset(new l1t::TkMuon(trackmuon));
 
-        const double l1Tk_eta = l1TrackMuon_->trkPtr()->momentum().eta();
-        const double l1Tk_phi = l1TrackMuon_->trkPtr()->momentum().barePhi();
-
-         cout<<"\tBest l1Tk_eta "<<l1Tk_eta<<endl;
-         cout<<"\tBest l1Tk_phi "<<l1Tk_phi<<endl;
-         // cout<<"\tBest muon_eta "<< l1TrackMuon_->muRef()->hwEta() * 0.010875 <<endl;
-         // cout<<"\tBest muon_phi "<< normalizedPhi((((l1TrackMuon_->muRef()->hwPhi() + l1TrackMuon_->muRef()->processor() * 96 + 576 + 24) % 576) / 576.) * 2.0 * 3.1415926) <<endl;
       }
     }
   }

@@ -11,6 +11,7 @@ void TreeManager::book() {
   cscDigiTree_ = fs->make<TTree>("CSCDigi","CSCDigi");
   cscStubTree_ = fs->make<TTree>("CSCStub","CSCStub");
   l1MuTree_ = fs->make<TTree>("L1Mu","L1Mu");
+  l1TrackTree_ = fs->make<TTree>("L1Track","L1Track");
   recoTrackTree_ = fs->make<TTree>("RecoTrack","RecoTrack");
 
   genParticleSt_.book(genParticleTree_);
@@ -22,6 +23,7 @@ void TreeManager::book() {
   cscDigiSt_.book(cscDigiTree_);
   cscStubSt_.book(cscStubTree_);
   l1MuSt_.book(l1MuTree_);
+  l1TrackSt_.book(l1TrackTree_);
   recoTrackSt_.book(recoTrackTree_);
 
   flatTree_ = fs->make<TTree>("FlatTree","FlatTree");
@@ -39,6 +41,7 @@ void TreeManager::init() {
   cscDigiSt_.init();
   cscStubSt_.init();
   l1MuSt_.init();
+  l1TrackSt_.init();
   recoTrackSt_.init();
 }
 
@@ -52,5 +55,6 @@ void TreeManager::fill() {
   cscDigiTree_->Fill();
   cscStubTree_->Fill();
   l1MuTree_->Fill();
+  l1TrackTree_->Fill();
   recoTrackTree_->Fill();
 }
