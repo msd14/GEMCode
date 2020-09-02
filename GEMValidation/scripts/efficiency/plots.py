@@ -10,6 +10,7 @@ from efficiency.GEMStub import *
 from efficiency.GEMRecHit import *
 
 from efficiency.L1Mu import *
+from efficiency.L1Track import *
 
 ## need to create directory structure - assume it does not exist yet
 def makeDir(plotter):
@@ -40,6 +41,7 @@ def makeEfficiencyPlots(plotter):
     GEMDigi(plotter)
     GEMStub(plotter)
     L1Mu(plotter)
+    L1Track(plotter)
 
 def makeEfficiencyComparisonPlots(plotter, plotter2):
     CSCStubComparison(plotter, plotter2)

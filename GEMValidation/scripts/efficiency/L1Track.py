@@ -18,7 +18,7 @@ iPos = 0
 if( iPos==0 ): CMS_lumi.relPosX = 0.12
 
 
-def EMTFPt(plotter):
+def L1TrackMuonPt(plotter):
 
     ## variables for the plot
     topTitle = ""
@@ -44,17 +44,17 @@ def EMTFPt(plotter):
 
     denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(20), "same", kBlue)
-    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(15), "same", kRed)
-    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(10), "same", kGreen+2)
-    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(5), "same", kOrange+2)
-    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_emtf(0), "same", kBlack)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_l1trackmuon(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_l1trackmuon(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_l1trackmuon(10), "same", kGreen+2)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_l1trackmuon(5), "same", kOrange+2)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, denom_cut, ok_l1trackmuon(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.05)
-    leg.SetHeader("EMTF")
+    leg.SetHeader("L1TrackMuon")
     leg.AddEntry(h1, "p_{T} > 20 GeV","l")
     leg.AddEntry(h2, "p_{T} > 15 GeV","l")
     leg.AddEntry(h3, "p_{T} > 10 GeV","l")
@@ -62,12 +62,12 @@ def EMTFPt(plotter):
     leg.AddEntry(h5, "p_{T} > 0 GeV","l")
     leg.Draw("same");
 
-    c.Print("%sEff_EMTF_pt_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_L1TrackMuon_pt_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg, h2, h3, h4, h5
 
 
-def EMTFEta(plotter):
+def L1TrackMuonEta(plotter):
 
     ## variables for the plot
     xTitle = "Generated muon |#eta|"
@@ -92,17 +92,17 @@ def EMTFEta(plotter):
 
     denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_emtf(20), "same", kBlue)
-    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_emtf(15), "same", kRed)
-    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_emtf(10), "same", kGreen+2)
-    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_emtf(5), "same", kOrange+2)
-    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_emtf(0), "same", kBlack)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_l1trackmuon(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_l1trackmuon(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_l1trackmuon(10), "same", kGreen+2)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_l1trackmuon(5), "same", kOrange+2)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_l1trackmuon(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.05)
-    leg.SetHeader("EMTF")
+    leg.SetHeader("L1TrackMuon")
     leg.AddEntry(h1, "p_{T} > 20 GeV","l")
     leg.AddEntry(h2, "p_{T} > 15 GeV","l")
     leg.AddEntry(h3, "p_{T} > 10 GeV","l")
@@ -110,12 +110,12 @@ def EMTFEta(plotter):
     leg.AddEntry(h5, "p_{T} > 0 GeV","l")
     leg.Draw("same");
 
-    c.Print("%sEff_EMTF_eta_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_L1TrackMuon_eta_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg, h2, h3, h4, h5
 
 
-def EMTFPhi(plotter):
+def L1TrackMuonPhi(plotter):
 
     ## variables for the plot
     xTitle = "Generated muon #phi"
@@ -140,17 +140,17 @@ def EMTFPhi(plotter):
 
     denom_cut = AND(ok_eta(1.2, 2.4), ok_2_csc_lcts())
 
-    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_emtf(20), "same", kBlue)
-    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_emtf(15), "same", kRed)
-    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_emtf(10), "same", kGreen+2)
-    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_emtf(5), "same", kOrange+2)
-    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_emtf(0), "same", kBlack)
+    h1 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>20")), ok_l1trackmuon(20), "same", kBlue)
+    h2 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>15")), ok_l1trackmuon(15), "same", kRed)
+    h3 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>10")), ok_l1trackmuon(10), "same", kGreen+2)
+    h4 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>5")), ok_l1trackmuon(5), "same", kOrange+2)
+    h5 = draw_geff(plotter.tree, title, h_bins, toPlot, AND(denom_cut, TCut("GenParticle.pt>3")), ok_l1trackmuon(0), "same", kBlack)
 
     leg = TLegend(0.45,0.2,.75,0.5, "", "brNDC");
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.05)
-    leg.SetHeader("EMTF")
+    leg.SetHeader("L1TrackMuon")
     leg.AddEntry(h1, "p_{T} > 20 GeV","l")
     leg.AddEntry(h2, "p_{T} > 15 GeV","l")
     leg.AddEntry(h3, "p_{T} > 10 GeV","l")
@@ -158,12 +158,11 @@ def EMTFPhi(plotter):
     leg.AddEntry(h5, "p_{T} > 0 GeV","l")
     leg.Draw("same");
 
-    c.Print("%sEff_EMTF_phi_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
+    c.Print("%sEff_L1TrackMuon_phi_Pt20_%s"%(plotter.targetDir + subdirectory, plotter.ext))
 
     del c, base, h1, leg, h2, h3, h4, h5
 
-def L1Mu(plotter):
-    EMTFPt(plotter)
-    EMTFEta(plotter)
-    EMTFEta2(plotter)
-    EMTFPhi(plotter)
+def L1Track(plotter):
+    L1TrackMuonPt(plotter)
+    L1TrackMuonEta(plotter)
+    L1TrackMuonPhi(plotter)
