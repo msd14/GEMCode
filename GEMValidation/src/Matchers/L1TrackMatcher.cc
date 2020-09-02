@@ -12,7 +12,7 @@ L1TrackMatcher::L1TrackMatcher(const edm::ParameterSet& ps, edm::ConsumesCollect
   verboseTrack_ = l1Track.getParameter<int>("verbose");
   deltaRTrack_ = l1Track.getParameter<double>("deltaR");
 
-  const auto& l1TrackMuon = ps.getParameter<edm::ParameterSet>("l1TrackMuon");
+  const auto& l1TrackMuon = ps.getParameter<edm::ParameterSet>("l1TkMuon");
   minBXTrackMuon_ = l1TrackMuon.getParameter<int>("minBX");
   maxBXTrackMuon_ = l1TrackMuon.getParameter<int>("maxBX");
   verboseTrackMuon_ = l1TrackMuon.getParameter<int>("verbose");
