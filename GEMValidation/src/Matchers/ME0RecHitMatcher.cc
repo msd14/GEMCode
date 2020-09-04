@@ -54,8 +54,10 @@ void ME0RecHitMatcher::match(const SimTrack& t, const SimVertex& v)
   const ME0SegmentCollection& me0Segments = *me0SegmentH_.product();
 
   // now match the rechits
-  matchME0RecHitsToSimTrack(me0RecHits);
-  matchME0SegmentsToSimTrack(me0Segments);
+  if (runME0RecHit_)
+    matchME0RecHitsToSimTrack(me0RecHits);
+  if (runME0Segment_)
+    matchME0SegmentsToSimTrack(me0Segments);
 }
 
 

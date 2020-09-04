@@ -8,11 +8,13 @@ ME0DigiMatcher::ME0DigiMatcher(const edm::ParameterSet& pset, edm::ConsumesColle
   maxBXDigi_ = me0Digi.getParameter<int>("maxBX");
   matchDeltaStrip_ = me0Digi.getParameter<int>("matchDeltaStrip");
   verboseDigi_ = me0Digi.getParameter<int>("verbose");
+  runDigi_ = me0Digi.getParameter<bool>("run");
 
   const auto& me0Pad = pset.getParameterSet("me0PadDigi");
   minBXPad_ = me0Pad.getParameter<int>("minBX");
   maxBXPad_ = me0Pad.getParameter<int>("maxBX");
   verbosePad_ = me0Pad.getParameter<int>("verbose");
+  runPad_ = me0Pad.getParameter<bool>("run");
 
   // make a new simhits matcher
   muonSimHitMatcher_.reset(new ME0SimHitMatcher(pset, std::move(iC)));
@@ -45,8 +47,11 @@ void ME0DigiMatcher::match(const SimTrack& t, const SimVertex& v) {
   const ME0PadDigiCollection& me0Pads = *me0PadsH_.product();
 
   // now match the digis
-  matchDigisToSimTrack(me0Digis);
-  matchPadsToSimTrack(me0Pads);
+  if (runDigi_)
+    matchDigisToSimTrack(me0Digis);
+
+  if (runPad_)
+    matchPadsToSimTrack(me0Pads);
 }
 
 void ME0DigiMatcher::matchDigisToSimTrack(const ME0DigiCollection& digis) {

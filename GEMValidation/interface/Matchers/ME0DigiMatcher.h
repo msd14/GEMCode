@@ -109,6 +109,8 @@ private:
 
   bool verboseDigi_;
   bool verbosePad_;
+  bool runDigi_;
+  bool runPad_;
 
   std::map<unsigned int, ME0DigiContainer> detid_to_digis_;
   std::map<unsigned int, ME0DigiContainer> chamber_to_digis_;
