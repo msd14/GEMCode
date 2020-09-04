@@ -8,15 +8,15 @@ def addCSCTriggerRun3(process):
     process.simCscTriggerPrimitiveDigisRun3 = process.simCscTriggerPrimitiveDigis.clone()
     process.simCscTriggerPrimitiveDigisRun3.clctParam07.useRun3Patterns = cms.bool(True)
     process.simCscTriggerPrimitiveDigisRun3.clctSLHC.useRun3Patterns = cms.bool(True)
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3, clctSLHCME21.useRun3Patterns = cms.bool(True) )
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3, clctSLHCME3141.useRun3Patterns = cms.bool(True) )
+    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3, clctSLHCME21 = dict(useRun3Patterns = cms.bool(True) ) )
+    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3, clctSLHCME3141 = dict(useRun3Patterns = cms.bool(True) ))
 
     ## Run-3 patterns with CCLUT
     process.simCscTriggerPrimitiveDigisRun3CCLUT = process.simCscTriggerPrimitiveDigisRun3.clone()
     process.simCscTriggerPrimitiveDigisRun3CCLUT.clctParam07.useComparatorCodes = cms.bool(True)
     process.simCscTriggerPrimitiveDigisRun3CCLUT.clctSLHC.useComparatorCodes = cms.bool(True)
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT, clctSLHCME21.useComparatorCodes = cms.bool(True) )
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT, clctSLHCME3141.useComparatorCodes = cms.bool(True) )
+    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT, clctSLHCME21 = dict(useComparatorCodes = cms.bool(True) ) )
+    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT, clctSLHCME3141 = dict(useComparatorCodes = cms.bool(True) ) )
     return process
 
 def addAnalysisRun3(process):
