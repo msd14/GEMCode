@@ -100,6 +100,9 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2021_realistic', '
 from GEMCode.GEMValidation.cscTriggerCustoms import addCSCTriggerRun3
 process = addCSCTriggerRun3(process)
 
+## customize unpacker
+process.muonGEMDigis.useDBEMap = False
+
 process.SimL1Emulator = cms.Sequence(process.simMuonGEMPadDigis * process.simMuonGEMPadDigiClusters * process.simCscTriggerPrimitiveDigis * process.simCscTriggerPrimitiveDigisRun3 * process.simCscTriggerPrimitiveDigisRun3CCLUT * process.simEmtfDigis)
 process.simMuonGEMPadDigis.InputCollection = "muonGEMDigis"
 
