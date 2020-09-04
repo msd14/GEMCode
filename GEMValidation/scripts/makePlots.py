@@ -14,7 +14,7 @@ class GEMCSCStubPlotter():
     self.inputDir = os.getenv("CMSSW_BASE") + "/src/"
     self.inputFile = self.inputDir + "out_ana_phase2.root"
     self.baseDir = "plots/"
-    self.ext = ".png"
+    self.ext = ".pdf"
     self.analyzer = analyzer
     self.analyzers = ["GEMCSCAnalyzer", "GEMCSCAnalyzerRun3CCLUT"]
     self.targetDir = self.baseDir + self.analyzer + "/"
@@ -40,3 +40,4 @@ makeResolutionPlots(plotter2)
 
 ## efficiency comparison
 makeEfficiencyComparisonPlots(plotter, plotter2)
+makeResolutionComparisonPlots(plotter, plotter2)

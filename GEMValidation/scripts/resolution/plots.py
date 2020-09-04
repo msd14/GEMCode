@@ -22,3 +22,6 @@ def makeResolutionPlots(plotter):
     makeDir(plotter)
     CSCStub(plotter)
     GEMStub(plotter)
+
+def makeResolutionComparisonPlots(plotter, plotter2):
+    CSCResolutionComparison(plotter, plotter2)

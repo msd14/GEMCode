@@ -101,7 +101,8 @@ process.GEMCSCAnalyzerRun3CCLUT.cscMPLCT.inputTag = cms.InputTag("simCscTriggerP
 
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 
-process.p = cms.Path(#process.GEMCSCAnalyzer * process.GEMCSCAnalyzerRun3 *
+process.p = cms.Path(
+    process.GEMCSCAnalyzer *
     process.GEMCSCAnalyzerRun3CCLUT)
 
 ## messages
