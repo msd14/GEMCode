@@ -1,4 +1,5 @@
 import FWCore.ParameterSet.Config as cms
+from Configuration.Eras.Modifier_phase2_muon_cff import phase2_muon
 
 # the analyzer configuration
 from GEMCode.GEMValidation.simTrackMatching_cfi import simTrackPSet
@@ -33,3 +34,6 @@ GEMCSCAnalyzer.cscALCT.verbose = 0
 GEMCSCAnalyzer.cscCLCT.verbose = 0
 GEMCSCAnalyzer.cscLCT.verbose = 0
 GEMCSCAnalyzer.cscLCT.addGhostLCTs = cms.bool(True)
+
+phase2_muon.toModify(process.GEMCSCAnalyzer, l1Track = dict(run = cms.bool(True) ) )
+phase2_muon.toModify(process.GEMCSCAnalyzer, l1TkMuon = dict(run = cms.bool(True) ) )

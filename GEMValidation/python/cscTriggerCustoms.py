@@ -4,19 +4,18 @@ from Configuration.Eras.Modifier_phase2_muon_cff import phase2_muon
 def addCSCTriggerRun3(process):
     process.simEmtfDigis.CSCInput  = cms.InputTag('simCscTriggerPrimitiveDigis','MPCSORTED',"ReL1")
 
-    ## Run-3 patterns
-    process.simCscTriggerPrimitiveDigisRun3 = process.simCscTriggerPrimitiveDigis.clone()
-    process.simCscTriggerPrimitiveDigisRun3.clctParam07.useRun3Patterns = cms.bool(True)
-    process.simCscTriggerPrimitiveDigisRun3.clctSLHC.useRun3Patterns = cms.bool(True)
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3, clctSLHCME21 = dict(useRun3Patterns = cms.bool(True) ) )
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3, clctSLHCME3141 = dict(useRun3Patterns = cms.bool(True) ))
-
     ## Run-3 patterns with CCLUT
-    process.simCscTriggerPrimitiveDigisRun3CCLUT = process.simCscTriggerPrimitiveDigisRun3.clone()
+    process.simCscTriggerPrimitiveDigisRun3CCLUT = process.simCscTriggerPrimitiveDigis.clone()
+    process.simCscTriggerPrimitiveDigisRun3CCLUT.clctParam07.useRun3Patterns = cms.bool(True)
+    process.simCscTriggerPrimitiveDigisRun3CCLUT.clctSLHC.useRun3Patterns = cms.bool(True)
     process.simCscTriggerPrimitiveDigisRun3CCLUT.clctParam07.useComparatorCodes = cms.bool(True)
     process.simCscTriggerPrimitiveDigisRun3CCLUT.clctSLHC.useComparatorCodes = cms.bool(True)
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT, clctSLHCME21 = dict(useComparatorCodes = cms.bool(True) ) )
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT, clctSLHCME3141 = dict(useComparatorCodes = cms.bool(True) ) )
+    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT,
+                         clctSLHCME21 = dict(useRun3Patterns = cms.bool(True),
+                                             useComparatorCodes = cms.bool(True) ) )
+    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT,
+                         clctSLHCME3141 = dict(useRun3Patterns = cms.bool(True),
+                                               useComparatorCodes = cms.bool(True) ) )
     return process
 
 def addAnalysisRun3(process):
@@ -31,13 +30,6 @@ def addAnalysisRun3(process):
     if useUnpacked:
         ana.gemStripDigi.inputTag = "muonGEMDigis"
         ana.muon.inputTag = cms.InputTag("gmtStage2Digis","Muon")
-
-    process.GEMCSCAnalyzerRun3 = process.GEMCSCAnalyzer.clone()
-    anaRun3 = process.GEMCSCAnalyzerRun3
-    anaRun3.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
-    anaRun3.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
-    anaRun3.cscLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
-    anaRun3.cscMPLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","MPCSORTED","ReL1")
 
     process.GEMCSCAnalyzerRun3CCLUT = process.GEMCSCAnalyzer.clone()
     anaCCLUT = process.GEMCSCAnalyzerRun3CCLUT

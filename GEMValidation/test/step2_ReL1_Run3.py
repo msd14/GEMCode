@@ -103,7 +103,12 @@ process = addCSCTriggerRun3(process)
 ## customize unpacker
 process.muonGEMDigis.useDBEMap = False
 
-process.SimL1Emulator = cms.Sequence(process.simMuonGEMPadDigis * process.simMuonGEMPadDigiClusters * process.simCscTriggerPrimitiveDigis * process.simCscTriggerPrimitiveDigisRun3 * process.simCscTriggerPrimitiveDigisRun3CCLUT * process.simEmtfDigis)
+process.SimL1Emulator = cms.Sequence(
+    process.simMuonGEMPadDigis *
+    process.simMuonGEMPadDigiClusters *
+    process.simCscTriggerPrimitiveDigis *
+    process.simCscTriggerPrimitiveDigisRun3CCLUT *
+    process.simEmtfDigis)
 process.simMuonGEMPadDigis.InputCollection = "muonGEMDigis"
 
 # Path and EndPath definitions
