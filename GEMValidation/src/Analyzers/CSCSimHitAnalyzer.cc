@@ -61,7 +61,7 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
 
     // add offset of +0.25 strips for non-ME1/1 chambers
     if (!isME11){
-      stripIntercept += 0.25;
+      stripIntercept -= 0.25;
     }
 
     if (odd) {

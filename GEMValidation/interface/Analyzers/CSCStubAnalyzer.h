@@ -4,6 +4,7 @@
 #include "GEMCode/GEMValidation/interface/Helpers.h"
 #include "GEMCode/GEMValidation/interface/MatcherManager.h"
 #include "GEMCode/GEMValidation/interface/TreeManager.h"
+#include "L1Trigger/CSCTriggerPrimitives/interface/CSCComparatorCodeLUT.h"
 
 class CSCStubAnalyzer
 {
@@ -52,6 +53,17 @@ public:
 
   std::unique_ptr<CSCStubMatcher> match_;
   int minNHitsChamber_;
+
+  std::vector<std::string> positionLUTFiles_;
+  std::vector<std::string> positionFloatLUTFiles_;
+  std::vector<std::string> slopeLUTFiles_;
+  std::vector<std::string> patternConversionLUTFiles_;
+
+  // unique pointers to the luts
+  std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutpos_;
+  std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutposfloat_;
+  std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutslope_;
+  std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutpatconv_;
 };
 
 #endif

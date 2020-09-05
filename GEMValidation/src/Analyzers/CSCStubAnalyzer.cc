@@ -5,6 +5,18 @@
 CSCStubAnalyzer::CSCStubAnalyzer(const edm::ParameterSet& conf)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberCSCStub");
+
+  positionLUTFiles_ = conf.getParameter<std::vector<std::string>>("positionLUTFiles");
+  positionFloatLUTFiles_ = conf.getParameter<std::vector<std::string>>("positionFloatLUTFiles");
+  slopeLUTFiles_ = conf.getParameter<std::vector<std::string>>("slopeLUTFiles");
+  patternConversionLUTFiles_ = conf.getParameter<std::vector<std::string>>("patternConversionLUTFiles");
+
+  for (int i = 0; i < 5; ++i) {
+    lutpos_[i] = std::make_unique<CSCComparatorCodeLUT>(positionLUTFiles_[i]);
+    lutposfloat_[i] = std::make_unique<CSCComparatorCodeLUT>(positionFloatLUTFiles_[i]);
+    lutslope_[i] = std::make_unique<CSCComparatorCodeLUT>(slopeLUTFiles_[i]);
+    lutpatconv_[i] = std::make_unique<CSCComparatorCodeLUT>(patternConversionLUTFiles_[i]);
+  }
 }
 
 void CSCStubAnalyzer::init(const edm::Event& iEvent, const edm::EventSetup& iSetup)
@@ -48,6 +60,11 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     if (id.station() == 1 and id.ring() == 4 and clct.getKeyStrip() > CSCConstants::MAX_HALF_STRIP_ME1B)
       deltaStrip = CSCConstants::MAX_NUM_STRIPS_ME1B;
 
+    // const unsigned positionCC(lutpos_[pattern]->lookup(comparatorCode));
+    // const float positionCCf(lutposfloat_[pattern]->lookup(comparatorCode));
+    // const unsigned slopeCC(lutslope_[pattern]->lookup(comparatorCode));
+    // unsigned run2PatternCC(lutpatconv_[pattern]->lookup(comparatorCode));
+
     auto fill = [clct, odd, slope, tree, deltaStrip, id](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
@@ -57,7 +74,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.hs_clct_odd[st] = clct.getKeyStrip();
         cscStubTree.qs_clct_odd[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_odd[st] = clct.getKeyStrip(8);
-        cscStubTree.slope_clct_odd[st] = slope;
+        cscStubTree.slope_clct_odd[st] = slope / 2.;
         cscStubTree.fhs_clct_odd[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
@@ -66,8 +83,8 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.delta_fqs_clct_odd[st] = cscStubTree.fqs_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
         cscStubTree.delta_fes_clct_odd[st] = cscStubTree.fes_clct_odd[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_odd[st];
         // bending deltas
-        cscStubTree.dslope_clct_odd[st] = cscStubTree.slope_clct_odd[st]/2. - tree.cscSimHit().bend_csc_sh_odd[st];
-        // std::cout << "CSCStubAnalyzer " << id << " " << clct << " " << cscStubTree.slope_clct_odd[st] << " " << tree.cscSimHit().bend_csc_sh_odd[st] << " " <<  cscStubTree.dslope_clct_odd[st] << std::endl;
+        cscStubTree.dslope_clct_odd[st] = cscStubTree.slope_clct_odd[st] - tree.cscSimHit().bend_csc_sh_odd[st];
+        std::cout << "CSCStubAnalyzer " << id << " " << clct << " " << cscStubTree.slope_clct_odd[st] << " " << tree.cscSimHit().bend_csc_sh_odd[st] << " " <<  cscStubTree.dslope_clct_odd[st] << std::endl;
       }
       else {
         cscStubTree.has_clct_even[st] = true;
@@ -77,7 +94,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.hs_clct_even[st] = clct.getKeyStrip();
         cscStubTree.qs_clct_even[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_even[st] = clct.getKeyStrip(8);
-        cscStubTree.slope_clct_even[st] = slope;
+        cscStubTree.slope_clct_even[st] = slope / 2.;
         cscStubTree.fhs_clct_even[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);
@@ -86,8 +103,8 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.delta_fqs_clct_even[st] = cscStubTree.fqs_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         cscStubTree.delta_fes_clct_even[st] = cscStubTree.fes_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         // bending deltas
-        cscStubTree.dslope_clct_even[st] = cscStubTree.slope_clct_even[st]/2. - tree.cscSimHit().bend_csc_sh_even[st];
-        // std::cout << "CSCStubAnalyzer " << id << " " << clct << " " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << std::endl;
+        cscStubTree.dslope_clct_even[st] = cscStubTree.slope_clct_even[st] - tree.cscSimHit().bend_csc_sh_even[st];
+        std::cout << "CSCStubAnalyzer " << id << " " << clct << " " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << std::endl;
       }
     };
 
