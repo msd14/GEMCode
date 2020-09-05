@@ -56,6 +56,7 @@ void ME0RecHitMatcher::match(const SimTrack& t, const SimVertex& v)
   // now match the rechits
   if (runME0RecHit_)
     matchME0RecHitsToSimTrack(me0RecHits);
+
   if (runME0Segment_)
     matchME0SegmentsToSimTrack(me0Segments);
 }

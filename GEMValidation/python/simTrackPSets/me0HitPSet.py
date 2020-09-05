@@ -20,15 +20,16 @@ me0HitPSet = cms.PSet(
     me0RecHit = cms.PSet(
         verbose = cms.int32(0),
         inputTag = cms.InputTag('me0RecHits'),
-        simMuOnly = cms.bool(True),
-        discardEleHits = cms.bool(True),
+        minBX = cms.int32(-1),
+        maxBX = cms.int32(1),
         run = cms.bool(False)
     ),
-    me0Seg = cms.PSet(
+    me0Segment = cms.PSet(
         verbose = cms.int32(0),
         inputTag = cms.InputTag('me0Segments'),
-        simMuOnly = cms.bool(True),
-        discardEleHits = cms.bool(True),
-        run = cms.bool(False)
+        minBX = cms.int32(-1),
+        maxBX = cms.int32(1),
+        run = cms.bool(False),
+        minNHits = cms.int32(4),
     )
 )

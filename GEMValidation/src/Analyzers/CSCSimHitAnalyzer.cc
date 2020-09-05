@@ -29,7 +29,9 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     int nlayers(match_->nLayersWithHitsInChamber(d));
 
     // case ME11
-    if (id.station()==1 and (id.ring()==4 or id.ring()==1)){
+    const bool isME11(id.station()==1 and (id.ring()==4 or id.ring()==1));
+
+    if (isME11){
       // get the detId of the pairing subchamber
       int other_ring(id.ring()==4 ? 1 : 4);
       CSCDetId co_id(id.endcap(), id.station(), other_ring, id.chamber());
@@ -47,9 +49,6 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     const int pstrip(layergeoms->strip(LocalPoint(5,0,0)));
     const int nstrip(layergeoms->strip(LocalPoint(-5,0,0)));
 
-    int flip = 1;
-    // if (pstrip < nstrip and id.endcap() == 1) flip = -1;
-
     // layer requirement (typically 4)
     if (nlayers < minNHitsChamber_) continue;
 
@@ -59,6 +58,11 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
     const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
     float stripIntercept, stripSlope;
     match_->fitHitsInChamber(d, stripIntercept, stripSlope);
+
+    // add offset of +0.25 strips for non-ME1/1 chambers
+    if (!isME11){
+      stripIntercept += 0.25;
+    }
 
     if (odd) {
       tree.cscSimHit().chamber_sh_odd[st] = id.chamber();
