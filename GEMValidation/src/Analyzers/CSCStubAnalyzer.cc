@@ -9,12 +9,14 @@ CSCStubAnalyzer::CSCStubAnalyzer(const edm::ParameterSet& conf)
   positionLUTFiles_ = conf.getParameter<std::vector<std::string>>("positionLUTFiles");
   positionFloatLUTFiles_ = conf.getParameter<std::vector<std::string>>("positionFloatLUTFiles");
   slopeLUTFiles_ = conf.getParameter<std::vector<std::string>>("slopeLUTFiles");
+  slopeFloatLUTFiles_ = conf.getParameter<std::vector<std::string>>("slopeFloatLUTFiles");
   patternConversionLUTFiles_ = conf.getParameter<std::vector<std::string>>("patternConversionLUTFiles");
 
   for (int i = 0; i < 5; ++i) {
     lutpos_[i] = std::make_unique<CSCComparatorCodeLUT>(positionLUTFiles_[i]);
     lutposfloat_[i] = std::make_unique<CSCComparatorCodeLUT>(positionFloatLUTFiles_[i]);
     lutslope_[i] = std::make_unique<CSCComparatorCodeLUT>(slopeLUTFiles_[i]);
+    lutslopefloat_[i] = std::make_unique<CSCComparatorCodeLUT>(slopeFloatLUTFiles_[i]);
     lutpatconv_[i] = std::make_unique<CSCComparatorCodeLUT>(patternConversionLUTFiles_[i]);
   }
 }
@@ -60,12 +62,12 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
     if (id.station() == 1 and id.ring() == 4 and clct.getKeyStrip() > CSCConstants::MAX_HALF_STRIP_ME1B)
       deltaStrip = CSCConstants::MAX_NUM_STRIPS_ME1B;
 
-    // const unsigned positionCC(lutpos_[pattern]->lookup(comparatorCode));
-    // const float positionCCf(lutposfloat_[pattern]->lookup(comparatorCode));
-    // const unsigned slopeCC(lutslope_[pattern]->lookup(comparatorCode));
-    // unsigned run2PatternCC(lutpatconv_[pattern]->lookup(comparatorCode));
+    float fpos;
+    if (clct.getCompCode() != -1) {
+      fpos = lutposfloat_[clct.getRun3Pattern()]->lookup(clct.getCompCode());
+    }
 
-    auto fill = [clct, odd, slope, tree, deltaStrip, id](gem::CSCStubStruct& cscStubTree, int st) mutable {
+    auto fill = [clct, odd, slope, tree, deltaStrip, id, fpos](gem::CSCStubStruct& cscStubTree, int st) mutable {
       if (odd) {
         cscStubTree.has_clct_odd[st] = true;
         cscStubTree.quality_clct_odd[st] = clct.getQuality();
@@ -75,6 +77,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.qs_clct_odd[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_odd[st] = clct.getKeyStrip(8);
         cscStubTree.slope_clct_odd[st] = slope / 2.;
+        cscStubTree.ffhs_clct_odd[st] = fpos;
         cscStubTree.fhs_clct_odd[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_odd[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_odd[st] = clct.getFractionalStrip(8);
@@ -95,6 +98,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.qs_clct_even[st] = clct.getKeyStrip(4);
         cscStubTree.es_clct_even[st] = clct.getKeyStrip(8);
         cscStubTree.slope_clct_even[st] = slope / 2.;
+        cscStubTree.ffhs_clct_odd[st] = fpos;
         cscStubTree.fhs_clct_even[st] = clct.getFractionalStrip(2);
         cscStubTree.fqs_clct_even[st] = clct.getFractionalStrip(4);
         cscStubTree.fes_clct_even[st] = clct.getFractionalStrip(8);

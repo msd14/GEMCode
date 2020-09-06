@@ -13,6 +13,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('TrackPropagation.SteppingHelixPropagator.SteppingHelixPropagatorOpposite_cfi')
 process.load('TrackPropagation.SteppingHelixPropagator.SteppingHelixPropagatorAlong_cfi')
+process.load('GEMCode.GEMValidation.GEMCSCAnalyzer_cff')
 
 """
 process.MessageLogger = cms.Service("MessageLogger",
@@ -43,23 +44,6 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase2_realistic_T15', '')
 
 # the analyzer configuration
-from GEMCode.GEMValidation.simTrackMatching_cfi import simTrackPSet
-process.GEMCSCAnalyzer = cms.EDAnalyzer(
-    "GEMCSCAnalyzer",
-    simTrackPSet,
-    runSim = cms.bool(True),
-    runDigi = cms.bool(True),
-    runStub = cms.bool(True),
-    runL1 = cms.bool(True),
-    runReco = cms.bool(False),
-    verbose = cms.untracked.int32(1),
-    minNHitsChamberGEMSimHit = cms.int32(1),
-    minNHitsChamberCSCSimHit = cms.int32(3),
-    minNHitsChamberCSCDigi = cms.int32(4),
-    minNHitsChamberGEMDigi = cms.int32(1),
-    minNHitsChamberCSCStub = cms.int32(3),
-)
-
 ana = process.GEMCSCAnalyzer
 ana.simTrack.minEta = 0.9
 ana.simTrack.maxEta = 2.4
@@ -86,12 +70,6 @@ useUnpacked = False
 if useUnpacked:
     ana.gemStripDigi.inputTag = "muonGEMDigis"
     ana.muon.inputTag = cms.InputTag("gmtStage2Digis","Muon")
-
-process.GEMCSCAnalyzerRun3 = process.GEMCSCAnalyzer.clone()
-process.GEMCSCAnalyzerRun3.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
-process.GEMCSCAnalyzerRun3.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
-process.GEMCSCAnalyzerRun3.cscLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","","ReL1")
-process.GEMCSCAnalyzerRun3.cscMPLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3","MPCSORTED","ReL1")
 
 process.GEMCSCAnalyzerRun3CCLUT = process.GEMCSCAnalyzer.clone()
 process.GEMCSCAnalyzerRun3CCLUT.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")

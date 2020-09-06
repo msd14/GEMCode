@@ -92,10 +92,16 @@ namespace gem {
     float slope_clct_odd[nStations];
     float slope_clct_even[nStations];
 
+    float fslope_clct_odd[nStations];
+    float fslope_clct_even[nStations];
+
     float dslope_clct_odd[nStations];
     float dslope_clct_even[nStations];
 
     // floating point strip in hs, qs or es precision
+    float ffhs_clct_odd[nStations];
+    float ffhs_clct_even[nStations];
+
     float fhs_clct_odd[nStations];
     float fhs_clct_even[nStations];
 
@@ -152,6 +158,9 @@ namespace gem {
 
         es_clct_odd[i] = 0;
         es_clct_even[i] = 0;
+
+        ffhs_clct_odd[i] = -9;
+        ffhs_clct_even[i] = -9;
 
         fhs_clct_odd[i] = -9;
         fhs_clct_even[i] = -9;
@@ -215,6 +224,9 @@ namespace gem {
         slope_clct_odd[i] = -9;
         slope_clct_even[i] = -9;
 
+        fslope_clct_odd[i] = -9;
+        fslope_clct_even[i] = -9;
+
         pattern_clct_odd[i] = -9;
         pattern_clct_even[i] = -9;
       }
@@ -276,6 +288,9 @@ namespace gem {
       t->Branch("es_clct_odd", es_clct_odd, "es_clct_odd[11]/I");
       t->Branch("es_clct_even", es_clct_even, "es_clct_even[11]/I");
 
+      t->Branch("ffhs_clct_odd", ffhs_clct_odd, "ffhs_clct_odd[11]/F");
+      t->Branch("ffhs_clct_even", ffhs_clct_even, "ffhs_clct_even[11]/F");
+
       t->Branch("fhs_clct_odd", fhs_clct_odd, "fhs_clct_odd[11]/F");
       t->Branch("fhs_clct_even", fhs_clct_even, "fhs_clct_even[11]/F");
 
@@ -328,6 +343,9 @@ namespace gem {
 
       t->Branch("slope_clct_odd", slope_clct_odd, "slope_clct_odd[11]/F");
       t->Branch("slope_clct_even", slope_clct_even, "slope_clct_even[11]/F");
+
+      t->Branch("fslope_clct_odd", fslope_clct_odd, "fslope_clct_odd[11]/F");
+      t->Branch("fslope_clct_even", fslope_clct_even, "fslope_clct_even[11]/F");
     }
   };
 }  // namespace

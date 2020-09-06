@@ -17,38 +17,6 @@ GEMCSCAnalyzer = cms.EDAnalyzer(
     minNHitsChamberCSCDigi = cms.int32(4),
     minNHitsChamberGEMDigi = cms.int32(1),
     minNHitsChamberCSCStub = cms.int32(3),
-
-    positionLUTFiles = cms.vstring(
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat0_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat1_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat2_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat3_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat4_v1.txt"
-    ),
-
-    positionFloatLUTFiles = cms.vstring(
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat0_float_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat1_float_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat2_float_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat3_float_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePosOffsetLUT_pat4_float_v1.txt"
-    ),
-
-    slopeLUTFiles = cms.vstring(
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat0_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat1_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat2_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat3_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodeSlopeLUT_pat4_v1.txt"
-    ),
-
-    patternConversionLUTFiles = cms.vstring(
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePatternConversionLUT_pat0_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePatternConversionLUT_pat1_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePatternConversionLUT_pat2_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePatternConversionLUT_pat3_v1.txt",
-        "L1Trigger/CSCTriggerPrimitives/data/CSCComparatorCodePatternConversionLUT_pat4_v1.txt"
-    ),
 )
 
 GEMCSCAnalyzer.simTrack.minEta = 0.9
@@ -67,5 +35,5 @@ GEMCSCAnalyzer.cscCLCT.verbose = 0
 GEMCSCAnalyzer.cscLCT.verbose = 0
 GEMCSCAnalyzer.cscLCT.addGhostLCTs = cms.bool(True)
 
-phase2_muon.toModify(process.GEMCSCAnalyzer, l1Track = dict(run = cms.bool(True) ) )
-phase2_muon.toModify(process.GEMCSCAnalyzer, l1TkMuon = dict(run = cms.bool(True) ) )
+phase2_muon.toModify(GEMCSCAnalyzer, l1Track = dict(run = cms.bool(False) ) )
+phase2_muon.toModify(GEMCSCAnalyzer, l1TkMuon = dict(run = cms.bool(False) ) )

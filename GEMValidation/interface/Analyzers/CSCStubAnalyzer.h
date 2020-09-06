@@ -57,12 +57,14 @@ public:
   std::vector<std::string> positionLUTFiles_;
   std::vector<std::string> positionFloatLUTFiles_;
   std::vector<std::string> slopeLUTFiles_;
+  std::vector<std::string> slopeFloatLUTFiles_;
   std::vector<std::string> patternConversionLUTFiles_;
 
   // unique pointers to the luts
   std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutpos_;
   std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutposfloat_;
   std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutslope_;
+  std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutslopefloat_;
   std::array<std::unique_ptr<CSCComparatorCodeLUT>, 5> lutpatconv_;
 };
 

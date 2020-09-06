@@ -27,6 +27,7 @@ from GEMCode.GEMValidation.simTrackPSets.rpcRecHitPSet import rpcRecHitPSet
 from GEMCode.GEMValidation.simTrackPSets.cscRecHitPSet import cscRecHitPSet
 from GEMCode.GEMValidation.simTrackPSets.dtRecHitPSet import dtRecHitPSet
 from GEMCode.GEMValidation.simTrackPSets.recoTrackPSet import recoTrackPSet
+from GEMCode.GEMValidation.simTrackPSets.cclutPSet import cclutPSet
 
 GEMCodePSet = cms.PSet(
     genParticlePSet,
@@ -39,7 +40,8 @@ GEMCodePSet = cms.PSet(
     cscRecHitPSet,
     rpcRecHitPSet,
     dtRecHitPSet,
-    recoTrackPSet
+    recoTrackPSet,
+    cclutPSet
 )
 
 ## combine into single pset
