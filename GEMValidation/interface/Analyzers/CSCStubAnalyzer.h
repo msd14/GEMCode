@@ -25,6 +25,16 @@ public:
 
  private:
 
+  edm::EDGetTokenT<CSCCLCTDigiCollection> clctToken_;
+  edm::EDGetTokenT<CSCALCTDigiCollection> alctToken_;
+  edm::EDGetTokenT<CSCCorrelatedLCTDigiCollection> lctToken_;
+  edm::EDGetTokenT<CSCCorrelatedLCTDigiCollection> mplctToken_;
+
+  edm::Handle<CSCCLCTDigiCollection> clctsH_;
+  edm::Handle<CSCALCTDigiCollection> alctsH_;
+  edm::Handle<CSCCorrelatedLCTDigiCollection> lctsH_;
+  edm::Handle<CSCCorrelatedLCTDigiCollection> mplctsH_;
+
   // all in strips / layer
   float getSlope(const CSCCLCTDigi& lct) const;
   float getRun3Slope(int pattern, int slope) const;

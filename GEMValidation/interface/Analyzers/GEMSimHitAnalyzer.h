@@ -21,6 +21,9 @@ public:
   void analyze(TreeManager& tree);
 
  private:
+  edm::EDGetTokenT<edm::PSimHitContainer> simHitInput_;
+  edm::Handle<edm::PSimHitContainer> simHitsH_;
+
   std::shared_ptr<GEMSimHitMatcher> match_;
   int minNHitsChamber_;
 };

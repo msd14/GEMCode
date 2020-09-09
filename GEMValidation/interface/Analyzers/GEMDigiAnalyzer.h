@@ -22,6 +22,9 @@ public:
 
  private:
 
+  edm::EDGetTokenT<GEMDigiCollection> gemDigiToken_;
+  edm::Handle<GEMDigiCollection> gemDigisH_;
+
   int median(const GEMDigiContainer& digis) const;
   GlobalPoint meanPosition(const GEMDetId& id, const GEMDigiContainer& digis) const;
 

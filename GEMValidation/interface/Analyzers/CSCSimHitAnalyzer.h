@@ -21,6 +21,9 @@ public:
   void analyze(TreeManager& tree);
 
  private:
+  edm::EDGetTokenT<edm::PSimHitContainer> simHitInput_;
+  edm::Handle<edm::PSimHitContainer> simHitsH_;
+
   float
     //  std::pair<float,float>
     fitBendingPositionInChamber(unsigned int detid) const;

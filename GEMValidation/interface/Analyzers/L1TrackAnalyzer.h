@@ -22,6 +22,12 @@ public:
 
  private:
 
+  edm::EDGetTokenT<L1TTTrackCollectionType> l1TrackToken_;
+  edm::EDGetTokenT<l1t::TkMuonCollection> l1TrackMuonToken_;
+
+  edm::Handle<L1TTTrackCollectionType> l1TrackHandle_;
+  edm::Handle<l1t::TkMuonCollection> l1TrackMuonHandle_;
+
   std::unique_ptr<L1TrackMatcher> match_;
 };
 

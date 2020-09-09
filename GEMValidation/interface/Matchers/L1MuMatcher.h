@@ -67,7 +67,6 @@ class L1MuMatcher
   double deltaRGMT_;
   bool runGMT_;
 
-
   std::shared_ptr<gem::EMTFTrack> emtfTrack_;
   std::shared_ptr<gem::EMTFCand> emtfCand_;
   std::shared_ptr<gem::EMTFCand> muon_;

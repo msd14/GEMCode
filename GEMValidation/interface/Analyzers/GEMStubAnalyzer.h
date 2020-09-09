@@ -22,6 +22,14 @@ public:
 
  private:
 
+  edm::EDGetTokenT<GEMPadDigiCollection> gemPadToken_;
+  edm::EDGetTokenT<GEMPadDigiClusterCollection> gemClusterToken_;
+  edm::EDGetTokenT<GEMCoPadDigiCollection> gemCoPadToken_;
+
+  edm::Handle<GEMPadDigiCollection> gemPadsH_;
+  edm::Handle<GEMPadDigiClusterCollection> gemClustersH_;
+  edm::Handle<GEMCoPadDigiCollection> gemCoPadsH_;
+
   std::pair<GEMPadDigi, GlobalPoint>
   bestPad(const GEMDetId& id,
           const GEMPadDigiContainer& digis) const;

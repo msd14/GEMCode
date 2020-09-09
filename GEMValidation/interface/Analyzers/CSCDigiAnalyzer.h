@@ -22,6 +22,14 @@ public:
 
  private:
 
+  edm::EDGetTokenT<CSCComparatorDigiCollection> comparatorDigiInput_;
+  edm::EDGetTokenT<CSCStripDigiCollection> stripDigiInput_;
+  edm::EDGetTokenT<CSCWireDigiCollection> wireDigiInput_;
+
+  edm::Handle<CSCComparatorDigiCollection> comparatorDigisH_;
+  edm::Handle<CSCStripDigiCollection> stripDigisH_;
+  edm::Handle<CSCWireDigiCollection> wireDigisH_;
+
   std::unique_ptr<CSCDigiMatcher> match_;
   int minNHitsChamber_;
 };

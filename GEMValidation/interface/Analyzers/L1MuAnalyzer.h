@@ -22,6 +22,14 @@ public:
 
  private:
 
+  edm::EDGetTokenT<l1t::EMTFTrackCollection> emtfTrackToken_;
+  edm::EDGetTokenT<l1t::RegionalMuonCandBxCollection> emtfCandToken_;
+  edm::EDGetTokenT<l1t::MuonBxCollection> muonToken_;
+
+  edm::Handle<l1t::EMTFTrackCollection> emtfTrackHandle_;
+  edm::Handle<l1t::RegionalMuonCandBxCollection> emtfCandHandle_;
+  edm::Handle<l1t::MuonBxCollection> muonHandle_;
+
   std::unique_ptr<L1MuMatcher> match_;
 };
 
