@@ -97,7 +97,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   auto& cscTree = tree.cscStub();
 
   // CSC ALCTs
-  for (auto detUnitIt = alcts->begin(); detUnitIt != alcts->end(); detUnitIt++) {
+  for (auto detUnitIt = alcts.begin(); detUnitIt != alcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
     const auto& range = (*detUnitIt).second;
@@ -106,7 +106,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         continue;
 
       // check that the BX for this stub wasn't too early or too late
-      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+      if (digiIt->getBX() < minBXALCT_ || digiIt->getBX() > maxBXALCT_)
         continue;
 
       iLCT++;
@@ -114,7 +114,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   }
 
   // CSC CLCTs
-  for (auto detUnitIt = clcts->begin(); detUnitIt != clcts->end(); detUnitIt++) {
+  for (auto detUnitIt = clcts.begin(); detUnitIt != clcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
     const auto& range = (*detUnitIt).second;
@@ -132,7 +132,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   }
 
   // CSC LCTs
-  for (auto detUnitIt = lcts->begin(); detUnitIt != lcts->end(); detUnitIt++) {
+  for (auto detUnitIt = lcts.begin(); detUnitIt != lcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
     const auto& range = (*detUnitIt).second;
@@ -141,7 +141,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         continue;
 
       // check that the BX for this stub wasn't too early or too late
-      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+      if (digiIt->getBX() < minBXLCT_ || digiIt->getBX() > maxBXLCT_)
         continue;
 
       iLCT++;
@@ -149,7 +149,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   }
 
   // CSC MPLCTs
-  for (auto detUnitIt = mplcts->begin(); detUnitIt != mplcts->end(); detUnitIt++) {
+  for (auto detUnitIt = mplcts.begin(); detUnitIt != mplcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
     const auto& range = (*detUnitIt).second;
@@ -158,7 +158,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         continue;
 
       // check that the BX for this stub wasn't too early or too late
-      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+      if (digiIt->getBX() < minBXMPLCT_ || digiIt->getBX() > maxBXMPLCT_)
         continue;
 
       iLCT++;
