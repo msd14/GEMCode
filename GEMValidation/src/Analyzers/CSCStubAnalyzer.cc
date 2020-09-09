@@ -100,14 +100,26 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   for (auto detUnitIt = alcts.begin(); detUnitIt != alcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
+    const bool isodd = (id.station()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+
       if (!(*digiIt).isValid())
         continue;
 
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXALCT_ || digiIt->getBX() > maxBXALCT_)
         continue;
+
+      cscTree.alct_bx[iLCT].push_back(digiIt->getBX());
+      cscTree.alct_wg[iLCT].push_back(digiIt->getKeyWG());
+      cscTree.alct_quality[iLCT].push_back(digiIt->getQuality());
+      cscTree.alct_isodd[iLCT].push_back(isodd);
+      cscTree.alct_region[iLCT].push_back(id.zendcap());
+      cscTree.alct_station[iLCT].push_back(id.station());
+      cscTree.alct_ring[iLCT].push_back(id.ring());
+      cscTree.alct_chamber[iLCT].push_back(id.chamber());
+      // alct_tpid;
 
       iLCT++;
     }
@@ -117,6 +129,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   for (auto detUnitIt = clcts.begin(); detUnitIt != clcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
+    const bool isodd = (id.station()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
 
@@ -127,6 +140,14 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
         continue;
 
+      cscTree.clct_bx[iLCT].push_back(digiIt->getBX());
+      cscTree.clct_quality[iLCT].push_back(digiIt->getQuality());
+      cscTree.clct_isodd[iLCT].push_back(isodd);
+      cscTree.clct_region[iLCT].push_back(id.zendcap());
+      cscTree.clct_station[iLCT].push_back(id.station());
+      cscTree.clct_ring[iLCT].push_back(id.ring());
+      cscTree.clct_chamber[iLCT].push_back(id.chamber());
+
       iLCT++;
     }
   }
@@ -135,14 +156,24 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   for (auto detUnitIt = lcts.begin(); detUnitIt != lcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
+    const bool isodd = (id.station()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+
       if (!(*digiIt).isValid())
         continue;
 
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXLCT_ || digiIt->getBX() > maxBXLCT_)
         continue;
+
+      cscTree.lct_bx[iLCT].push_back(digiIt->getBX());
+      cscTree.lct_quality[iLCT].push_back(digiIt->getQuality());
+      cscTree.lct_isodd[iLCT].push_back(isodd);
+      cscTree.lct_region[iLCT].push_back(id.zendcap());
+      cscTree.lct_station[iLCT].push_back(id.station());
+      cscTree.lct_ring[iLCT].push_back(id.ring());
+      cscTree.lct_chamber[iLCT].push_back(id.chamber());
 
       iLCT++;
     }
@@ -152,14 +183,24 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   for (auto detUnitIt = mplcts.begin(); detUnitIt != mplcts.end(); detUnitIt++) {
     int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
+    const bool isodd = (id.station()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+
       if (!(*digiIt).isValid())
         continue;
 
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXMPLCT_ || digiIt->getBX() > maxBXMPLCT_)
         continue;
+
+      cscTree.mplct_bx[iLCT].push_back(digiIt->getBX());
+      cscTree.mplct_quality[iLCT].push_back(digiIt->getQuality());
+      cscTree.mplct_isodd[iLCT].push_back(isodd);
+      cscTree.mplct_region[iLCT].push_back(id.zendcap());
+      cscTree.mplct_station[iLCT].push_back(id.station());
+      cscTree.mplct_ring[iLCT].push_back(id.ring());
+      cscTree.mplct_chamber[iLCT].push_back(id.chamber());
 
       iLCT++;
     }

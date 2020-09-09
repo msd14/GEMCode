@@ -157,6 +157,20 @@ namespace gem {
     p_ints lct_pattern;
     p_ints lct_tpid;
 
+    p_ints mplct_bx;
+    p_ints mplct_wg;
+    p_ints mplct_hs;
+    p_ints mplct_qs;
+    p_ints mplct_es;
+    p_ints mplct_isodd;
+    p_ints mplct_region;
+    p_ints mplct_station;
+    p_ints mplct_ring;
+    p_ints mplct_chamber;
+    p_ints mplct_quality;
+    p_ints mplct_pattern;
+    p_ints mplct_tpid;
+
     void init() {
      alct_bx = new t_ints;
      alct_wg = new t_ints;
@@ -194,6 +208,20 @@ namespace gem {
      lct_quality = new t_ints;
      lct_pattern = new t_ints;
      lct_tpid = new t_ints;
+
+     mplct_bx = new t_ints;
+     mplct_wg = new t_ints;
+     mplct_hs = new t_ints;
+     mplct_qs = new t_ints;
+     mplct_es = new t_ints;
+     mplct_isodd = new t_ints;
+     mplct_region = new t_ints;
+     mplct_station = new t_ints;
+     mplct_ring = new t_ints;
+     mplct_chamber = new t_ints;
+     mplct_quality = new t_ints;
+     mplct_pattern = new t_ints;
+     mplct_tpid = new t_ints;
 
       for (unsigned i = 0 ; i < nStations; i++) {
 
@@ -343,6 +371,20 @@ namespace gem {
       lct_quality->clear();
       lct_pattern->clear();
       lct_tpid->clear();
+
+      mplct_bx->clear();
+      mplct_wg->clear();
+      mplct_hs->clear();
+      mplct_qs->clear();
+      mplct_es->clear();
+      mplct_isodd->clear();
+      mplct_region->clear();
+      mplct_station->clear();
+      mplct_ring->clear();
+      mplct_chamber->clear();
+      mplct_quality->clear();
+      mplct_pattern->clear();
+      mplct_tpid->clear();
     }
 
 
@@ -384,6 +426,20 @@ namespace gem {
       t->Branch("lct_quality", &lct_quality);
       t->Branch("lct_pattern", &lct_pattern);
       t->Branch("lct_tpid", &lct_tpid);
+
+      t->Branch("mplct_bx", &mplct_bx);
+      t->Branch("mplct_wg", &mplct_wg);
+      t->Branch("mplct_hs", &mplct_hs);
+      t->Branch("mplct_qs", &mplct_qs);
+      t->Branch("mplct_es", &mplct_es);
+      t->Branch("mplct_isodd", &mplct_isodd);
+      t->Branch("mplct_region", &mplct_region);
+      t->Branch("mplct_station", &mplct_station);
+      t->Branch("mplct_ring", &mplct_ring);
+      t->Branch("mplct_chamber", &mplct_chamber);
+      t->Branch("mplct_quality", &mplct_quality);
+      t->Branch("mplct_pattern", &mplct_pattern);
+      t->Branch("mplct_tpid", &mplct_tpid);
 
       t->Branch("has_clct_odd", has_clct_odd, "has_clct_odd[11]/O");
       t->Branch("has_alct_odd", has_alct_odd, "has_alct_odd[11]/O");
