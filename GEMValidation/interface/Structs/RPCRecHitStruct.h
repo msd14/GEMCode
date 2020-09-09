@@ -1,8 +1,7 @@
 #ifndef GEMCode_GEMValidation_RPCRecHitStruct
 #define GEMCode_GEMValidation_RPCRecHitStruct
 
-#include "TTree.h"
-#include <string>
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
 

@@ -1,7 +1,7 @@
 #ifndef GEMCode_GEMValidation_L1TrackStruct
 #define GEMCode_GEMValidation_L1TrackStruct
 
-#include "TTree.h"
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
 

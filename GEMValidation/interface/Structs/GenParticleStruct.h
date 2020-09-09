@@ -1,8 +1,7 @@
 #ifndef GEMCode_GEMValidation_GenParticleStruct
 #define GEMCode_GEMValidation_GenParticleStruct
 
-#include "TTree.h"
-#include <vector>
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
 
@@ -14,16 +13,16 @@ namespace gem {
     int pdgid;
 
     // new stuff
-    std::vector<float>* gen_pt;
-    std::vector<float>* gen_eta;
-    std::vector<float>* gen_phi;
-    std::vector<int>*   gen_charge;
-    std::vector<float>* gen_dxy;
-    std::vector<float>* gen_d0;
-    std::vector<float>* gen_z0;
-    std::vector<float>* gen_d0_prod;
-    std::vector<float>* gen_z0_prod;
-    std::vector<int>*   gen_pdgid;
+    p_floats gen_pt;
+    p_floats gen_eta;
+    p_floats gen_phi;
+    p_ints   gen_charge;
+    p_floats gen_dxy;
+    p_floats gen_d0;
+    p_floats gen_z0;
+    p_floats gen_d0_prod;
+    p_floats gen_z0_prod;
+    p_ints   gen_pdgid;
 
     void init() {
       pt = 0.;
@@ -34,16 +33,16 @@ namespace gem {
       endcap = -9;
       pdgid = -9999;
 
-      gen_pt      = new std::vector<float>;
-      gen_eta     = new std::vector<float>;
-      gen_phi     = new std::vector<float>;
-      gen_dxy     = new std::vector<float>;
-      gen_d0      = new std::vector<float>;
-      gen_z0      = new std::vector<float>;
-      gen_d0_prod = new std::vector<float>;
-      gen_z0_prod = new std::vector<float>;
-      gen_pdgid   = new std::vector<int>;
-      gen_charge  = new std::vector<int>;
+      gen_pt      = new t_floats;
+      gen_eta     = new t_floats;
+      gen_phi     = new t_floats;
+      gen_dxy     = new t_floats;
+      gen_d0      = new t_floats;
+      gen_z0      = new t_floats;
+      gen_d0_prod = new t_floats;
+      gen_z0_prod = new t_floats;
+      gen_pdgid   = new t_ints;
+      gen_charge  = new t_ints;
     };
 
     void clear() {

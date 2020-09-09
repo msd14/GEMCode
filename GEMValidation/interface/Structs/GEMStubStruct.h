@@ -1,8 +1,7 @@
 #ifndef GEMCode_GEMValidation_GEMStubStruct
 #define GEMCode_GEMValidation_GEMStubStruct
 
-#include "TTree.h"
-#include <string>
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
 

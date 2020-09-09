@@ -1,8 +1,7 @@
 #ifndef GEMCode_GEMValidation_CSCStubStruct
 #define GEMCode_GEMValidation_CSCStubStruct
 
-#include "TROOT.h"
-#include "TTree.h"
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
 

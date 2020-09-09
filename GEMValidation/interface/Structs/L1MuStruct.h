@@ -1,7 +1,7 @@
 #ifndef GEMCode_GEMValidation_L1MuStruct
 #define GEMCode_GEMValidation_L1MuStruct
 
-#include "TTree.h"
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
 
@@ -31,10 +31,30 @@ namespace gem {
     float lctdphi12;
 
     bool allstubs_matched_TF;
+
     //L1Mu
     float bestdRGmtCand;
     float L1Mu_pt, L1Mu_eta, L1Mu_phi, L1Mu_quality, L1Mu_bx;
     Int_t L1Mu_charge;
+
+    // new stuff
+    p_floats emtftrack_pt;
+    p_floats emtftrack_eta;
+    p_floats emtftrack_phi;
+    p_ints   emtftrack_charge;
+    p_ints   emtftrack_bx;
+
+    p_floats emtfregcand_pt;
+    p_floats emtfregcand_eta;
+    p_floats emtfregcand_phi;
+    p_ints   emtfregcand_charge;
+    p_ints   emtfregcand_bx;
+
+    p_floats l1mu_pt;
+    p_floats l1mu_eta;
+    p_floats l1mu_phi;
+    p_ints   l1mu_charge;
+    p_ints   l1mu_bx;
 
     void init() {
       // Track properties
@@ -95,7 +115,45 @@ namespace gem {
       L1Mu_quality = -99;
       L1Mu_bx = -99;
       L1Mu_charge = -99;
+
+      emtftrack_pt = new t_floats;
+      emtftrack_eta = new t_floats;
+      emtftrack_phi = new t_floats;
+      emtftrack_charge = new t_ints;
+      emtftrack_bx = new t_ints;
+
+      emtfregcand_pt = new t_floats;
+      emtfregcand_eta = new t_floats;
+      emtfregcand_phi = new t_floats;
+      emtfregcand_charge = new t_ints;
+      emtfregcand_bx = new t_ints;
+
+      l1mu_pt = new t_floats;
+      l1mu_eta = new t_floats;
+      l1mu_phi = new t_floats;
+      l1mu_charge = new t_ints;
+      l1mu_bx = new t_ints;
     };
+
+    void clear(){
+      emtftrack_pt->clear();
+      emtftrack_eta->clear();
+      emtftrack_phi->clear();
+      emtftrack_charge->clear();
+      emtftrack_bx->clear();
+
+      emtfregcand_pt->clear();
+      emtfregcand_eta->clear();
+      emtfregcand_phi->clear();
+      emtfregcand_charge->clear();
+      emtfregcand_bx->clear();
+
+      l1mu_pt->clear();
+      l1mu_eta->clear();
+      l1mu_phi->clear();
+      l1mu_charge->clear();
+      l1mu_bx->clear();
+    }
 
     void book(TTree* t) {
 
@@ -156,6 +214,26 @@ namespace gem {
       t->Branch("L1Mu_quality", &L1Mu_quality);
       t->Branch("L1Mu_bx", &L1Mu_bx);
       t->Branch("L1Mu_charge", &L1Mu_charge);
+
+      t->Branch("L1Mu_charge", &L1Mu_charge);
+
+      t->Branch("emtftrack_pt", &emtftrack_pt);
+      t->Branch("emtftrack_eta", &emtftrack_eta);
+      t->Branch("emtftrack_phi", &emtftrack_phi);
+      t->Branch("emtftrack_charge", &emtftrack_charge);
+      t->Branch("emtftrack_bx", &emtftrack_bx);
+
+      t->Branch("emtfregcand_pt", &emtfregcand_pt);
+      t->Branch("emtfregcand_eta", &emtfregcand_eta);
+      t->Branch("emtfregcand_phi", &emtfregcand_phi);
+      t->Branch("emtfregcand_charge", &emtfregcand_charge);
+      t->Branch("emtfregcand_bx", &emtfregcand_bx);
+
+      t->Branch("l1mu_pt", &l1mu_pt);
+      t->Branch("l1mu_eta", &l1mu_eta);
+      t->Branch("l1mu_phi", &l1mu_phi);
+      t->Branch("l1mu_charge", &l1mu_charge);
+      t->Branch("l1mu_bx", &l1mu_bx);
     }
   };
 }  // namespace

@@ -1,7 +1,7 @@
 #ifndef GEMCode_GEMValidation_CSCDigiStruct
 #define GEMCode_GEMValidation_CSCDigiStruct
 
-#include "TTree.h"
+#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
 
 namespace gem {
   /*
