@@ -2,6 +2,20 @@
 
 L1TrackAnalyzer::L1TrackAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
+  const auto& l1Track = conf.getParameter<edm::ParameterSet>("l1Track");
+  minBXTrack_ = l1Track.getParameter<int>("minBX");
+  maxBXTrack_ = l1Track.getParameter<int>("maxBX");
+  verboseTrack_ = l1Track.getParameter<int>("verbose");
+  runTrack_ = l1Track.getParameter<bool>("run");
+
+  const auto& l1TrackMuon = conf.getParameter<edm::ParameterSet>("l1TkMuon");
+  minBXTrackMuon_ = l1TrackMuon.getParameter<int>("minBX");
+  maxBXTrackMuon_ = l1TrackMuon.getParameter<int>("maxBX");
+  verboseTrackMuon_ = l1TrackMuon.getParameter<int>("verbose");
+  runTrackMuon_ = l1TrackMuon.getParameter<bool>("run");
+
+  l1TrackToken_ = iC.consumes<L1TTTrackCollectionType>(l1Track.getParameter<edm::InputTag>("inputTag"));
+  l1TrackMuonToken_ = iC.consumes<l1t::TkMuonCollection>(l1TrackMuon.getParameter<edm::InputTag>("inputTag"));
 }
 
 void L1TrackAnalyzer::setMatcher(const L1TrackMatcher& match_sh)

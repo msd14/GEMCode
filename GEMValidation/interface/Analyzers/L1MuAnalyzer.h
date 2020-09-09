@@ -30,6 +30,20 @@ public:
   edm::Handle<l1t::RegionalMuonCandBxCollection> emtfCandHandle_;
   edm::Handle<l1t::MuonBxCollection> muonHandle_;
 
+  std::shared_ptr<CSCStubMatcher> cscStubMatcher_;
+
+  int minBXEMTFTrack_, maxBXEMTFTrack_;
+  int verboseEMTFTrack_;
+  bool runEMTFTrack_;
+
+  int minBXRegMuCand_, maxBXRegMuCand_;
+  int verboseRegMuCand_;
+  bool runRegMuCand_;
+
+  int minBXGMT_, maxBXGMT_;
+  int verboseGMT_;
+  bool runGMT_;
+
   std::unique_ptr<L1MuMatcher> match_;
 };
 

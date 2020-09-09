@@ -2,6 +2,27 @@
 
 L1MuAnalyzer::L1MuAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
+  const auto& emtfTrack = conf.getParameter<edm::ParameterSet>("emtfTrack");
+  minBXEMTFTrack_ = emtfTrack.getParameter<int>("minBX");
+  maxBXEMTFTrack_ = emtfTrack.getParameter<int>("maxBX");
+  verboseEMTFTrack_ = emtfTrack.getParameter<int>("verbose");
+  runEMTFTrack_ = emtfTrack.getParameter<bool>("run");
+
+  const auto& emtfCand = conf.getParameter<edm::ParameterSet>("emtfCand");
+  minBXRegMuCand_ = emtfCand.getParameter<int>("minBX");
+  maxBXRegMuCand_ = emtfCand.getParameter<int>("maxBX");
+  verboseRegMuCand_ = emtfCand.getParameter<int>("verbose");
+  runRegMuCand_ = emtfCand.getParameter<bool>("run");
+
+  const auto& muon = conf.getParameter<edm::ParameterSet>("muon");
+  minBXGMT_ = muon.getParameter<int>("minBX");
+  maxBXGMT_ = muon.getParameter<int>("maxBX");
+  verboseGMT_ = muon.getParameter<int>("verbose");
+  runGMT_ = muon.getParameter<bool>("run");
+
+  emtfTrackToken_ = iC.consumes<l1t::EMTFTrackCollection>(emtfTrack.getParameter<edm::InputTag>("inputTag"));
+  emtfCandToken_ = iC.consumes<l1t::RegionalMuonCandBxCollection>(emtfCand.getParameter<edm::InputTag>("inputTag"));
+  muonToken_ = iC.consumes<l1t::MuonBxCollection>(muon.getParameter<edm::InputTag>("inputTag"));
 }
 
 void L1MuAnalyzer::setMatcher(const L1MuMatcher& match_sh)

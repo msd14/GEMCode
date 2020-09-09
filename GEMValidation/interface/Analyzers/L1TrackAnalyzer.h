@@ -28,6 +28,14 @@ public:
   edm::Handle<L1TTTrackCollectionType> l1TrackHandle_;
   edm::Handle<l1t::TkMuonCollection> l1TrackMuonHandle_;
 
+  int minBXTrack_, maxBXTrack_;
+  int verboseTrack_;
+  bool runTrack_;
+
+  int minBXTrackMuon_, maxBXTrackMuon_;
+  int verboseTrackMuon_;
+  bool runTrackMuon_;
+
   std::unique_ptr<L1TrackMatcher> match_;
 };
 
