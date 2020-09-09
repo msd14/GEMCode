@@ -31,6 +31,7 @@ class AnalyzerManager
   void setManager(const MatcherManager&);
 
   /// do the matching
+  void analyze(const edm::Event& ev, const edm::EventSetup& es) {}
   void analyze(TreeManager& tree, const SimTrack& t, const SimVertex& v);
 
  private:

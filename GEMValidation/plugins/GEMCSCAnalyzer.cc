@@ -105,6 +105,8 @@ void GEMCSCAnalyzer::analyze(const edm::Event& ev, const edm::EventSetup& es) {
     }
     analyze(t, sim_vert[t.vertIndex()]);
   }
+
+  // analyzer_->analyze(ev, es);
 }
 
 void GEMCSCAnalyzer::analyze(const SimTrack& track, const SimVertex& vertex)

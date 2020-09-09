@@ -21,6 +21,7 @@ public:
   void setMatcher(const CSCStubMatcher& match_sh);
 
   // initialize the event
+  void analyze(const edm::Event& ev, const edm::EventSetup& es);
   void analyze(TreeManager& tree);
 
  private:

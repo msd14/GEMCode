@@ -68,6 +68,33 @@ void CSCStubAnalyzer::setMatcher(const CSCStubMatcher& match_sh)
   match_.reset(new CSCStubMatcher(match_sh));
 }
 
+void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup) {
+
+  iSetup.get<MuonGeometryRecord>().get(csc_geom_);
+  if (csc_geom_.isValid()) {
+  cscGeometry_ = &*csc_geom_;
+  } else {
+    std::cout << "+++ Info: CSC geometry is unavailable. +++\n";
+  }
+
+  iSetup.get<MuonGeometryRecord>().get(gem_geom_);
+  if (gem_geom_.isValid()) {
+  gemGeometry_ = &*gem_geom_;
+  } else {
+    std::cout << "+++ Info: GEM geometry is unavailable. +++\n";
+  }
+
+  iEvent.getByToken(clctToken_, clctsH_);
+  iEvent.getByToken(alctToken_, alctsH_);
+  iEvent.getByToken(lctToken_, lctsH_);
+  iEvent.getByToken(mplctToken_, mplctsH_);
+
+  const CSCCLCTDigiCollection& clcts = *clctsH_.product();
+  const CSCALCTDigiCollection& alcts = *alctsH_.product();
+  const CSCCorrelatedLCTDigiCollection& lcts = *lctsH_.product();
+  const CSCCorrelatedLCTDigiCollection& mplcts = *mplctsH_.product();
+}
+
 void CSCStubAnalyzer::analyze(TreeManager& tree)
 {
   // CSC CLCTs
