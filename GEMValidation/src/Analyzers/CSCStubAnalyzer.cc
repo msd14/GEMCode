@@ -68,7 +68,7 @@ void CSCStubAnalyzer::setMatcher(const CSCStubMatcher& match_sh)
   match_.reset(new CSCStubMatcher(match_sh));
 }
 
-void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup) {
+void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup, TreeManager& tree) {
 
   iSetup.get<MuonGeometryRecord>().get(csc_geom_);
   if (csc_geom_.isValid()) {
@@ -93,6 +93,77 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   const CSCALCTDigiCollection& alcts = *alctsH_.product();
   const CSCCorrelatedLCTDigiCollection& lcts = *lctsH_.product();
   const CSCCorrelatedLCTDigiCollection& mplcts = *mplctsH_.product();
+
+  auto& cscTree = tree.cscStub();
+
+  // CSC ALCTs
+  for (auto detUnitIt = alcts->begin(); detUnitIt != alcts->end(); detUnitIt++) {
+    int iLCT;
+    const CSCDetId& id = (*detUnitIt).first;
+    const auto& range = (*detUnitIt).second;
+    for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+      if (!(*digiIt).isValid())
+        continue;
+
+      // check that the BX for this stub wasn't too early or too late
+      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+        continue;
+
+      iLCT++;
+    }
+  }
+
+  // CSC CLCTs
+  for (auto detUnitIt = clcts->begin(); detUnitIt != clcts->end(); detUnitIt++) {
+    int iLCT;
+    const CSCDetId& id = (*detUnitIt).first;
+    const auto& range = (*detUnitIt).second;
+    for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+
+      if (!(*digiIt).isValid())
+        continue;
+
+      // check that the BX for this stub wasn't too early or too late
+      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+        continue;
+
+      iLCT++;
+    }
+  }
+
+  // CSC LCTs
+  for (auto detUnitIt = lcts->begin(); detUnitIt != lcts->end(); detUnitIt++) {
+    int iLCT;
+    const CSCDetId& id = (*detUnitIt).first;
+    const auto& range = (*detUnitIt).second;
+    for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+      if (!(*digiIt).isValid())
+        continue;
+
+      // check that the BX for this stub wasn't too early or too late
+      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+        continue;
+
+      iLCT++;
+    }
+  }
+
+  // CSC MPLCTs
+  for (auto detUnitIt = mplcts->begin(); detUnitIt != mplcts->end(); detUnitIt++) {
+    int iLCT;
+    const CSCDetId& id = (*detUnitIt).first;
+    const auto& range = (*detUnitIt).second;
+    for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
+      if (!(*digiIt).isValid())
+        continue;
+
+      // check that the BX for this stub wasn't too early or too late
+      if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
+        continue;
+
+      iLCT++;
+    }
+  }
 }
 
 void CSCStubAnalyzer::analyze(TreeManager& tree)
@@ -165,7 +236,7 @@ void CSCStubAnalyzer::analyze(TreeManager& tree)
         cscStubTree.delta_fes_clct_even[st] = cscStubTree.fes_clct_even[st] - deltaStrip - tree.cscSimHit().strip_csc_sh_even[st];
         // bending deltas
         cscStubTree.dslope_clct_even[st] = cscStubTree.slope_clct_even[st] - tree.cscSimHit().bend_csc_sh_even[st];
-         std::cout << "CSCStubAnalyzer " << id << " " << clct << " " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << " " << fpos << std::endl;
+        std::cout << "CSCStubAnalyzer " << id << " " << clct << " " << cscStubTree.slope_clct_even[st] << " " << tree.cscSimHit().bend_csc_sh_even[st] << " " <<  cscStubTree.dslope_clct_even[st] << " " << fpos << std::endl;
       }
     };
 
