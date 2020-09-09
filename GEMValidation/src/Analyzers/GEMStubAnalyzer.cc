@@ -3,6 +3,25 @@
 GEMStubAnalyzer::GEMStubAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberGEMDigi");
+
+  const auto& gemPad = conf.getParameterSet("gemPadDigi");
+  minBXPad_ = gemPad.getParameter<int>("minBX");
+  maxBXPad_ = gemPad.getParameter<int>("maxBX");
+  verbosePad_ = gemPad.getParameter<int>("verbose");
+
+  const auto& gemCluster = conf.getParameterSet("gemPadCluster");
+  minBXCluster_ = gemCluster.getParameter<int>("minBX");
+  maxBXCluster_ = gemCluster.getParameter<int>("maxBX");
+  verboseCluster_ = gemCluster.getParameter<int>("verbose");
+
+  const auto& gemCoPad = conf.getParameterSet("gemCoPadDigi");
+  minBXCoPad_ = gemCoPad.getParameter<int>("minBX");
+  maxBXCoPad_ = gemCoPad.getParameter<int>("maxBX");
+  verboseCoPad_ = gemCoPad.getParameter<int>("verbose");
+
+  gemPadToken_ = iC.consumes<GEMPadDigiCollection>(gemPad.getParameter<edm::InputTag>("inputTag"));
+  gemClusterToken_ = iC.consumes<GEMPadDigiClusterCollection>(gemCluster.getParameter<edm::InputTag>("inputTag"));
+  gemCoPadToken_ = iC.consumes<GEMCoPadDigiCollection>(gemCoPad.getParameter<edm::InputTag>("inputTag"));
 }
 
 void GEMStubAnalyzer::setMatcher(const GEMDigiMatcher& match_sh)

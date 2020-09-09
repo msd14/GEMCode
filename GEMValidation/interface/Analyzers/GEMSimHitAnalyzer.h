@@ -26,6 +26,9 @@ public:
 
   std::shared_ptr<GEMSimHitMatcher> match_;
   int minNHitsChamber_;
+
+  bool verbose_;
+  edm::ParameterSet simHitPSet_;
 };
 
 #endif

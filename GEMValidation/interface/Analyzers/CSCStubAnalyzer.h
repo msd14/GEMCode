@@ -35,6 +35,16 @@ public:
   edm::Handle<CSCCorrelatedLCTDigiCollection> lctsH_;
   edm::Handle<CSCCorrelatedLCTDigiCollection> mplctsH_;
 
+  bool verboseALCT_;
+  bool verboseCLCT_;
+  bool verboseLCT_;
+  bool verboseMPLCT_;
+
+  int minBXCLCT_, maxBXCLCT_;
+  int minBXALCT_, maxBXALCT_;
+  int minBXLCT_, maxBXLCT_;
+  int minBXMPLCT_, maxBXMPLCT_;
+
   // all in strips / layer
   float getSlope(const CSCCLCTDigi& lct) const;
   float getRun3Slope(int pattern, int slope) const;

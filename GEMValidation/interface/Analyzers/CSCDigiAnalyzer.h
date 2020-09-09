@@ -32,6 +32,14 @@ public:
 
   std::unique_ptr<CSCDigiMatcher> match_;
   int minNHitsChamber_;
+
+  int minBXComparator_, maxBXComparator_;
+  int minBXStrip_, maxBXStrip_;
+  int minBXWire_, maxBXWire_;
+
+  int verboseComparator_;
+  int verboseStrip_;
+  int verboseWG_;
 };
 
 #endif

@@ -30,6 +30,14 @@ public:
   edm::Handle<GEMPadDigiClusterCollection> gemClustersH_;
   edm::Handle<GEMCoPadDigiCollection> gemCoPadsH_;
 
+  int minBXPad_, maxBXPad_;
+  int minBXCluster_, maxBXCluster_;
+  int minBXCoPad_, maxBXCoPad_;
+
+  bool verbosePad_;
+  bool verboseCluster_;
+  bool verboseCoPad_;
+
   std::pair<GEMPadDigi, GlobalPoint>
   bestPad(const GEMDetId& id,
           const GEMPadDigiContainer& digis) const;

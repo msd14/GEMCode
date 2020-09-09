@@ -30,6 +30,9 @@ public:
 
   std::shared_ptr<CSCSimHitMatcher> match_;
   int minNHitsChamber_;
+
+  bool verbose_;
+  edm::ParameterSet simHitPSet_;
 };
 
 #endif

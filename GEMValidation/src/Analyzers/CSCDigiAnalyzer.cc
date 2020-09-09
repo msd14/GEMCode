@@ -3,6 +3,26 @@
 CSCDigiAnalyzer::CSCDigiAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberCSCDigi");
+
+  const auto& wireDigi = conf.getParameterSet("cscWireDigi");
+  verboseWG_ = wireDigi.getParameter<int>("verbose");
+  minBXWire_ = wireDigi.getParameter<int>("minBX");
+  maxBXWire_ = wireDigi.getParameter<int>("maxBX");
+
+  const auto& comparatorDigi = conf.getParameterSet("cscComparatorDigi");
+  verboseComparator_ = comparatorDigi.getParameter<int>("verbose");
+  minBXComparator_ = comparatorDigi.getParameter<int>("minBX");
+  maxBXComparator_ = comparatorDigi.getParameter<int>("maxBX");
+
+  const auto& stripDigi = conf.getParameterSet("cscStripDigi");
+  verboseStrip_ = stripDigi.getParameter<int>("verbose");
+  minBXStrip_ = stripDigi.getParameter<int>("minBX");
+  maxBXStrip_ = stripDigi.getParameter<int>("maxBX");
+
+  comparatorDigiInput_ =
+      iC.consumes<CSCComparatorDigiCollection>(comparatorDigi.getParameter<edm::InputTag>("inputTag"));
+  stripDigiInput_ = iC.consumes<CSCStripDigiCollection>(stripDigi.getParameter<edm::InputTag>("inputTag"));
+  wireDigiInput_ = iC.consumes<CSCWireDigiCollection>(wireDigi.getParameter<edm::InputTag>("inputTag"));
 }
 
 void CSCDigiAnalyzer::setMatcher(const CSCDigiMatcher& match_sh)

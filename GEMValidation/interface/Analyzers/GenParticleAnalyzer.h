@@ -25,6 +25,11 @@ public:
  private:
   std::unique_ptr<GenParticleMatcher> match_;
 
+  edm::Handle<reco::GenParticleCollection> genParticlesHandle_;
+  edm::EDGetTokenT<reco::GenParticleCollection> inputToken_;
+
+  int verbose_;
+  bool run_;
 };
 
 #endif

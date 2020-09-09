@@ -6,6 +6,31 @@ CSCStubAnalyzer::CSCStubAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCol
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberCSCStub");
 
+  const auto& cscCLCT = conf.getParameter<edm::ParameterSet>("cscCLCT");
+  minBXCLCT_ = cscCLCT.getParameter<int>("minBX");
+  maxBXCLCT_ = cscCLCT.getParameter<int>("maxBX");
+  verboseCLCT_ = cscCLCT.getParameter<int>("verbose");
+
+  const auto& cscALCT = conf.getParameter<edm::ParameterSet>("cscALCT");
+  minBXALCT_ = cscALCT.getParameter<int>("minBX");
+  maxBXALCT_ = cscALCT.getParameter<int>("maxBX");
+  verboseALCT_ = cscALCT.getParameter<int>("verbose");
+
+  const auto& cscLCT = conf.getParameter<edm::ParameterSet>("cscLCT");
+  minBXLCT_ = cscLCT.getParameter<int>("minBX");
+  maxBXLCT_ = cscLCT.getParameter<int>("maxBX");
+  verboseLCT_ = cscLCT.getParameter<int>("verbose");
+
+  const auto& cscMPLCT = conf.getParameter<edm::ParameterSet>("cscMPLCT");
+  minBXMPLCT_ = cscMPLCT.getParameter<int>("minBX");
+  maxBXMPLCT_ = cscMPLCT.getParameter<int>("maxBX");
+  verboseMPLCT_ = cscMPLCT.getParameter<int>("verbose");
+
+  clctToken_ = iC.consumes<CSCCLCTDigiCollection>(cscCLCT.getParameter<edm::InputTag>("inputTag"));
+  alctToken_ = iC.consumes<CSCALCTDigiCollection>(cscALCT.getParameter<edm::InputTag>("inputTag"));
+  lctToken_ = iC.consumes<CSCCorrelatedLCTDigiCollection>(cscLCT.getParameter<edm::InputTag>("inputTag"));
+  mplctToken_ = iC.consumes<CSCCorrelatedLCTDigiCollection>(cscMPLCT.getParameter<edm::InputTag>("inputTag"));
+
   positionLUTFiles_ = conf.getParameter<std::vector<std::string>>("positionLUTFiles");
   positionFloatLUTFiles_ = conf.getParameter<std::vector<std::string>>("positionFloatLUTFiles");
   slopeLUTFiles_ = conf.getParameter<std::vector<std::string>>("slopeLUTFiles");

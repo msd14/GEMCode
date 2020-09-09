@@ -2,10 +2,16 @@
 
 GenParticleAnalyzer::GenParticleAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
+  const auto& gen = conf.getParameter<edm::ParameterSet>("genParticle");
+  verbose_ = gen.getParameter<int>("verbose");
+  run_ = gen.getParameter<bool>("run");
+
+  inputToken_ = iC.consumes<reco::GenParticleCollection>(gen.getParameter<edm::InputTag>("inputTag"));
 }
 
 void GenParticleAnalyzer::init(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
+  iEvent.getByToken(inputToken_, genParticlesHandle_);
 }
 
 void GenParticleAnalyzer::setMatcher(const GenParticleMatcher& match_sh)

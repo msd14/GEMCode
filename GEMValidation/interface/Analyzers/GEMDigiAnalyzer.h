@@ -30,6 +30,9 @@ public:
 
   std::unique_ptr<GEMDigiMatcher> match_;
   int minNHitsChamber_;
+
+  int minBXDigi_, maxBXDigi_;
+  bool verboseDigi_;
 };
 
 #endif
