@@ -197,11 +197,13 @@ def CSCResolutionComparison(plotter, plotter2):
         toPlot1 = delta_fhs_clct(st)
         toPlot2 = delta_fqs_clct(st)
         toPlot3 = delta_fes_clct(st)
+        toPlot4 = delta_ffhs_clct(st)
 
         h11 = draw_1D(plotter.tree, title, h_bins, toPlot1, "", "same", kBlack)
         h1 = draw_1D(plotter2.tree, title, h_bins, toPlot1, "", "same", kBlue)
         h2 = draw_1D(plotter2.tree, title, h_bins, toPlot2, "", "same", kGreen+2)
         h3 = draw_1D(plotter2.tree, title, h_bins, toPlot3, "", "same", kRed+1)
+#        h4 = draw_1D(plotter2.tree, title, h_bins, toPlot4, "", "same", kOrange)
 
         h11total.append(h11)
         h1total.append(h1)
@@ -212,11 +214,13 @@ def CSCResolutionComparison(plotter, plotter2):
         h1.Scale(1./h1.GetEntries())
         h2.Scale(1./h2.GetEntries())
         h3.Scale(1./h3.GetEntries())
+#        h4.Scale(1./h4.GetEntries())
         base.SetMaximum(h3.GetBinContent(h3.GetMaximumBin()) * 1.5)
         h11.Draw("histsame")
         h1.Draw("histsame")
         h2.Draw("histsame")
         h3.Draw("histsame")
+#        h4.Draw("histsame")
 
         leg = TLegend(0.15,0.6,.45,0.9, "", "brNDC");
         leg.SetBorderSize(0)
@@ -226,6 +230,7 @@ def CSCResolutionComparison(plotter, plotter2):
         leg.AddEntry(h1,  "1/2 strip (Run-3)","pl")
         leg.AddEntry(h2,  "1/4 strip (Run-3)","pl")
         leg.AddEntry(h3,  "1/8 strip (Run-3)","pl")
+#        leg.AddEntry(h4,  "True strip (Run-3)","pl")
         leg.Draw("same");
 
         csc = drawCSCLabel(cscStations[st].label, 0.85,0.85,0.05)

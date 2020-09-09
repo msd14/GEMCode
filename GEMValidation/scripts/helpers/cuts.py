@@ -48,6 +48,9 @@ def ok_csc_alct(st):
 def ok_csc_clct(st):
     return TCut("CSCStub.has_clct_even[%d] || CSCStub.has_clct_odd[%d]"%(st,st))
 
+def delta_ffhs_clct(st):
+    return "max(CSCStub.delta_ffhs_clct_even[%d], CSCStub.delta_ffhs_clct_odd[%d])"%(st,st)
+
 def delta_fhs_clct(st):
     return "max(CSCStub.delta_fhs_clct_even[%d], CSCStub.delta_fhs_clct_odd[%d])"%(st,st)
 
