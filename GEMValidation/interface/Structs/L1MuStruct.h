@@ -43,18 +43,21 @@ namespace gem {
     p_floats emtftrack_phi;
     p_ints   emtftrack_charge;
     p_ints   emtftrack_bx;
+    p_ints   emtftrack_tpid;
 
     p_floats emtfregcand_pt;
     p_floats emtfregcand_eta;
     p_floats emtfregcand_phi;
     p_ints   emtfregcand_charge;
     p_ints   emtfregcand_bx;
+    p_ints   emtfregcand_tpid;
 
     p_floats l1mu_pt;
     p_floats l1mu_eta;
     p_floats l1mu_phi;
     p_ints   l1mu_charge;
     p_ints   l1mu_bx;
+    p_ints   l1mu_tpid;
 
     void init() {
       // Track properties
