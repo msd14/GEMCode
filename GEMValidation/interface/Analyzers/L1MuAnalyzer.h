@@ -10,7 +10,7 @@ class L1MuAnalyzer
 public:
 
   // constructor
-  L1MuAnalyzer(const edm::ParameterSet& conf);
+  L1MuAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~L1MuAnalyzer() {}

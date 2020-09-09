@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/GenParticleAnalyzer.h"
 
-GenParticleAnalyzer::GenParticleAnalyzer(const edm::ParameterSet& conf)
+GenParticleAnalyzer::GenParticleAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
 }
 

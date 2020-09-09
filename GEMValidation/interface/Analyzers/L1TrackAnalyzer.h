@@ -10,7 +10,7 @@ class L1TrackAnalyzer
 public:
 
   // constructor
-  L1TrackAnalyzer(const edm::ParameterSet& conf);
+  L1TrackAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~L1TrackAnalyzer() {}

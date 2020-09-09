@@ -10,7 +10,7 @@ class SimTrackAnalyzer
 public:
 
   // constructor
-  SimTrackAnalyzer(const edm::ParameterSet& conf);
+  SimTrackAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~SimTrackAnalyzer() {}

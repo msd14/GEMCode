@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/GEMSimHitAnalyzer.h"
 
-GEMSimHitAnalyzer::GEMSimHitAnalyzer(const edm::ParameterSet& conf)
+GEMSimHitAnalyzer::GEMSimHitAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberGEMSimHit");
 }

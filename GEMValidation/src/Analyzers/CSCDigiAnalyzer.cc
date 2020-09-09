@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/CSCDigiAnalyzer.h"
 
-CSCDigiAnalyzer::CSCDigiAnalyzer(const edm::ParameterSet& conf)
+CSCDigiAnalyzer::CSCDigiAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberCSCDigi");
 }

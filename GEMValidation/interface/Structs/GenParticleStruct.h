@@ -7,6 +7,7 @@
 namespace gem {
 
   struct GenParticleStruct {
+    // old code
     float pt, eta, phi, pz, dxy;
     int charge;
     int endcap;

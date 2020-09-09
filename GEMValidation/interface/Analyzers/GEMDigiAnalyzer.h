@@ -10,7 +10,7 @@ class GEMDigiAnalyzer
 public:
 
   // constructor
-  GEMDigiAnalyzer(const edm::ParameterSet& conf);
+  GEMDigiAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~GEMDigiAnalyzer() {}

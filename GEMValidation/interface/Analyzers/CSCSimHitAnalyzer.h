@@ -10,7 +10,7 @@ class CSCSimHitAnalyzer
 public:
 
   // constructor
-  CSCSimHitAnalyzer(const edm::ParameterSet& conf);
+  CSCSimHitAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~CSCSimHitAnalyzer() {}

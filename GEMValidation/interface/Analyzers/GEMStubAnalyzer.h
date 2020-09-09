@@ -10,7 +10,7 @@ class GEMStubAnalyzer
 public:
 
   // constructor
-  GEMStubAnalyzer(const edm::ParameterSet& conf);
+  GEMStubAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~GEMStubAnalyzer() {}

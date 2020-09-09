@@ -11,7 +11,7 @@ class CSCStubAnalyzer
 public:
 
   // constructor
-  CSCStubAnalyzer(const edm::ParameterSet& conf);
+  CSCStubAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~CSCStubAnalyzer() {}

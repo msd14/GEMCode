@@ -10,7 +10,7 @@ class CSCDigiAnalyzer
 public:
 
   // constructor
-  CSCDigiAnalyzer(const edm::ParameterSet& conf);
+  CSCDigiAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~CSCDigiAnalyzer() {}

@@ -1,17 +1,17 @@
 #include "GEMCode/GEMValidation/interface/AnalyzerManager.h"
 
-AnalyzerManager::AnalyzerManager(const edm::ParameterSet& conf)
+AnalyzerManager::AnalyzerManager(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
-  gent_.reset(new GenParticleAnalyzer(conf));
-  simt_.reset(new SimTrackAnalyzer(conf));
-  gemsh_.reset(new GEMSimHitAnalyzer(conf));
-  gemdg_.reset(new GEMDigiAnalyzer(conf));
-  gemstub_.reset(new GEMStubAnalyzer(conf));
-  cscsh_.reset(new CSCSimHitAnalyzer(conf));
-  cscdg_.reset(new CSCDigiAnalyzer(conf));
-  cscstub_.reset(new CSCStubAnalyzer(conf));
-  l1mu_.reset(new L1MuAnalyzer(conf));
-  l1track_.reset(new L1TrackAnalyzer(conf));
+  gent_.reset(new GenParticleAnalyzer(conf, std::move(iC)));
+  simt_.reset(new SimTrackAnalyzer(conf, std::move(iC)));
+  gemsh_.reset(new GEMSimHitAnalyzer(conf, std::move(iC)));
+  gemdg_.reset(new GEMDigiAnalyzer(conf, std::move(iC)));
+  gemstub_.reset(new GEMStubAnalyzer(conf, std::move(iC)));
+  cscsh_.reset(new CSCSimHitAnalyzer(conf, std::move(iC)));
+  cscdg_.reset(new CSCDigiAnalyzer(conf, std::move(iC)));
+  cscstub_.reset(new CSCStubAnalyzer(conf, std::move(iC)));
+  l1mu_.reset(new L1MuAnalyzer(conf, std::move(iC)));
+  l1track_.reset(new L1TrackAnalyzer(conf, std::move(iC)));
   // recotrack_.reset(new RecoTrackAnalyzer(conf));
 }
 

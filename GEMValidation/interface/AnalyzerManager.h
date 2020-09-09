@@ -21,7 +21,7 @@
 class AnalyzerManager
 {
  public:
-  AnalyzerManager(const edm::ParameterSet& conf);
+  AnalyzerManager(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   ~AnalyzerManager() {}
 

@@ -10,7 +10,7 @@ class GEMSimHitAnalyzer
 public:
 
   // constructor
-  GEMSimHitAnalyzer(const edm::ParameterSet& conf);
+  GEMSimHitAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~GEMSimHitAnalyzer() {}

@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/GEMStubAnalyzer.h"
 
-GEMStubAnalyzer::GEMStubAnalyzer(const edm::ParameterSet& conf)
+GEMStubAnalyzer::GEMStubAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberGEMDigi");
 }

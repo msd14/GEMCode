@@ -63,7 +63,7 @@ GEMCSCAnalyzer::GEMCSCAnalyzer(const edm::ParameterSet& ps) :
   matcher_.reset(new MatcherManager(ps, consumesCollector()));
 
   // define new analyzers
-  analyzer_.reset(new AnalyzerManager(ps));
+  analyzer_.reset(new AnalyzerManager(ps, consumesCollector()));
 }
 
 void GEMCSCAnalyzer::analyze(const edm::Event& ev, const edm::EventSetup& es) {

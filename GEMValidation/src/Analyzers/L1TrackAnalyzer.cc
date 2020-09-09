@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/L1TrackAnalyzer.h"
 
-L1TrackAnalyzer::L1TrackAnalyzer(const edm::ParameterSet& conf)
+L1TrackAnalyzer::L1TrackAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
 }
 

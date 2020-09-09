@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/L1MuAnalyzer.h"
 
-L1MuAnalyzer::L1MuAnalyzer(const edm::ParameterSet& conf)
+L1MuAnalyzer::L1MuAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
 }
 

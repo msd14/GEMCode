@@ -5,7 +5,7 @@
 
 using namespace std;
 
-CSCSimHitAnalyzer::CSCSimHitAnalyzer(const edm::ParameterSet& conf)
+CSCSimHitAnalyzer::CSCSimHitAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberCSCSimHit");
 }

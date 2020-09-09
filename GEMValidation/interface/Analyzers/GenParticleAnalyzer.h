@@ -10,7 +10,7 @@ class GenParticleAnalyzer
 public:
 
   // constructor
-  GenParticleAnalyzer(const edm::ParameterSet& conf);
+  GenParticleAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC);
 
   // destructor
   ~GenParticleAnalyzer() {}

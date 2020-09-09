@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/SimTrackAnalyzer.h"
 
-SimTrackAnalyzer::SimTrackAnalyzer(const edm::ParameterSet& conf)
+SimTrackAnalyzer::SimTrackAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
 }
 

@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/GEMDigiAnalyzer.h"
 
-GEMDigiAnalyzer::GEMDigiAnalyzer(const edm::ParameterSet& conf)
+GEMDigiAnalyzer::GEMDigiAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
   minNHitsChamber_ = conf.getParameter<int>("minNHitsChamberGEMDigi");
 }
