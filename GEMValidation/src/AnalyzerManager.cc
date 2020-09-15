@@ -20,7 +20,7 @@ void AnalyzerManager::init(const edm::Event& iEvent, const edm::EventSetup& iSet
   cscstub_->init(iEvent, iSetup);
 }
 
-void AnalyzerManager::setManager(const MatcherManager& manager)
+void AnalyzerManager::setMatcher(const MatcherManager& manager)
 {
   gent_->setMatcher(*manager.genParticles());
   gemsh_->setMatcher(*manager.gemSimHits());
@@ -33,6 +33,23 @@ void AnalyzerManager::setManager(const MatcherManager& manager)
   l1track_->setMatcher(*manager.l1Tracks());
   // recotrack_->setMatcher(*manager.recoTracks());
 }
+
+void AnalyzerManager::analyze(const edm::Event& ev,
+                              const edm::EventSetup& es,
+                              const MatcherSuperManager& manager,
+                              my::TreeManager& tree) {
+  simt_->analyze(ev, es, tree);
+  gent_->analyze(ev, es, manager, tree);
+  // gemsh_->analyze(ev, es, manager, tree);
+  gemdg_->analyze(ev, es, manager, tree);
+  gemstub_->analyze(ev, es, manager, tree);
+  // cscsh_->analyze(ev, es, manager, tree);
+  // cscdg_->analyze(ev, es, manager, tree);
+  cscstub_->analyze(ev, es, manager, tree);
+  l1mu_->analyze(ev, es, manager, tree);
+  // l1track_->analyze(ev, es, manager, tree);
+}
+
 
 void
 AnalyzerManager::analyze(TreeManager& tree, const SimTrack& t, const SimVertex& v)

@@ -2,7 +2,7 @@
 #define GEMCode_GEMValidation_CSCStubAnalyzer_h
 
 #include "GEMCode/GEMValidation/interface/Helpers.h"
-#include "GEMCode/GEMValidation/interface/MatcherManager.h"
+#include "GEMCode/GEMValidation/interface/MatcherSuperManager.h"
 #include "GEMCode/GEMValidation/interface/TreeManager.h"
 #include "L1Trigger/CSCTriggerPrimitives/interface/CSCComparatorCodeLUT.h"
 
@@ -21,7 +21,7 @@ public:
   void setMatcher(const CSCStubMatcher& match_sh);
 
   // initialize the event
-  void analyze(const edm::Event& ev, const edm::EventSetup& es, TreeManager& tree);
+  void analyze(const edm::Event& ev, const edm::EventSetup& es, const MatcherSuperManager& manager, my::TreeManager& tree);
   void analyze(TreeManager& tree);
 
  private:

@@ -1,6 +1,7 @@
 #ifndef GEMCode_GEMValidation_MatcherManager_h
 #define GEMCode_GEMValidation_MatcherManager_h
 
+#include "FWCore/Framework/interface/ConsumesCollector.h"
 #include "GEMCode/GEMValidation/interface/Matchers/GenParticleMatcher.h"
 #include "GEMCode/GEMValidation/interface/Matchers/ME0RecHitMatcher.h"
 #include "GEMCode/GEMValidation/interface/Matchers/L1MuMatcher.h"

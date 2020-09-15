@@ -2,7 +2,7 @@
 #define GEMCode_GEMValidation_L1TrackAnalyzer_h
 
 #include "GEMCode/GEMValidation/interface/Helpers.h"
-#include "GEMCode/GEMValidation/interface/MatcherManager.h"
+#include "GEMCode/GEMValidation/interface/MatcherSuperManager.h"
 #include "GEMCode/GEMValidation/interface/TreeManager.h"
 
 class L1TrackAnalyzer
@@ -18,7 +18,7 @@ public:
   void setMatcher(const L1TrackMatcher& match_sh);
 
   // initialize the event
-  void analyze(const edm::Event& ev, const edm::EventSetup& es) {}
+  void analyze(const edm::Event& ev, const edm::EventSetup& es, const MatcherSuperManager& manager, my::TreeManager& tree);
   void analyze(TreeManager& tree);
 
  private:

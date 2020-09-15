@@ -1,8 +1,8 @@
 #ifndef GEMCode_GEMValidation_AnalyzerManager_h
 #define GEMCode_GEMValidation_AnalyzerManager_h
 
-#include "GEMCode/GEMValidation/interface/MatcherManager.h"
-#include "GEMCode/GEMValidation/interface/TreeManager.h"
+#include "GEMCode/GEMValidation/interface/MatcherSuperManager.h"
+#include "GEMCode/GEMValidation/interface/new/TreeManager.h"
 #include "GEMCode/GEMValidation/interface/Analyzers/GenParticleAnalyzer.h"
 #include "GEMCode/GEMValidation/interface/Analyzers/SimTrackAnalyzer.h"
 #include "GEMCode/GEMValidation/interface/Analyzers/GEMSimHitAnalyzer.h"
@@ -28,10 +28,10 @@ class AnalyzerManager
   void init(const edm::Event& ev, const edm::EventSetup& es);
 
   /// initialize
-  void setManager(const MatcherManager&);
+  void setMatcher(const MatcherManager&);
 
   /// do the matching
-  void analyze(const edm::Event& ev, const edm::EventSetup& es) {}
+  void analyze(const edm::Event& ev, const edm::EventSetup& es, const MatcherSuperManager& manager, my::TreeManager& tree);
   void analyze(TreeManager& tree, const SimTrack& t, const SimVertex& v);
 
  private:

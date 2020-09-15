@@ -21,10 +21,8 @@ namespace gem {
     int bx_dg_odd[nStations];
     int bx_dg_even[nStations];
 
-    // dphi with simhits
-
-
     void init() {
+
       for (unsigned i = 0 ; i < nStations; i++) {
         has_gem_dg_even[i] = 0;
         has_gem_dg2_even[i] = 0;
@@ -41,6 +39,7 @@ namespace gem {
     };
 
     void book(TTree* t) {
+
       t->Branch("has_gem_dg_odd", has_gem_dg_odd, "has_gem_dg_odd[3]/O");
       t->Branch("has_gem_dg2_odd", has_gem_dg2_odd, "has_gem_dg2_odd[3]/O");
 

@@ -12,18 +12,6 @@ namespace gem {
     int endcap;
     int pdgid;
 
-    // new code
-    std::vector<float>* sim_pt;
-    std::vector<float>* sim_eta;
-    std::vector<float>* sim_phi;
-    std::vector<int>*   sim_charge;
-    std::vector<float>* sim_dxy;
-    std::vector<float>* sim_d0;
-    std::vector<float>* sim_z0;
-    std::vector<float>* sim_d0_prod;
-    std::vector<float>* sim_z0_prod;
-    std::vector<int>*   sim_pdgid;
-
     void init() {
       pt = 0.;
       phi = 0.;

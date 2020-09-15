@@ -2,7 +2,7 @@
 #define GEMCode_GEMValidation_CSCDigiAnalyzer_h
 
 #include "GEMCode/GEMValidation/interface/Helpers.h"
-#include "GEMCode/GEMValidation/interface/MatcherManager.h"
+#include "GEMCode/GEMValidation/interface/MatcherSuperManager.h"
 #include "GEMCode/GEMValidation/interface/TreeManager.h"
 
 class CSCDigiAnalyzer
@@ -18,7 +18,7 @@ public:
   void setMatcher(const CSCDigiMatcher& match_sh);
 
   // initialize the event
-  void analyze(const edm::Event& ev, const edm::EventSetup& es) {}
+  void analyze(const edm::Event& ev, const edm::EventSetup& es, const MatcherSuperManager& manager, my::TreeManager& tree);
   void analyze(TreeManager& tree);
 
  private:

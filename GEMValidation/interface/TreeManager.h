@@ -82,9 +82,6 @@ class TreeManager
   gem::L1MuStruct l1MuSt_;
   gem::L1TrackStruct l1TrackSt_;
   gem::RecoTrackStruct recoTrackSt_;
-
-  // new stuff
-  TTree* flatTree_;
 };
 
 #endif

@@ -96,8 +96,8 @@ namespace gem {
     float dphi_lct_copad_even[nStations];
     float deta_lct_copad_odd[nStations];
     float deta_lct_copad_even[nStations];
-
     void init() {
+
       for (unsigned i = 0 ; i < nStations; i++) {
 
         has_gem_pad_even[i]= false;

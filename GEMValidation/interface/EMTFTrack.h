@@ -30,6 +30,8 @@ class EMTFTrack
   /// destructor
   ~EMTFTrack();
 
+  bool operator==(const gem::EMTFTrack& rhs) const;
+
   /// collection of hits
   const l1t::EMTFTrack* emtfTrack() const { return &emtfTrack_; }
   const l1t::EMTFHitCollection* emtfHits() const {return &emtfHits_;}
@@ -73,6 +75,8 @@ class EMTFCand
   EMTFCand(const l1t::Muon& t);
   /// destructor
   ~EMTFCand();
+
+  bool operator==(const gem::EMTFCand& rhs) const;
 
   double pt() const {return pt_;}
   double eta() const {return eta_;}

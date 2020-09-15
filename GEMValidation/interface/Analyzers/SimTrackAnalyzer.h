@@ -1,9 +1,12 @@
 #ifndef GEMCode_GEMValidation_SimTrackAnalyzer_h
 #define GEMCode_GEMValidation_SimTrackAnalyzer_h
 
+#include "FWCore/Framework/interface/ConsumesCollector.h"
+#include "SimDataFormats/Track/interface/SimTrackContainer.h"
+#include "SimDataFormats/Vertex/interface/SimVertexContainer.h"
 #include "GEMCode/GEMValidation/interface/Helpers.h"
-#include "GEMCode/GEMValidation/interface/MatcherManager.h"
 #include "GEMCode/GEMValidation/interface/TreeManager.h"
+#include "GEMCode/GEMValidation/interface/new/TreeManager.h"
 
 class SimTrackAnalyzer
 {
@@ -17,8 +20,19 @@ public:
 
   void init();
 
+  bool isSimTrackGood(const SimTrack& t);
+
   // initialize the event
   void analyze(TreeManager& tree, const SimTrack& t, const SimVertex& v);
+  void analyze(const edm::Event& ev, const edm::EventSetup& es, my::TreeManager&);
+
+ private:
+  edm::EDGetTokenT<edm::SimVertexContainer> simVertexInput_;
+  edm::EDGetTokenT<edm::SimTrackContainer> simTrackInput_;
+
+  double simTrackMinPt_;
+  double simTrackMinEta_;
+  double simTrackMaxEta_;
 };
 
 #endif

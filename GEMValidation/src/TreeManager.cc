@@ -25,9 +25,6 @@ void TreeManager::book() {
   l1MuSt_.book(l1MuTree_);
   l1TrackSt_.book(l1TrackTree_);
   recoTrackSt_.book(recoTrackTree_);
-
-  flatTree_ = fs->make<TTree>("FlatTree","FlatTree");
-  genParticleSt_.book(flatTree_);
 }
 
 /// initialize

@@ -68,8 +68,8 @@ void CSCStubAnalyzer::setMatcher(const CSCStubMatcher& match_sh)
   match_.reset(new CSCStubMatcher(match_sh));
 }
 
-void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup, TreeManager& tree) {
-
+void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup, const MatcherSuperManager& manager, my::TreeManager& tree)
+{
   iSetup.get<MuonGeometryRecord>().get(csc_geom_);
   if (csc_geom_.isValid()) {
   cscGeometry_ = &*csc_geom_;
@@ -98,9 +98,8 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
   // CSC ALCTs
   for (auto detUnitIt = alcts.begin(); detUnitIt != alcts.end(); detUnitIt++) {
-    int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
-    const bool isodd = (id.station()%2 == 1);
+    const bool isodd = (id.chamber()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
 
@@ -111,25 +110,33 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXALCT_ || digiIt->getBX() > maxBXALCT_)
         continue;
 
-      cscTree.alct_bx[iLCT].push_back(digiIt->getBX());
-      cscTree.alct_wg[iLCT].push_back(digiIt->getKeyWG());
-      cscTree.alct_quality[iLCT].push_back(digiIt->getQuality());
-      cscTree.alct_isodd[iLCT].push_back(isodd);
-      cscTree.alct_region[iLCT].push_back(id.zendcap());
-      cscTree.alct_station[iLCT].push_back(id.station());
-      cscTree.alct_ring[iLCT].push_back(id.ring());
-      cscTree.alct_chamber[iLCT].push_back(id.chamber());
-      // alct_tpid;
+      int tpidfound = -1;
+      // check if it was matched to a simtrack
+      for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestAlctInChamber(id.rawId());
+        // check if the same
+        if (*digiIt == lctMatch) {
+          tpidfound =  tpid;
+          break;
+        }
+      }
 
-      iLCT++;
+      cscTree.alct_bx->push_back(digiIt->getBX());
+      cscTree.alct_wg->push_back(digiIt->getKeyWG());
+      cscTree.alct_quality->push_back(digiIt->getQuality());
+      cscTree.alct_isodd->push_back(isodd);
+      cscTree.alct_region->push_back(id.zendcap());
+      cscTree.alct_station->push_back(id.station());
+      cscTree.alct_ring->push_back(id.ring());
+      cscTree.alct_chamber->push_back(id.chamber());
+      cscTree.alct_tpid->push_back(tpidfound);
     }
   }
 
   // CSC CLCTs
   for (auto detUnitIt = clcts.begin(); detUnitIt != clcts.end(); detUnitIt++) {
-    int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
-    const bool isodd = (id.station()%2 == 1);
+    const bool isodd = (id.chamber()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
 
@@ -140,23 +147,32 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
         continue;
 
-      cscTree.clct_bx[iLCT].push_back(digiIt->getBX());
-      cscTree.clct_quality[iLCT].push_back(digiIt->getQuality());
-      cscTree.clct_isodd[iLCT].push_back(isodd);
-      cscTree.clct_region[iLCT].push_back(id.zendcap());
-      cscTree.clct_station[iLCT].push_back(id.station());
-      cscTree.clct_ring[iLCT].push_back(id.ring());
-      cscTree.clct_chamber[iLCT].push_back(id.chamber());
+      int tpidfound = -1;
+      // check if it was matched to a simtrack
+      for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestClctInChamber(id.rawId());
+        // check if the same
+        if (*digiIt == lctMatch) {
+          tpidfound =  tpid;
+          break;
+        }
+      }
 
-      iLCT++;
+      cscTree.clct_bx->push_back(digiIt->getBX());
+      cscTree.clct_quality->push_back(digiIt->getQuality());
+      cscTree.clct_isodd->push_back(isodd);
+      cscTree.clct_region->push_back(id.zendcap());
+      cscTree.clct_station->push_back(id.station());
+      cscTree.clct_ring->push_back(id.ring());
+      cscTree.clct_chamber->push_back(id.chamber());
+      cscTree.clct_tpid->push_back(tpidfound);
     }
   }
 
   // CSC LCTs
   for (auto detUnitIt = lcts.begin(); detUnitIt != lcts.end(); detUnitIt++) {
-    int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
-    const bool isodd = (id.station()%2 == 1);
+    const bool isodd = (id.chamber()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
 
@@ -167,23 +183,32 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXLCT_ || digiIt->getBX() > maxBXLCT_)
         continue;
 
-      cscTree.lct_bx[iLCT].push_back(digiIt->getBX());
-      cscTree.lct_quality[iLCT].push_back(digiIt->getQuality());
-      cscTree.lct_isodd[iLCT].push_back(isodd);
-      cscTree.lct_region[iLCT].push_back(id.zendcap());
-      cscTree.lct_station[iLCT].push_back(id.station());
-      cscTree.lct_ring[iLCT].push_back(id.ring());
-      cscTree.lct_chamber[iLCT].push_back(id.chamber());
+      int tpidfound = -1;
+      // check if it was matched to a simtrack
+      for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestLctInChamber(id.rawId());
+        // check if the same
+        if (*digiIt == lctMatch) {
+          tpidfound =  tpid;
+          break;
+        }
+      }
 
-      iLCT++;
+      cscTree.lct_bx->push_back(digiIt->getBX());
+      cscTree.lct_quality->push_back(digiIt->getQuality());
+      cscTree.lct_isodd->push_back(isodd);
+      cscTree.lct_region->push_back(id.zendcap());
+      cscTree.lct_station->push_back(id.station());
+      cscTree.lct_ring->push_back(id.ring());
+      cscTree.lct_chamber->push_back(id.chamber());
+      cscTree.lct_tpid->push_back(tpidfound);
     }
   }
 
   // CSC MPLCTs
   for (auto detUnitIt = mplcts.begin(); detUnitIt != mplcts.end(); detUnitIt++) {
-    int iLCT;
     const CSCDetId& id = (*detUnitIt).first;
-    const bool isodd = (id.station()%2 == 1);
+    const bool isodd = (id.chamber()%2 == 1);
     const auto& range = (*detUnitIt).second;
     for (auto digiIt = range.first; digiIt != range.second; digiIt++) {
 
@@ -194,15 +219,25 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXMPLCT_ || digiIt->getBX() > maxBXMPLCT_)
         continue;
 
-      cscTree.mplct_bx[iLCT].push_back(digiIt->getBX());
-      cscTree.mplct_quality[iLCT].push_back(digiIt->getQuality());
-      cscTree.mplct_isodd[iLCT].push_back(isodd);
-      cscTree.mplct_region[iLCT].push_back(id.zendcap());
-      cscTree.mplct_station[iLCT].push_back(id.station());
-      cscTree.mplct_ring[iLCT].push_back(id.ring());
-      cscTree.mplct_chamber[iLCT].push_back(id.chamber());
+      int tpidfound = -1;
+      // check if it was matched to a simtrack
+      for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestLctInChamber(id.rawId());
+        // check if the same
+        if (*digiIt == lctMatch) {
+          tpidfound =  tpid;
+          break;
+        }
+      }
 
-      iLCT++;
+      cscTree.mplct_bx->push_back(digiIt->getBX());
+      cscTree.mplct_quality->push_back(digiIt->getQuality());
+      cscTree.mplct_isodd->push_back(isodd);
+      cscTree.mplct_region->push_back(id.zendcap());
+      cscTree.mplct_station->push_back(id.station());
+      cscTree.mplct_ring->push_back(id.ring());
+      cscTree.mplct_chamber->push_back(id.chamber());
+      cscTree.mplct_tpid->push_back(tpidfound);
     }
   }
 }
