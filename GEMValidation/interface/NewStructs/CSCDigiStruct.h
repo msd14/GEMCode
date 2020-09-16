@@ -12,79 +12,67 @@ namespace my {
 
   struct CSCDigiStruct {
 
-    static const int nStations = 11;
+    // at least 4 wiregroups in a chamber!
+    p_ints csc_wg_bx;
+    p_ints csc_wg_keywg;
+    p_ints csc_wg_isodd;
+    p_ints csc_wg_region;
+    p_ints csc_wg_station;
+    p_ints csc_wg_ring;
+    p_ints csc_wg_chamber;
+    p_ints csc_wg_tpid;
 
-    // bool
-    bool has_csc_strips_even[nStations];
-    bool has_csc_strips_odd[nStations];
-
-    bool has_csc_wires_even[nStations];
-    bool has_csc_wires_odd[nStations];
-
-    // int
-    Int_t nlayers_wg_dg_odd[nStations];
-    Int_t nlayers_st_dg_odd[nStations];
-
-    Int_t nlayers_wg_dg_even[nStations];
-    Int_t nlayers_st_dg_even[nStations];
-
-    int chamber_dg_odd[nStations];
-    int chamber_dg_even[nStations];
-
-    Int_t wiregroup_odd[nStations];
-    Int_t wiregroup_even[nStations];
-
-    Int_t halfstrip_odd[nStations];
-    Int_t halfstrip_even[nStations];
+    p_ints csc_hs_bx;
+    p_ints csc_hs_keyhs;
+    p_ints csc_hs_isodd;
+    p_ints csc_hs_region;
+    p_ints csc_hs_station;
+    p_ints csc_hs_ring;
+    p_ints csc_hs_chamber;
+    p_ints csc_hs_tpid;
 
     void init() {
-      for (unsigned i = 0 ; i < nStations; i++) {
+      csc_wg_bx = new t_ints;
+      csc_wg_keywg = new t_ints;
+      csc_wg_isodd = new t_ints;
+      csc_wg_region = new t_ints;
+      csc_wg_station = new t_ints;
+      csc_wg_ring = new t_ints;
+      csc_wg_chamber = new t_ints;
+      csc_wg_quality = new t_ints;
+      csc_wg_tpid = new t_ints;
 
-        has_csc_strips_even[i] = 0;
-        has_csc_strips_odd[i] = 0;
-
-        has_csc_wires_even[i] = 0;
-        has_csc_wires_odd[i] = 0;
-
-        nlayers_wg_dg_odd[i] = -1;
-        nlayers_wg_dg_even[i] = -1;
-
-        nlayers_st_dg_odd[i] = -1;
-        nlayers_st_dg_even[i] = -1;
-
-        chamber_dg_odd[i] = -1;
-        chamber_dg_even[i] = -1;
-
-        wiregroup_odd[i] = -1;
-        wiregroup_even[i] = -1;
-
-        halfstrip_odd[i] = -1;
-        halfstrip_even[i] = -1;
-      }
+      csc_hs_bx = new t_ints;
+      csc_hs_keyhs = new t_ints;
+      csc_hs_isodd = new t_ints;
+      csc_hs_region = new t_ints;
+      csc_hs_station = new t_ints;
+      csc_hs_ring = new t_ints;
+      csc_hs_chamber = new t_ints;
+      csc_hs_quality = new t_ints;
+      csc_hs_tpid = new t_ints;
     };
 
    void book(TTree* t) {
+      t->Branch("csc_wg_bx", &csc_wg_bx);
+      t->Branch("csc_wg_keywg", &csc_wg_keywg);
+      t->Branch("csc_wg_isodd", &csc_wg_isodd);
+      t->Branch("csc_wg_region", &csc_wg_region);
+      t->Branch("csc_wg_station", &csc_wg_station);
+      t->Branch("csc_wg_ring", &csc_wg_ring);
+      t->Branch("csc_wg_chamber", &csc_wg_chamber);
+      t->Branch("csc_wg_quality", &csc_wg_quality);
+      t->Branch("csc_wg_tpid", &csc_wg_tpid);
 
-      t->Branch("has_csc_strips_odd", has_csc_strips_odd, "has_csc_strips_odd[11]/O");
-      t->Branch("has_csc_strips_even", has_csc_strips_even, "has_csc_strips_even[11]/O");
-
-      t->Branch("has_csc_wires_odd", has_csc_wires_odd, "has_csc_wires_odd[11]/O");
-      t->Branch("has_csc_wires_even", has_csc_wires_even, "has_csc_wires_even[11]/O");
-
-      t->Branch("chamber_dg_odd", chamber_dg_odd, "chamber_dg_odd[11]/I");
-      t->Branch("chamber_dg_even", chamber_dg_even, "chamber_dg_even[11]/I");
-
-      t->Branch("nlayers_wg_dg_odd", nlayers_wg_dg_odd, "nlayers_wg_dg_odd[11]/I");
-      t->Branch("nlayers_wg_dg_even", nlayers_wg_dg_even, "nlayers_wg_dg_even[11]/I");
-
-      t->Branch("nlayers_st_dg_odd", nlayers_st_dg_odd, "nlayers_st_dg_odd[11]/I");
-      t->Branch("nlayers_st_dg_even", nlayers_st_dg_even, "nlayers_st_dg_even[11]/I");
-
-      t->Branch("wiregroup_odd", wiregroup_odd, "wiregroup_odd[11]/I");
-      t->Branch("wiregroup_even", wiregroup_even, "wiregroup_even[11]/I");
-
-      t->Branch("halfstrip_odd", halfstrip_odd, "halfstrip_odd[11]/I");
-      t->Branch("halfstrip_even", halfstrip_even, "halfstrip_even[11]/I");
+      t->Branch("csc_hs_bx", &csc_hs_bx);
+      t->Branch("csc_hs_keyhs", &csc_hs_keyhs);
+      t->Branch("csc_hs_isodd", &csc_hs_isodd);
+      t->Branch("csc_hs_region", &csc_hs_region);
+      t->Branch("csc_hs_station", &csc_hs_station);
+      t->Branch("csc_hs_ring", &csc_hs_ring);
+      t->Branch("csc_hs_chamber", &csc_hs_chamber);
+      t->Branch("csc_hs_quality", &csc_hs_quality);
+      t->Branch("csc_hs_tpid", &csc_hs_tpid);
     }
   };  // namespace
 }
