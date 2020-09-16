@@ -113,10 +113,17 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
-        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestAlctInChamber(id.rawId());
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+        const auto& lctMatch = matcher->cscStubs()->bestAlctInChamber(id.rawId());
         // check if the same
         if (*digiIt == lctMatch) {
-          tpidfound =  tpid;
+          tpidfound = tpid;
           break;
         }
       }
@@ -150,10 +157,17 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
-        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestClctInChamber(id.rawId());
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+        const auto& lctMatch = matcher->cscStubs()->bestClctInChamber(id.rawId());
         // check if the same
         if (*digiIt == lctMatch) {
-          tpidfound =  tpid;
+          tpidfound = tpid;
           break;
         }
       }
@@ -186,10 +200,17 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
-        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestLctInChamber(id.rawId());
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+        const auto& lctMatch = matcher->cscStubs()->bestLctInChamber(id.rawId());
         // check if the same
         if (*digiIt == lctMatch) {
-          tpidfound =  tpid;
+          tpidfound = tpid;
           break;
         }
       }
@@ -222,10 +243,17 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
-        const auto& lctMatch = manager.matcher(tpid)->cscStubs()->bestLctInChamber(id.rawId());
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+        const auto& lctMatch = matcher->cscStubs()->bestLctInChamber(id.rawId());
         // check if the same
         if (*digiIt == lctMatch) {
-          tpidfound =  tpid;
+          tpidfound = tpid;
           break;
         }
       }
