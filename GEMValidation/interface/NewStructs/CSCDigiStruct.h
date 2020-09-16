@@ -20,6 +20,7 @@ namespace my {
     p_ints csc_wg_station;
     p_ints csc_wg_ring;
     p_ints csc_wg_chamber;
+    p_ints csc_wg_quality;
     p_ints csc_wg_tpid;
 
     p_ints csc_hs_bx;
@@ -29,6 +30,7 @@ namespace my {
     p_ints csc_hs_station;
     p_ints csc_hs_ring;
     p_ints csc_hs_chamber;
+    p_ints csc_hs_quality;
     p_ints csc_hs_tpid;
 
     void init() {
