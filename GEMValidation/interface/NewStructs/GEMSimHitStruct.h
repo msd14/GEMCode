@@ -7,117 +7,59 @@ namespace my {
 
   struct GEMSimHitStruct {
 
-    static const int nStations = 3;
-
-    // bools
-    bool has_gem_sh_even[nStations];
-    bool has_gem_sh_odd[nStations];
-
-    bool has_gem_sh2_even[nStations];
-    bool has_gem_sh2_odd[nStations];
-
-    bool has_gemcopad_sh_even[nStations];
-    bool has_gemcopad_sh_odd[nStations];
-
-    // ints
-    int chamber_sh_odd[nStations];
-    int chamber_sh_even[nStations];
-
-    // floats
-    float dphi_sh_even[nStations];
-    float dphi_sh_odd[nStations];
-
-    float dphipositionpt_gem_sh_even[nStations];
-    float dphipositionpt_gem_sh_odd[nStations];
-
-    float bending_sh[nStations];
-
-    float perp_gem_sh_even[nStations];
-    float perp_gem_sh_odd[nStations];
-
-    float centralperp_gem_sh_even[nStations];
-    float centralperp_gem_sh_odd[nStations];
-
-    float strip_gem_sh_odd[nStations];
-    float strip_gem_sh_even[nStations];
-
-    float eta_gem_sh_odd[nStations];
-    float eta_gem_sh_even[nStations];
-
-    float phi_gem_sh_odd[nStations];
-    float phi_gem_sh_even[nStations];
-
+    p_ints gem_sh_bx;
+    p_ints gem_sh_keyhs;
+    p_ints gem_sh_isodd;
+    p_ints gem_sh_region;
+    p_ints gem_sh_station;
+    p_ints gem_sh_ring;
+    p_ints gem_sh_chamber;
+    p_ints gem_sh_tpid;
+    p_ints gem_sh_nlayers;
+    p_floats gem_sh_dphi;
+    p_floats gem_sh_bend;
+    p_floats gem_sh_phi;
+    p_floats gem_sh_eta;
+    p_floats gem_sh_perp;
+    p_floats gem_sh_strip_l1;
+    p_floats gem_sh_strip_l2;
 
     void init() {
-      for (unsigned i = 0 ; i < nStations; i++) {
-
-        has_gem_sh_even[i] = false;
-        has_gem_sh_odd[i] = false;
-
-        has_gem_sh2_even[i] = false;
-        has_gem_sh2_odd[i] = false;
-
-        has_gemcopad_sh_even[i] = false;
-        has_gemcopad_sh_odd[i] = false;
-
-        chamber_sh_odd[i] = -1;
-        chamber_sh_even[i] = -1;
-
-        bending_sh[i] = -10;
-
-        perp_gem_sh_odd[i] = -0.0;
-        perp_gem_sh_even[i] = -0.0;
-
-        centralperp_gem_sh_odd[i] = -0.0;
-        centralperp_gem_sh_even[i] = -0.0;
-
-        strip_gem_sh_odd[i] = -9.;
-        strip_gem_sh_even[i] = -9.;
-
-        eta_gem_sh_odd[i] = -9.;
-        eta_gem_sh_even[i] = -9.;
-
-        phi_gem_sh_odd[i] = -9.;
-        phi_gem_sh_even[i] = -9.;
-
-        dphi_sh_odd[i] = -9;
-        dphi_sh_even[i] = -9;
-      }
+      gem_sh_bx = new t_ints;
+      gem_sh_keyhs = new t_ints;
+      gem_sh_isodd = new t_ints;
+      gem_sh_region = new t_ints;
+      gem_sh_station = new t_ints;
+      gem_sh_ring = new t_ints;
+      gem_sh_chamber = new t_ints;
+      gem_sh_tpid = new t_ints;
+      gem_sh_nlayers = new t_ints;
+      gem_sh_dphi = new t_floats;
+      gem_sh_bend = new t_floats;
+      gem_sh_phi = new t_floats;
+      gem_sh_eta = new t_floats;
+      gem_sh_perp = new t_floats;
+      gem_sh_strip_l1 = new t_floats;
+      gem_sh_strip_l2 = new t_floats;
     };
 
     void book(TTree* t) {
-
-      t->Branch("has_gem_sh_odd", has_gem_sh_odd, "has_gem_sh_odd[3]/O");
-      t->Branch("has_gem_sh_even", has_gem_sh_even, "has_gem_sh_even[3]/O");
-
-      t->Branch("has_gem_sh2_odd", has_gem_sh2_odd, "has_gem_sh2_odd[3]/O");
-      t->Branch("has_gem_sh2_even", has_gem_sh2_even, "has_gem_sh2_even[3]/O");
-
-      t->Branch("has_gemcopad_sh_even", has_gemcopad_sh_even, "has_gemcopad_sh_even[3]/O");
-      t->Branch("has_gemcopad_sh_odd", has_gemcopad_sh_odd, "has_gemcopad_sh_odd[3]/O");
-
-      t->Branch("chamber_sh_odd", chamber_sh_odd, "chamber_sh_odd[3]/I");
-      t->Branch("chamber_sh_even", chamber_sh_even, "chamber_sh_even[3]/I");
-
-      t->Branch("bending_sh", bending_sh, "bending_sh[3]/F");
-
-      t->Branch("perp_gem_sh_odd", perp_gem_sh_odd, "perp_gem_sh_odd[3]/F");
-      t->Branch("perp_gem_sh_even", perp_gem_sh_even, "perp_gem_sh_even[3]/F");
-
-      t->Branch("centralperp_gem_sh_odd", centralperp_gem_sh_odd, "centralperp_gem_sh_odd[3]/F");
-      t->Branch("centralperp_gem_sh_even", centralperp_gem_sh_even, "centralperp_gem_sh_even[3]/F");
-
-      t->Branch("strip_gem_sh_odd", strip_gem_sh_odd, "strip_gem_sh_odd[3]/F");
-      t->Branch("strip_gem_sh_even", strip_gem_sh_even, "strip_gem_sh_even[3]/F");
-
-      t->Branch("eta_gem_sh_odd", eta_gem_sh_odd, "eta_gem_sh_odd[3]/F");
-      t->Branch("eta_gem_sh_even", eta_gem_sh_even, "eta_gem_sh_even[3]/F");
-
-      t->Branch("phi_gem_sh_odd", phi_gem_sh_odd, "phi_gem_sh_odd[3]/F");
-      t->Branch("phi_gem_sh_even", phi_gem_sh_even, "phi_gem_sh_even[3]/F");
-
-      t->Branch("dphi_sh_odd", dphi_sh_odd, "dphi_sh_odd[3]/F");
-      t->Branch("dphi_sh_even", dphi_sh_even, "dphi_sh_even[3]/F");
+      t->Branch("gem_sh_bx", &gem_sh_bx);
+      t->Branch("gem_sh_keyhs", &gem_sh_keyhs);
+      t->Branch("gem_sh_isodd", &gem_sh_isodd);
+      t->Branch("gem_sh_region", &gem_sh_region);
+      t->Branch("gem_sh_station", &gem_sh_station);
+      t->Branch("gem_sh_ring", &gem_sh_ring);
+      t->Branch("gem_sh_chamber", &gem_sh_chamber);
+      t->Branch("gem_sh_tpid", &gem_sh_tpid);
+      t->Branch("gem_sh_nlayers", &gem_sh_nlayers);
+      t->Branch("gem_sh_dphi", &gem_sh_dphi);
+      t->Branch("gem_sh_bend", &gem_sh_bend);
+      t->Branch("gem_sh_phi", &gem_sh_phi);
+      t->Branch("gem_sh_eta", &gem_sh_eta);
+      t->Branch("gem_sh_perp", &gem_sh_perp);
+      t->Branch("gem_sh_strip_l1", &gem_sh_strip_l1);
+      t->Branch("gem_sh_strip_l2", &gem_sh_strip_l2);
     }
   };
 }  // namespace

@@ -17,6 +17,8 @@ public:
 
   void setMatcher(const CSCSimHitMatcher& match_sh);
 
+  void init(const edm::Event& iEvent, const edm::EventSetup& iSetup);
+
   // initialize the event
   void analyze(const edm::Event& ev,
                const edm::EventSetup& es,

@@ -15,6 +15,8 @@ public:
   // destructor
   ~CSCDigiAnalyzer() {}
 
+  void init(const edm::Event& iEvent, const edm::EventSetup& iSetup);
+
   void setMatcher(const CSCDigiMatcher& match_sh);
 
   // initialize the event
