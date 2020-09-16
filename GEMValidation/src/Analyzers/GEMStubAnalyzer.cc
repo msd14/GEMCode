@@ -62,6 +62,14 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->padsInDetId(id.rawId());
         for (const auto& gemMatch : gemMatches) {
           // check if the same
@@ -96,6 +104,13 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->coPadsInSuperChamber(id.rawId());
         for (const auto& gemMatch : gemMatches) {
           // check if the same
@@ -129,6 +144,13 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
+
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->clustersInDetId(id.rawId());
         for (const auto& gemMatch : gemMatches) {
           // check if the same
