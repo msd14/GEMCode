@@ -88,7 +88,7 @@ gem::EMTFCand::EMTFCand(const l1t::Muon& cand)
   pt_ = cand.pt();
   eta_ = cand.eta();
   phi_local_ = -9;
-  phi_ = cand.phi();
+  phi_ = reco::reduceRange(cand.phi());
   charge_ = cand.charge();
   quality_ = cand.hwQual();
   dr_ = 10.0;
@@ -102,6 +102,19 @@ bool gem::EMTFCand::operator==(const gem::EMTFCand& rhs) const {
   return ((rhs.pt() == pt()) and
           (rhs.eta() == eta()) and
           (rhs.phi() == phi()) and
-          (rhs.charge() == charge()) and
-          (rhs.bx() == bx()));
+          (rhs.charge() == charge()));
+}
+
+std::ostream& operator<<(std::ostream& o, const gem::EMTFTrack& trk) {
+  return o << "EMTF Track pt " << trk.pt()
+           << " eta " << trk.eta()
+           << " phi " << trk.phi()
+           << " charge " << trk.charge();
+}
+
+std::ostream& operator<<(std::ostream& o, const gem::EMTFCand& trk) {
+  return o << "EMTF Cand pt " << trk.pt()
+           << " eta " << trk.eta()
+           << " phi " << trk.phi()
+           << " charge " << trk.charge();
 }

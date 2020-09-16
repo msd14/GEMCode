@@ -102,4 +102,7 @@ class EMTFCand
 
 }
 
+std::ostream& operator<<(std::ostream& o, const gem::EMTFTrack& trk);
+std::ostream& operator<<(std::ostream& o, const gem::EMTFCand& trk);
+
 #endif

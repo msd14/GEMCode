@@ -9,10 +9,10 @@ L1MuAnalyzer::L1MuAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector
   runEMTFTrack_ = emtfTrack.getParameter<bool>("run");
 
   const auto& emtfCand = conf.getParameter<edm::ParameterSet>("emtfCand");
-  minBXRegMuCand_ = emtfCand.getParameter<int>("minBX");
-  maxBXRegMuCand_ = emtfCand.getParameter<int>("maxBX");
-  verboseRegMuCand_ = emtfCand.getParameter<int>("verbose");
-  runRegMuCand_ = emtfCand.getParameter<bool>("run");
+  minBXEMTFCand_ = emtfCand.getParameter<int>("minBX");
+  maxBXEMTFCand_ = emtfCand.getParameter<int>("maxBX");
+  verboseEMTFCand_ = emtfCand.getParameter<int>("verbose");
+  runEMTFCand_ = emtfCand.getParameter<bool>("run");
 
   const auto& muon = conf.getParameter<edm::ParameterSet>("muon");
   minBXGMT_ = muon.getParameter<int>("minBX");
@@ -54,10 +54,7 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     const gem::EMTFTrack& gemtrk(trk);
 
     if (verboseEMTFTrack_)
-      std::cout << "EMTF Track pt " << gemtrk.pt()
-                << " eta " << gemtrk.eta()
-                << " phi " << gemtrk.phi()
-                << " charge " << gemtrk.charge() << std::endl;
+      std::cout << gemtrk << std::endl;
 
     int tpidfound = -1;
     // check if it was matched to a simtrack
@@ -73,10 +70,8 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
       if (trackMatch) {
 
         if (verboseEMTFTrack_)
-          std::cout << "Candidate match EMTF Track pt " << trackMatch->pt()
-                    << " eta " << trackMatch->eta()
-                    << " phi " << trackMatch->phi()
-                    << " charge " << trackMatch->charge() << std::endl;
+          std::cout << "Candidate match " << *trackMatch
+                    << std::endl;
 
         //check if the same
         if (gemtrk == *trackMatch) {
@@ -94,27 +89,43 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     trkTree.emtftrack_tpid->push_back(tpidfound);
   }
 
-  return;
+  if (verboseEMTFCand_)
+    std::cout << "Analyzing " << int(emtfCands.end(0) - emtfCands.begin(0)) << " EMTF cands" << std::endl;
 
   for (int bx = emtfCands.getFirstBX(); bx <= emtfCands.getLastBX(); bx++ ){
-    if ( bx < minBXRegMuCand_ or bx > maxBXRegMuCand_) continue;
+    if ( bx < minBXEMTFCand_ or bx > maxBXEMTFCand_) continue;
     for (auto emtfCand = emtfCands.begin(bx); emtfCand != emtfCands.end(bx); ++emtfCand ){
 
       const gem::EMTFCand& gemtrk(*emtfCand);
 
+      if (verboseEMTFCand_)
+        std::cout << gemtrk << std::endl;
+
       int tpidfound = -1;
       // check if it was matched to a simtrack
-      // for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
-      //   // const auto& trackMatch = manager.matcher(tpid)->l1Muons()->emtfCand();
-      //   // if (trackMatch) {
-      //     // check if the same
-      //     // if (gemtrk == *trackMatch) {
-      //     //   tpidfound = tpid;
-      //     //   break;
-      //     // }
-      //   // }
-      // }
+      for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
 
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+        const auto& trackMatch = matcher->l1Muons()->emtfCand();
+        if (trackMatch) {
+
+          if (verboseEMTFCand_)
+            std::cout << "Candidate match " << *trackMatch
+                      << std::endl;
+
+          //check if the same
+          if (gemtrk == *trackMatch) {
+            tpidfound = tpid;
+            std::cout << "...matched! With index " << tpidfound << std::endl;
+            break;
+          }
+        }
+      }
       trkTree.emtfcand_pt->push_back(gemtrk.pt());
       trkTree.emtfcand_eta->push_back(gemtrk.eta());
       trkTree.emtfcand_phi->push_back(gemtrk.phi());
@@ -124,25 +135,43 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     }
   }
 
+  if (verboseGMT_)
+    std::cout << "Analyzing " << int(gmtCands.end(0) - gmtCands.begin(0)) << " GMT cands" << std::endl;
+
   for (int bx = gmtCands.getFirstBX(); bx <= gmtCands.getLastBX(); bx++ ){
     if ( bx < minBXGMT_ or bx > maxBXGMT_) continue;
     for (auto emtfCand = gmtCands.begin(bx); emtfCand != gmtCands.end(bx); ++emtfCand ){
 
       const gem::EMTFCand& gemtrk(*emtfCand);
 
+      if (verboseGMT_)
+        std::cout << gemtrk << std::endl;
+
       int tpidfound = -1;
       // check if it was matched to a simtrack
-      // for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
-      //   // const auto& trackMatch = manager.matcher(tpid)->l1Muons()->muon();
-      //   // if (trackMatch) {
-      //   //   // check if the same
-      //   //   // if (gemtrk == *trackMatch) {
-      //   //   //   tpidfound = tpid;
-      //   //   //   break;
-      //   //   // }
-      //   // }
-      // }
+      for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
 
+        // get the matcher
+        const auto& matcher = manager.matcher(tpid);
+
+        // stop processing when the first invalid matcher is found
+        if (matcher->isInValid()) break;
+
+        const auto& trackMatch = matcher->l1Muons()->muon();
+        if (trackMatch) {
+
+          if (verboseGMT_)
+            std::cout << "Candidate match " << *trackMatch
+                      << std::endl;
+
+          //check if the same
+          if (gemtrk == *trackMatch) {
+            tpidfound = tpid;
+            std::cout << "...matched! With index " << tpidfound << std::endl;
+            break;
+          }
+        }
+      }
       trkTree.l1mu_pt->push_back(gemtrk.pt());
       trkTree.l1mu_eta->push_back(gemtrk.eta());
       trkTree.l1mu_phi->push_back(gemtrk.phi());

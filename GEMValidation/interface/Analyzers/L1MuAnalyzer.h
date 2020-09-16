@@ -37,9 +37,9 @@ public:
   int verboseEMTFTrack_;
   bool runEMTFTrack_;
 
-  int minBXRegMuCand_, maxBXRegMuCand_;
-  int verboseRegMuCand_;
-  bool runRegMuCand_;
+  int minBXEMTFCand_, maxBXEMTFCand_;
+  int verboseEMTFCand_;
+  bool runEMTFCand_;
 
   int minBXGMT_, maxBXGMT_;
   int verboseGMT_;
