@@ -225,6 +225,16 @@ l1mu = {
     "int" : ["charge","bx","tpid"]
 }
 
+l1track = {
+    "float" : ["pt","eta","phi"],
+    "int" : ["charge","bx","tpid"]
+}
+
+l1trackmuon = {
+    "float" : ["pt","eta","phi"],
+    "int" : ["charge","bx","tpid"]
+}
+
 class Struct():
     def __init__(self, struct):
         self.name = struct
@@ -273,6 +283,10 @@ l1MuStruct.add(Object("emtftrack", emtftrack))
 l1MuStruct.add(Object("emtfcand", emtfcand))
 l1MuStruct.add(Object("l1mu", l1mu))
 
+l1TrackStruct = Struct("L1TrackStruct")
+l1TrackStruct.add(Object("l1track", l1track))
+l1TrackStruct.add(Object("l1trackmuon", l1trackmuon))
+
 structs = [
     genGenParticleStruct,
     simTrackStruct,
@@ -282,7 +296,8 @@ structs = [
     cscDigiStruct,
     gemStubStruct,
     cscStubStruct,
-    l1MuStruct
+    l1MuStruct,
+    l1TrackStruct
 ]
 
 
