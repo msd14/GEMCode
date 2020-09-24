@@ -92,8 +92,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_pad_roll->push_back(id.roll());
       gemTree.gem_pad_tpid->push_back(tpidfound);
 
-    if (tpidfound != -1)
-      (*simTree.sim_id_gem_pad)[tpidfound] = index;
+      if (tpidfound != -1)
+        ((*simTree.sim_id_gem_pad)[tpidfound]).push_back(index);
     }
   }
 
@@ -139,7 +139,7 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_copad_tpid->push_back(tpidfound);
 
       if (tpidfound != -1)
-        (*simTree.sim_id_gem_copad)[tpidfound] = index;
+        ((*simTree.sim_id_gem_copad)[tpidfound]).push_back(index);
     }
   }
 
@@ -187,7 +187,7 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_cluster_tpid->push_back(tpidfound);
 
       if (tpidfound != -1)
-        (*simTree.sim_id_gem_cluster)[tpidfound] = index;
+        ((*simTree.sim_id_gem_cluster)[tpidfound]).push_back(index);
     }
   }
 }

@@ -77,7 +77,7 @@ void GEMDigiAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_digi_tpid->push_back(tpidfound);
 
       if (tpidfound != -1)
-        (*simTree.sim_id_gem_dg)[tpidfound] = index;
+        ((*simTree.sim_id_gem_dg)[tpidfound]).push_back(index);
     }
   }
 }

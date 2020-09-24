@@ -95,7 +95,9 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   const CSCCorrelatedLCTDigiCollection& mplcts = *mplctsH_.product();
 
   auto& cscTree = tree.cscStub();
+  auto& simTree = tree.simTrack();
 
+  int index;
   // CSC ALCTs
   for (auto detUnitIt = alcts.begin(); detUnitIt != alcts.end(); detUnitIt++) {
     const CSCDetId& id = (*detUnitIt).first;
@@ -109,6 +111,8 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXALCT_ || digiIt->getBX() > maxBXALCT_)
         continue;
+
+      index++;
 
       int tpidfound = -1;
       // check if it was matched to a simtrack
@@ -137,9 +141,14 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       cscTree.alct_ring->push_back(id.ring());
       cscTree.alct_chamber->push_back(id.chamber());
       cscTree.alct_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1) {
+        ((*simTree.sim_id_csc_alct)[tpidfound]).push_back(index);
+      }
     }
   }
 
+  index = 0;
   // CSC CLCTs
   for (auto detUnitIt = clcts.begin(); detUnitIt != clcts.end(); detUnitIt++) {
     const CSCDetId& id = (*detUnitIt).first;
@@ -153,6 +162,8 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
         continue;
+
+      index++;
 
       int tpidfound = -1;
       // check if it was matched to a simtrack
@@ -186,9 +197,13 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       cscTree.clct_ring->push_back(id.ring());
       cscTree.clct_chamber->push_back(id.chamber());
       cscTree.clct_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1)
+        ((*simTree.sim_id_csc_clct)[tpidfound]).push_back(index);
     }
   }
 
+  index = 0;
   // CSC LCTs
   for (auto detUnitIt = lcts.begin(); detUnitIt != lcts.end(); detUnitIt++) {
     const CSCDetId& id = (*detUnitIt).first;
@@ -202,6 +217,8 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXLCT_ || digiIt->getBX() > maxBXLCT_)
         continue;
+
+      index++;
 
       int tpidfound = -1;
       // check if it was matched to a simtrack
@@ -235,9 +252,13 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       cscTree.lct_ring->push_back(id.ring());
       cscTree.lct_chamber->push_back(id.chamber());
       cscTree.lct_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1)
+        ((*simTree.sim_id_csc_lct)[tpidfound]).push_back(index);
     }
   }
 
+  index = 0;
   // CSC MPLCTs
   for (auto detUnitIt = mplcts.begin(); detUnitIt != mplcts.end(); detUnitIt++) {
     const CSCDetId& id = (*detUnitIt).first;
@@ -251,6 +272,8 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXMPLCT_ || digiIt->getBX() > maxBXMPLCT_)
         continue;
+
+      index++;
 
       int tpidfound = -1;
       // check if it was matched to a simtrack
@@ -283,6 +306,9 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       cscTree.mplct_ring->push_back(id.ring());
       cscTree.mplct_chamber->push_back(id.chamber());
       cscTree.mplct_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1)
+        ((*simTree.sim_id_csc_mplct)[tpidfound]).push_back(index);
     }
   }
 }

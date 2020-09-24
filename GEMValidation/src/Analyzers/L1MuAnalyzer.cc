@@ -76,7 +76,8 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
         //check if the same
         if (gemtrk == *trackMatch) {
           tpidfound = tpid;
-          std::cout << "...matched! With index " << tpidfound << std::endl;
+          if (verboseEMTFTrack_)
+            std::cout << "...matched! With index " << tpidfound << std::endl;
           break;
         }
       }
@@ -121,7 +122,8 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
           //check if the same
           if (gemtrk == *trackMatch) {
             tpidfound = tpid;
-            std::cout << "...matched! With index " << tpidfound << std::endl;
+            if (verboseEMTFCand_)
+              std::cout << "...matched! With index " << tpidfound << std::endl;
             break;
           }
         }
@@ -167,7 +169,8 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
           //check if the same
           if (gemtrk == *trackMatch) {
             tpidfound = tpid;
-            std::cout << "...matched! With index " << tpidfound << std::endl;
+            if (verboseGMT_)
+              std::cout << "...matched! With index " << tpidfound << std::endl;
             break;
           }
         }

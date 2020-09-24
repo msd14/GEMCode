@@ -1,7 +1,16 @@
 #ifndef GEMCode_GEMValidation_FlatStruct
 #define GEMCode_GEMValidation_FlatStruct
 
-#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"
+#include "TTree.h"
+#include <vector>
+#include <string>
+
+typedef std::vector<float> t_floats;
+typedef t_floats* p_floats;
+typedef std::vector<int> t_ints;
+typedef t_ints* p_ints;
+typedef std::vector<t_ints> t_vints;
+typedef t_vints* p_vints;
 
 namespace my {
 
@@ -57,22 +66,7 @@ namespace my {
     p_ints sim_pdgid;
     p_ints sim_index;
     p_ints sim_id_gem_sh;
-    p_ints sim_id_gem_dg;
-    p_ints sim_id_gem_pad;
-    p_ints sim_id_gem_copad;
-    p_ints sim_id_gem_cluster;
     p_ints sim_id_csc_sh;
-    p_ints sim_id_csc_wire;
-    p_ints sim_id_csc_strip;
-    p_ints sim_id_csc_clct;
-    p_ints sim_id_csc_alct;
-    p_ints sim_id_csc_lct;
-    p_ints sim_id_csc_mplct;
-    p_ints sim_id_emtf_track;
-    p_ints sim_id_emtf_cand;
-    p_ints sim_id_l1mu;
-    p_ints sim_id_l1track;
-    p_ints sim_id_l1trackmu;
     p_ints sim_id_gen;
     p_floats sim_pt;
     p_floats sim_px;
@@ -87,28 +81,28 @@ namespace my {
     p_floats sim_z0;
     p_floats sim_d0_prod;
     p_floats sim_z0_prod;
+    p_vints sim_id_gem_dg;
+    p_vints sim_id_gem_pad;
+    p_vints sim_id_gem_copad;
+    p_vints sim_id_gem_cluster;
+    p_vints sim_id_csc_wire;
+    p_vints sim_id_csc_strip;
+    p_vints sim_id_csc_clct;
+    p_vints sim_id_csc_alct;
+    p_vints sim_id_csc_lct;
+    p_vints sim_id_csc_mplct;
+    p_vints sim_id_emtf_track;
+    p_vints sim_id_emtf_cand;
+    p_vints sim_id_l1mu;
+    p_vints sim_id_l1track;
+    p_vints sim_id_l1trackmu;
 
     void init() {
       sim_charge = new t_ints;
       sim_pdgid = new t_ints;
       sim_index = new t_ints;
       sim_id_gem_sh = new t_ints;
-      sim_id_gem_dg = new t_ints;
-      sim_id_gem_pad = new t_ints;
-      sim_id_gem_copad = new t_ints;
-      sim_id_gem_cluster = new t_ints;
       sim_id_csc_sh = new t_ints;
-      sim_id_csc_wire = new t_ints;
-      sim_id_csc_strip = new t_ints;
-      sim_id_csc_clct = new t_ints;
-      sim_id_csc_alct = new t_ints;
-      sim_id_csc_lct = new t_ints;
-      sim_id_csc_mplct = new t_ints;
-      sim_id_emtf_track = new t_ints;
-      sim_id_emtf_cand = new t_ints;
-      sim_id_l1mu = new t_ints;
-      sim_id_l1track = new t_ints;
-      sim_id_l1trackmu = new t_ints;
       sim_id_gen = new t_ints;
       sim_pt = new t_floats;
       sim_px = new t_floats;
@@ -123,6 +117,21 @@ namespace my {
       sim_z0 = new t_floats;
       sim_d0_prod = new t_floats;
       sim_z0_prod = new t_floats;
+      sim_id_gem_dg = new t_vints;
+      sim_id_gem_pad = new t_vints;
+      sim_id_gem_copad = new t_vints;
+      sim_id_gem_cluster = new t_vints;
+      sim_id_csc_wire = new t_vints;
+      sim_id_csc_strip = new t_vints;
+      sim_id_csc_clct = new t_vints;
+      sim_id_csc_alct = new t_vints;
+      sim_id_csc_lct = new t_vints;
+      sim_id_csc_mplct = new t_vints;
+      sim_id_emtf_track = new t_vints;
+      sim_id_emtf_cand = new t_vints;
+      sim_id_l1mu = new t_vints;
+      sim_id_l1track = new t_vints;
+      sim_id_l1trackmu = new t_vints;
     }
 
     void book(TTree* t) {
@@ -130,22 +139,7 @@ namespace my {
       t->Branch("sim_pdgid", &sim_pdgid);
       t->Branch("sim_index", &sim_index);
       t->Branch("sim_id_gem_sh", &sim_id_gem_sh);
-      t->Branch("sim_id_gem_dg", &sim_id_gem_dg);
-      t->Branch("sim_id_gem_pad", &sim_id_gem_pad);
-      t->Branch("sim_id_gem_copad", &sim_id_gem_copad);
-      t->Branch("sim_id_gem_cluster", &sim_id_gem_cluster);
       t->Branch("sim_id_csc_sh", &sim_id_csc_sh);
-      t->Branch("sim_id_csc_wire", &sim_id_csc_wire);
-      t->Branch("sim_id_csc_strip", &sim_id_csc_strip);
-      t->Branch("sim_id_csc_clct", &sim_id_csc_clct);
-      t->Branch("sim_id_csc_alct", &sim_id_csc_alct);
-      t->Branch("sim_id_csc_lct", &sim_id_csc_lct);
-      t->Branch("sim_id_csc_mplct", &sim_id_csc_mplct);
-      t->Branch("sim_id_emtf_track", &sim_id_emtf_track);
-      t->Branch("sim_id_emtf_cand", &sim_id_emtf_cand);
-      t->Branch("sim_id_l1mu", &sim_id_l1mu);
-      t->Branch("sim_id_l1track", &sim_id_l1track);
-      t->Branch("sim_id_l1trackmu", &sim_id_l1trackmu);
       t->Branch("sim_id_gen", &sim_id_gen);
       t->Branch("sim_pt", &sim_pt);
       t->Branch("sim_px", &sim_px);
@@ -160,6 +154,21 @@ namespace my {
       t->Branch("sim_z0", &sim_z0);
       t->Branch("sim_d0_prod", &sim_d0_prod);
       t->Branch("sim_z0_prod", &sim_z0_prod);
+      t->Branch("sim_id_gem_dg", &sim_id_gem_dg);
+      t->Branch("sim_id_gem_pad", &sim_id_gem_pad);
+      t->Branch("sim_id_gem_copad", &sim_id_gem_copad);
+      t->Branch("sim_id_gem_cluster", &sim_id_gem_cluster);
+      t->Branch("sim_id_csc_wire", &sim_id_csc_wire);
+      t->Branch("sim_id_csc_strip", &sim_id_csc_strip);
+      t->Branch("sim_id_csc_clct", &sim_id_csc_clct);
+      t->Branch("sim_id_csc_alct", &sim_id_csc_alct);
+      t->Branch("sim_id_csc_lct", &sim_id_csc_lct);
+      t->Branch("sim_id_csc_mplct", &sim_id_csc_mplct);
+      t->Branch("sim_id_emtf_track", &sim_id_emtf_track);
+      t->Branch("sim_id_emtf_cand", &sim_id_emtf_cand);
+      t->Branch("sim_id_l1mu", &sim_id_l1mu);
+      t->Branch("sim_id_l1track", &sim_id_l1track);
+      t->Branch("sim_id_l1trackmu", &sim_id_l1trackmu);
     }
   };
 

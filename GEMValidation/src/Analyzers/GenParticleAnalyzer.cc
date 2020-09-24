@@ -39,6 +39,7 @@ void GenParticleAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetu
   const reco::GenParticleCollection& genParticles = *genParticlesHandle_.product();
 
   auto& simTree = tree.simTrack();
+  auto& genTree = tree.genParticle();
 
   int index;
   for(auto iGenParticle = genParticles.begin();  iGenParticle != genParticles.end();  ++iGenParticle) {
@@ -61,7 +62,8 @@ void GenParticleAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetu
       const auto& genMatch = manager.matcher(tpid)->genParticles()->getMatch();
       if (genMatch) {
         // check if the same
-        std::cout << genMatch->p4() <<  " " << iGenParticle->p4() << std::endl;
+        if (verbose_)
+          std::cout << genMatch->p4() <<  " " << iGenParticle->p4() << std::endl;
         if (genMatch->p4() == iGenParticle->p4()) {
           tpidfound =  tpid;
           break;
@@ -70,13 +72,15 @@ void GenParticleAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetu
     }
 
     // genparticle properties
-    tree.genParticle().gen_pt->push_back(iGenParticle->pt());
-    tree.genParticle().gen_pz->push_back(iGenParticle->pz());
-    tree.genParticle().gen_eta->push_back(iGenParticle->eta());
-    tree.genParticle().gen_phi->push_back(iGenParticle->phi());
-    tree.genParticle().gen_charge->push_back(iGenParticle->charge());
-    tree.genParticle().gen_pdgid->push_back(iGenParticle->pdgId());
-    tree.genParticle().gen_tpid->push_back(tpidfound);
+    genTree.gen_pt->push_back(iGenParticle->pt());
+    genTree.gen_pz->push_back(iGenParticle->pz());
+    genTree.gen_eta->push_back(iGenParticle->eta());
+    genTree.gen_phi->push_back(iGenParticle->phi());
+    genTree.gen_charge->push_back(iGenParticle->charge());
+    genTree.gen_pdgid->push_back(iGenParticle->pdgId());
+    genTree.gen_tpid->push_back(tpidfound);
+    if (verbose_)
+      std::cout << "tpidfound " << tpidfound << std::endl;
 
     if (tpidfound != -1)
       (*simTree.sim_id_gen)[tpidfound] = index;

@@ -8,10 +8,11 @@ gen = {
 
 sim = {
     "float" : ["pt","px","py","pz","eta","phi","vx","vy","vz","d0","z0","d0_prod","z0_prod"],
-    "int" : ["charge", "pdgid", "index", "id_gem_sh", "id_gem_dg", "id_gem_pad", "id_gem_copad",
-             "id_gem_cluster", "id_csc_sh", "id_csc_wire", "id_csc_strip", "id_csc_clct",
+    "int" : ["charge", "pdgid", "index", "id_gem_sh", "id_csc_sh", "id_gen"],
+    "vint": ["id_gem_dg", "id_gem_pad", "id_gem_copad", "id_gem_cluster",
+             "id_csc_wire", "id_csc_strip", "id_csc_clct",
              "id_csc_alct", "id_csc_lct", "id_csc_mplct", "id_emtf_track", "id_emtf_cand",
-             "id_l1mu", "id_l1track", "id_l1trackmu", "id_gen"]
+             "id_l1mu", "id_l1track", "id_l1trackmu"]
 }
 
 gemsimhit = {
@@ -292,7 +293,16 @@ ffile = open("FlatStruct.h",'w')
 # header
 ffile.write("#ifndef GEMCode_GEMValidation_FlatStruct\n")
 ffile.write("#define GEMCode_GEMValidation_FlatStruct\n\n")
-ffile.write('#include "GEMCode/GEMValidation/interface/Structs/BaseStruct.h"\n\n')
+ffile.write('#include "TTree.h"\n')
+ffile.write('#include <vector>\n')
+ffile.write('#include <string>\n\n')
+ffile.write('typedef std::vector<float> t_floats;\n')
+ffile.write('typedef t_floats* p_floats;\n')
+ffile.write('typedef std::vector<int> t_ints;\n')
+ffile.write('typedef t_ints* p_ints;\n')
+ffile.write('typedef std::vector<t_ints> t_vints;\n')
+ffile.write('typedef t_vints* p_vints;\n\n')
+
 ffile.write("namespace my {\n")
 
 def printStruct(ffile, struct):
