@@ -172,6 +172,12 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         }
       }
 
+      cscTree.clct_hs->push_back(digiIt->getKeyStrip(2));
+      cscTree.clct_qs->push_back(digiIt->getKeyStrip(4));
+      cscTree.clct_es->push_back(digiIt->getKeyStrip(8));
+      cscTree.clct_pattern->push_back(digiIt->getPattern());
+      cscTree.clct_pattern_run3->push_back(digiIt->getRun3Pattern());
+
       cscTree.clct_bx->push_back(digiIt->getBX());
       cscTree.clct_quality->push_back(digiIt->getQuality());
       cscTree.clct_isodd->push_back(isodd);
@@ -214,6 +220,12 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
           break;
         }
       }
+
+      cscTree.lct_hs->push_back(digiIt->getStrip(2));
+      cscTree.lct_qs->push_back(digiIt->getStrip(4));
+      cscTree.lct_es->push_back(digiIt->getStrip(8));
+      cscTree.lct_pattern->push_back(digiIt->getPattern());
+      cscTree.lct_pattern_run3->push_back(digiIt->getRun3Pattern());
 
       cscTree.lct_bx->push_back(digiIt->getBX());
       cscTree.lct_quality->push_back(digiIt->getQuality());
@@ -258,6 +270,11 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         }
       }
 
+      cscTree.mplct_hs->push_back(digiIt->getStrip(2));
+      cscTree.mplct_qs->push_back(digiIt->getStrip(4));
+      cscTree.mplct_es->push_back(digiIt->getStrip(8));
+      cscTree.mplct_pattern->push_back(digiIt->getPattern());
+      cscTree.mplct_pattern_run3->push_back(digiIt->getRun3Pattern());
       cscTree.mplct_bx->push_back(digiIt->getBX());
       cscTree.mplct_quality->push_back(digiIt->getQuality());
       cscTree.mplct_isodd->push_back(isodd);

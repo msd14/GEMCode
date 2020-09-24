@@ -60,8 +60,10 @@ L1TrackMatcher::matchL1TrackToSimTrack(const L1TTTrackCollectionType& tracks, co
 
   const double sim_eta = trk.momentum().eta();
   const double sim_phi = trk.momentum().phi();
-  cout<<"sim_eta "<<sim_eta<<endl;
-  cout<<"sim_phi "<<sim_phi<<endl;
+  if (verboseTrack_) {
+    cout<<"sim_eta "<<sim_eta<<endl;
+    cout<<"sim_phi "<<sim_phi<<endl;
+  }
 
   double bestdR  = 999;
   int bestTrackIndex = -1;
@@ -72,10 +74,11 @@ L1TrackMatcher::matchL1TrackToSimTrack(const L1TTTrackCollectionType& tracks, co
     const double l1Tk_phi = l1Tk.momentum().barePhi();
     const double dR_l1Tk = reco::deltaR(l1Tk_eta, l1Tk_phi,
                                         sim_eta, sim_phi);
-    cout<<"Track "<<j<<endl;
-    cout<<"l1Tk_eta "<<l1Tk_eta<<endl;
-    cout<<"l1Tk_phi "<<l1Tk_phi<<endl;
-
+    if (verboseTrack_) {
+      cout<<"Track "<<j<<endl;
+      cout<<"l1Tk_eta "<<l1Tk_eta<<endl;
+      cout<<"l1Tk_phi "<<l1Tk_phi<<endl;
+    }
     if (dR_l1Tk < bestdR) {
       bestdR = dR_l1Tk;
       bestTrackIndex = j;
@@ -89,11 +92,13 @@ L1TrackMatcher::matchL1TrackToSimTrack(const L1TTTrackCollectionType& tracks, co
                                                          l1Tk.hitPattern(), l1Tk.nFitPars(), 0));
     l1Track_->setEtaSector(l1Tk.etaSector());
     l1Track_->setPhiSector(l1Tk.phiSector());
-     l1Track_->setBField(3.8);
+    l1Track_->setBField(3.8);
 
-    cout<<"Best Track " << bestTrackIndex << endl;
-    cout<<"Best l1Tk_eta "<<l1Track_->momentum().eta()<<endl;
-    cout<<"Best l1Tk_phi "<<l1Track_->momentum().barePhi()<<endl;
+    if (verboseTrack_) {
+      cout<<"Best Track " << bestTrackIndex << endl;
+      cout<<"Best l1Tk_eta "<<l1Track_->momentum().eta()<<endl;
+      cout<<"Best l1Tk_phi "<<l1Track_->momentum().barePhi()<<endl;
+    }
   }
 }
 
@@ -103,31 +108,36 @@ L1TrackMatcher::matchTrackMuonToSimTrack(const l1t::TkMuonCollection& trackmuons
   if (l1MuonMatcher_->muon()) {
     const double best_eta = l1MuonMatcher_->muon()->eta();
     const double best_phi = l1MuonMatcher_->muon()->phi();
-    std::cout << "Best matching L1Mu eta " << best_eta << std::endl;
-    std::cout << "Best matching L1Mu phi " << best_phi << std::endl;
-
+    if (verboseTrackMuon_) {
+      std::cout << "Best matching L1Mu eta " << best_eta << std::endl;
+      std::cout << "Best matching L1Mu phi " << best_phi << std::endl;
+    }
     // matching depends on the matched track and the matched muon
     for (const auto& trackmuon : trackmuons) {
       const double muon_eta = trackmuon.eta();
       const double muon_phi = trackmuon.phi();
 
-      std::cout << "Candidate L1TkMu eta " << muon_eta << std::endl;
-      std::cout << "Candidate L1TkMu phi " << muon_phi << std::endl;
-
+      if (verboseTrackMuon_) {
+        std::cout << "Candidate L1TkMu eta " << muon_eta << std::endl;
+        std::cout << "Candidate L1TkMu phi " << muon_phi << std::endl;
+      }
       // need to do the conversion!!
       double bestdR  = 999;
       const double dR_l1Tk = reco::deltaR(best_eta, best_phi,
                                           muon_eta, muon_phi);
 
       if (dR_l1Tk <0.3 and dR_l1Tk < bestdR) {
-        std::cout << "\t...was matched" << std::endl;
-        bestdR = dR_l1Tk;
+        if (verboseTrackMuon_) {
+          std::cout << "\t...was matched" << std::endl;
+        }        bestdR = dR_l1Tk;
         l1TrackMuon_.reset(new l1t::TkMuon(trackmuon));
 
       }
     }
   }
   else{
-    std::cout << "No Best matching L1Mu" << std::endl;
+    if (verboseTrackMuon_) {
+      std::cout << "No Best matching L1Mu" << std::endl;
+    }
   }
 }

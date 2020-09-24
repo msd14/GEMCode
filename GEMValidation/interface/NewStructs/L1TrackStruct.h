@@ -7,53 +7,62 @@ namespace my {
 
   struct L1TrackStruct {
 
-    // Track properties
-    bool has_L1Track;
-    bool has_L1TrackMuon;
+    p_floats l1track_pt;
+    p_floats l1track_eta;
+    p_floats l1track_phi;
+    p_ints   l1track_charge;
+    p_ints   l1track_bx;
+    p_ints   l1track_tpid;
 
-    float L1Track_pt;
-    float L1Track_eta;
-    float L1Track_phi;
-    int L1Track_charge;
-    int L1Track_endcap;
-
-    float L1TrackMuon_pt;
-    float L1TrackMuon_eta;
-    float L1TrackMuon_phi;
-    int L1TrackMuon_charge;
-    int L1TrackMuon_endcap;
+    p_floats l1trackmuon_pt;
+    p_floats l1trackmuon_eta;
+    p_floats l1trackmuon_phi;
+    p_ints   l1trackmuon_charge;
+    p_ints   l1trackmuon_bx;
+    p_ints   l1trackmuon_tpid;
 
     void init() {
-      has_L1Track = false;
-      has_L1TrackMuon = false;
-      L1Track_pt = 0.;
-      L1Track_phi = -9;
-      L1Track_eta = -9.;
-      L1Track_charge = -9;
-      L1Track_endcap = -9;
+      l1track_pt = new t_floats;
+      l1track_eta = new t_floats;
+      l1track_phi = new t_floats;
+      l1track_charge = new t_ints;
+      l1track_bx = new t_ints;
 
-      L1TrackMuon_pt = 0.;
-      L1TrackMuon_phi = -9;
-      L1TrackMuon_eta = -9.;
-      L1TrackMuon_charge = -9;
-      L1TrackMuon_endcap = -9;
+      l1trackmuon_pt = new t_floats;
+      l1trackmuon_eta = new t_floats;
+      l1trackmuon_phi = new t_floats;
+      l1trackmuon_charge = new t_ints;
+      l1trackmuon_bx = new t_ints;
     };
 
+    void clear(){
+      l1track_pt->clear();
+      l1track_eta->clear();
+      l1track_phi->clear();
+      l1track_charge->clear();
+      l1track_bx->clear();
+
+      l1trackmuon_pt->clear();
+      l1trackmuon_eta->clear();
+      l1trackmuon_phi->clear();
+      l1trackmuon_charge->clear();
+      l1trackmuon_bx->clear();
+    }
+
     void book(TTree* t) {
-      t->Branch("has_L1Track", &has_L1Track);
-      t->Branch("has_L1TrackMuon", &has_L1TrackMuon);
+      t->Branch("l1track_pt", &l1track_pt);
+      t->Branch("l1track_eta", &l1track_eta);
+      t->Branch("l1track_phi", &l1track_phi);
+      t->Branch("l1track_charge", &l1track_charge);
+      t->Branch("l1track_bx", &l1track_bx);
+      t->Branch("l1track_tpid", &l1track_tpid);
 
-      t->Branch("L1Track_pt", &L1Track_pt);
-      t->Branch("L1Track_eta", &L1Track_eta);
-      t->Branch("L1Track_phi", &L1Track_phi);
-      t->Branch("L1Track_charge", &L1Track_charge);
-      t->Branch("L1Track_endcap", &L1Track_endcap);
-
-      t->Branch("L1TrackMuon_pt", &L1TrackMuon_pt);
-      t->Branch("L1TrackMuon_eta", &L1TrackMuon_eta);
-      t->Branch("L1TrackMuon_phi", &L1TrackMuon_phi);
-      t->Branch("L1TrackMuon_charge", &L1TrackMuon_charge);
-      t->Branch("L1TrackMuon_endcap", &L1TrackMuon_endcap);
+      t->Branch("l1trackmuon_pt", &l1trackmuon_pt);
+      t->Branch("l1trackmuon_eta", &l1trackmuon_eta);
+      t->Branch("l1trackmuon_phi", &l1trackmuon_phi);
+      t->Branch("l1trackmuon_charge", &l1trackmuon_charge);
+      t->Branch("l1trackmuon_bx", &l1trackmuon_bx);
+      t->Branch("l1trackmuon_tpid", &l1trackmuon_tpid);
     }
   };
 }  // namespace

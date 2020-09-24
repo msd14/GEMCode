@@ -28,6 +28,7 @@ namespace my {
     p_ints clct_chamber;
     p_ints clct_quality;
     p_ints clct_pattern;
+    p_ints clct_pattern_run3;
     p_ints clct_tpid;
 
     p_ints lct_bx;
@@ -42,6 +43,7 @@ namespace my {
     p_ints lct_chamber;
     p_ints lct_quality;
     p_ints lct_pattern;
+    p_ints lct_pattern_run3;
     p_ints lct_tpid;
 
     p_ints mplct_bx;
@@ -56,6 +58,7 @@ namespace my {
     p_ints mplct_chamber;
     p_ints mplct_quality;
     p_ints mplct_pattern;
+    p_ints mplct_pattern_run3;
     p_ints mplct_tpid;
 
     void init() {
@@ -80,6 +83,7 @@ namespace my {
       clct_chamber = new t_ints;
       clct_quality = new t_ints;
       clct_pattern = new t_ints;
+      clct_pattern_run3 = new t_ints;
       clct_tpid = new t_ints;
 
       lct_bx = new t_ints;
@@ -94,6 +98,7 @@ namespace my {
       lct_chamber = new t_ints;
       lct_quality = new t_ints;
       lct_pattern = new t_ints;
+      lct_pattern_run3 = new t_ints;
       lct_tpid = new t_ints;
 
       mplct_bx = new t_ints;
@@ -108,6 +113,7 @@ namespace my {
       mplct_chamber = new t_ints;
       mplct_quality = new t_ints;
       mplct_pattern = new t_ints;
+      mplct_pattern_run3 = new t_ints;
       mplct_tpid = new t_ints;
     };
 
@@ -133,6 +139,7 @@ namespace my {
       clct_chamber->clear();
       clct_quality->clear();
       clct_pattern->clear();
+      clct_pattern_run3->clear();
       clct_tpid->clear();
 
       lct_bx->clear();
@@ -147,6 +154,7 @@ namespace my {
       lct_chamber->clear();
       lct_quality->clear();
       lct_pattern->clear();
+      lct_pattern_run3->clear();
       lct_tpid->clear();
 
       mplct_bx->clear();
@@ -161,6 +169,7 @@ namespace my {
       mplct_chamber->clear();
       mplct_quality->clear();
       mplct_pattern->clear();
+      mplct_pattern_run3->clear();
       mplct_tpid->clear();
     }
 
@@ -188,6 +197,7 @@ namespace my {
       t->Branch("clct_chamber", &clct_chamber);
       t->Branch("clct_quality", &clct_quality);
       t->Branch("clct_pattern", &clct_pattern);
+      t->Branch("clct_pattern_run3", &clct_pattern_run3);
       t->Branch("clct_tpid", &clct_tpid);
 
       t->Branch("lct_bx", &lct_bx);
@@ -202,6 +212,7 @@ namespace my {
       t->Branch("lct_chamber", &lct_chamber);
       t->Branch("lct_quality", &lct_quality);
       t->Branch("lct_pattern", &lct_pattern);
+      t->Branch("lct_pattern_run3", &lct_pattern_run3);
       t->Branch("lct_tpid", &lct_tpid);
 
       t->Branch("mplct_bx", &mplct_bx);
@@ -216,6 +227,7 @@ namespace my {
       t->Branch("mplct_chamber", &mplct_chamber);
       t->Branch("mplct_quality", &mplct_quality);
       t->Branch("mplct_pattern", &mplct_pattern);
+      t->Branch("mplct_pattern_run3", &mplct_pattern_run3);
       t->Branch("mplct_tpid", &mplct_tpid);
     }
   };
