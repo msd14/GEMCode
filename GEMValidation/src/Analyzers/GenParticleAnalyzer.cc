@@ -38,6 +38,9 @@ void GenParticleAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetu
   // fetch the collection
   const reco::GenParticleCollection& genParticles = *genParticlesHandle_.product();
 
+  auto& simTree = tree.simTrack();
+
+  int index;
   for(auto iGenParticle = genParticles.begin();  iGenParticle != genParticles.end();  ++iGenParticle) {
 
     // require stable particle
@@ -49,6 +52,8 @@ void GenParticleAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetu
 
     // require muons
     if (std::abs(iGenParticle->pdgId()) != 13) continue;
+
+    index++;
 
     int tpidfound = -1;
     // check if it was matched to a simtrack
@@ -72,5 +77,8 @@ void GenParticleAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetu
     tree.genParticle().gen_charge->push_back(iGenParticle->charge());
     tree.genParticle().gen_pdgid->push_back(iGenParticle->pdgId());
     tree.genParticle().gen_tpid->push_back(tpidfound);
+
+    if (tpidfound != -1)
+      (*simTree.sim_id_gen)[tpidfound] = index;
   }
 }

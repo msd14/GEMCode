@@ -32,7 +32,9 @@ void GEMDigiAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   const GEMDigiCollection& gemDigis = *gemDigisH_.product();
 
   auto& gemTree = tree.gemDigi();
+  auto& simTree = tree.simTrack();
 
+  int index;
   for (auto detUnitIt = gemDigis.begin(); detUnitIt != gemDigis.end(); ++detUnitIt) {
     const GEMDetId& id = (*detUnitIt).first;
     const bool isodd = (id.chamber()%2 == 1);
@@ -43,6 +45,8 @@ void GEMDigiAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if (!digiIt->isValid())
         continue;
+
+      index++;
 
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
@@ -71,6 +75,9 @@ void GEMDigiAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_digi_layer->push_back(id.layer());
       gemTree.gem_digi_roll->push_back(id.roll());
       gemTree.gem_digi_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1)
+        (*simTree.sim_id_gem_dg)[tpidfound] = index;
     }
   }
 }

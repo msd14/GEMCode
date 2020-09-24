@@ -48,7 +48,9 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   const GEMCoPadDigiCollection& gemCoPads = *gemCoPadsH_.product();
 
   auto& gemTree = tree.gemStub();
+  auto& simTree = tree.simTrack();
 
+  int index;
   for (auto detUnitIt = gemPads.begin(); detUnitIt != gemPads.end(); ++detUnitIt) {
     const GEMDetId& id = (*detUnitIt).first;
     const bool isodd = (id.chamber()%2 == 1);
@@ -60,6 +62,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (!digiIt->isValid())
         continue;
 
+      index++;
+
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
 
@@ -68,7 +72,6 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         // stop processing when the first invalid matcher is found
         if (matcher->isInValid()) break;
-
 
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->padsInDetId(id.rawId());
         for (const auto& gemMatch : gemMatches) {
@@ -88,9 +91,13 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_pad_layer->push_back(id.layer());
       gemTree.gem_pad_roll->push_back(id.roll());
       gemTree.gem_pad_tpid->push_back(tpidfound);
+
+    if (tpidfound != -1)
+      (*simTree.sim_id_gem_pad)[tpidfound] = index;
     }
   }
 
+  index = 0;
   for (auto detUnitIt = gemCoPads.begin(); detUnitIt != gemCoPads.end(); ++detUnitIt) {
     const GEMDetId& id = (*detUnitIt).first;
     const bool isodd = (id.chamber()%2 == 1);
@@ -101,6 +108,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if (!digiIt->isValid())
         continue;
+
+      index++;
 
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
@@ -128,9 +137,13 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_copad_chamber->push_back(id.chamber());
       gemTree.gem_copad_roll->push_back(id.roll());
       gemTree.gem_copad_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1)
+        (*simTree.sim_id_gem_copad)[tpidfound] = index;
     }
   }
 
+  index = 0;
   for (auto detUnitIt = gemClusters.begin(); detUnitIt != gemClusters.end(); ++detUnitIt) {
     const GEMDetId& id = (*detUnitIt).first;
     const bool isodd = (id.chamber()%2 == 1);
@@ -141,6 +154,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if (!digiIt->isValid())
         continue;
+
+      index++;
 
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
@@ -170,6 +185,9 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_cluster_layer->push_back(id.layer());
       gemTree.gem_cluster_roll->push_back(id.roll());
       gemTree.gem_cluster_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1)
+        (*simTree.sim_id_gem_cluster)[tpidfound] = index;
     }
   }
 }

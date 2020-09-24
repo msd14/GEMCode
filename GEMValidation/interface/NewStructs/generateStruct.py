@@ -8,24 +8,10 @@ gen = {
 
 sim = {
     "float" : ["pt","px","py","pz","eta","phi","vx","vy","vz","d0","z0","d0_prod","z0_prod"],
-    "int" : ["charge","pdgid","tpid",
-             "id_gem_sh",
-             "id_gem_dg",
-             "id_gem_pad",
-             "id_gem_copad",
-             "id_gem_cluster",
-             "id_csc_sh",
-             "id_csc_wire",
-             "id_csc_strip",
-             "id_csc_clct",
-             "id_csc_alct",
-             "id_csc_lct",
-             "id_csc_mplct",
-             "id_emtf_track",
-             "id_emtf_cand",
-             "id_l1mu",
-             "id_l1track",
-             "id_l1trackmu"]
+    "int" : ["charge", "pdgid", "index", "id_gem_sh", "id_gem_dg", "id_gem_pad", "id_gem_copad",
+             "id_gem_cluster", "id_csc_sh", "id_csc_wire", "id_csc_strip", "id_csc_clct",
+             "id_csc_alct", "id_csc_lct", "id_csc_mplct", "id_emtf_track", "id_emtf_cand",
+             "id_l1mu", "id_l1track", "id_l1trackmu", "id_gen"]
 }
 
 gemsimhit = {

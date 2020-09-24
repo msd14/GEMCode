@@ -55,7 +55,7 @@ namespace my {
 
     p_ints sim_charge;
     p_ints sim_pdgid;
-    p_ints sim_tpid;
+    p_ints sim_index;
     p_ints sim_id_gem_sh;
     p_ints sim_id_gem_dg;
     p_ints sim_id_gem_pad;
@@ -73,6 +73,7 @@ namespace my {
     p_ints sim_id_l1mu;
     p_ints sim_id_l1track;
     p_ints sim_id_l1trackmu;
+    p_ints sim_id_gen;
     p_floats sim_pt;
     p_floats sim_px;
     p_floats sim_py;
@@ -90,7 +91,7 @@ namespace my {
     void init() {
       sim_charge = new t_ints;
       sim_pdgid = new t_ints;
-      sim_tpid = new t_ints;
+      sim_index = new t_ints;
       sim_id_gem_sh = new t_ints;
       sim_id_gem_dg = new t_ints;
       sim_id_gem_pad = new t_ints;
@@ -108,6 +109,7 @@ namespace my {
       sim_id_l1mu = new t_ints;
       sim_id_l1track = new t_ints;
       sim_id_l1trackmu = new t_ints;
+      sim_id_gen = new t_ints;
       sim_pt = new t_floats;
       sim_px = new t_floats;
       sim_py = new t_floats;
@@ -126,7 +128,7 @@ namespace my {
     void book(TTree* t) {
       t->Branch("sim_charge", &sim_charge);
       t->Branch("sim_pdgid", &sim_pdgid);
-      t->Branch("sim_tpid", &sim_tpid);
+      t->Branch("sim_index", &sim_index);
       t->Branch("sim_id_gem_sh", &sim_id_gem_sh);
       t->Branch("sim_id_gem_dg", &sim_id_gem_dg);
       t->Branch("sim_id_gem_pad", &sim_id_gem_pad);
@@ -144,6 +146,7 @@ namespace my {
       t->Branch("sim_id_l1mu", &sim_id_l1mu);
       t->Branch("sim_id_l1track", &sim_id_l1track);
       t->Branch("sim_id_l1trackmu", &sim_id_l1trackmu);
+      t->Branch("sim_id_gen", &sim_id_gen);
       t->Branch("sim_pt", &sim_pt);
       t->Branch("sim_px", &sim_px);
       t->Branch("sim_py", &sim_py);

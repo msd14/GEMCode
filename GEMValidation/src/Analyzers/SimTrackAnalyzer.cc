@@ -53,10 +53,12 @@ void SimTrackAnalyzer::analyze(const edm::Event& ev, const edm::EventSetup& even
     sim_track_selected.push_back(t);
   }
 
+  int index;
   for (const auto& t : sim_track_selected) {
 
     const auto& vertex = sim_vert[t.vertIndex()];
     // simtrack properties
+    treeSim.sim_index->push_back(index);
     treeSim.sim_pt->push_back(t.momentum().pt());
     treeSim.sim_px->push_back(t.momentum().px());
     treeSim.sim_py->push_back(t.momentum().py());
@@ -68,6 +70,26 @@ void SimTrackAnalyzer::analyze(const edm::Event& ev, const edm::EventSetup& even
     treeSim.sim_vx->push_back(vertex.position().x());
     treeSim.sim_vy->push_back(vertex.position().y());
     treeSim.sim_vz->push_back(vertex.position().z());
+
+    treeSim.sim_id_gem_sh->push_back(-1);
+    treeSim.sim_id_gem_dg->push_back(-1);
+    treeSim.sim_id_gem_pad->push_back(-1);
+    treeSim.sim_id_gem_copad->push_back(-1);
+    treeSim.sim_id_gem_cluster->push_back(-1);
+    treeSim.sim_id_csc_sh->push_back(-1);
+    treeSim.sim_id_csc_wire->push_back(-1);
+    treeSim.sim_id_csc_strip->push_back(-1);
+    treeSim.sim_id_csc_clct->push_back(-1);
+    treeSim.sim_id_csc_alct->push_back(-1);
+    treeSim.sim_id_csc_lct->push_back(-1);
+    treeSim.sim_id_csc_mplct->push_back(-1);
+    treeSim.sim_id_emtf_track->push_back(-1);
+    treeSim.sim_id_emtf_cand->push_back(-1);
+    treeSim.sim_id_l1mu->push_back(-1);
+    treeSim.sim_id_l1track->push_back(-1);
+    treeSim.sim_id_l1trackmu->push_back(-1);
+
+    index++;
   }
 }
 
