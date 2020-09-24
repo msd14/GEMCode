@@ -23,6 +23,26 @@ namespace my {
     p_floats sim_z0_prod;
     p_ints   sim_pdgid;
 
+    p_ints sim_id_gem_sh;
+    p_ints sim_id_gem_dg;
+    p_ints sim_id_gem_pad;
+    p_ints sim_id_gem_copad;
+    p_ints sim_id_gem_cluster;
+
+    p_ints sim_id_csc_sh;
+    p_ints sim_id_csc_wire;
+    p_ints sim_id_csc_strip;
+    p_ints sim_id_csc_clct;
+    p_ints sim_id_csc_alct;
+    p_ints sim_id_csc_lct;
+    p_ints sim_id_csc_mplct;
+
+    p_ints sim_id_emtf_track;
+    p_ints sim_id_emtf_cand;
+    p_ints sim_id_l1mu;
+    p_ints sim_id_l1track;
+    p_ints sim_id_l1trackmu;
+
     void init() {
       sim_pt      = new t_floats;
       sim_px      = new t_floats;
@@ -40,6 +60,26 @@ namespace my {
       sim_z0_prod = new t_floats;
       sim_pdgid   = new t_ints;
       sim_charge  = new t_ints;
+
+      sim_id_gem_sh  = new t_ints;
+      sim_id_gem_dg  = new t_ints;
+      sim_id_gem_pad  = new t_ints;
+      sim_id_gem_copad  = new t_ints;
+      sim_id_gem_cluster  = new t_ints;
+
+      sim_id_csc_sh  = new t_ints;
+      sim_id_csc_wire  = new t_ints;
+      sim_id_csc_strip  = new t_ints;
+      sim_id_csc_clct  = new t_ints;
+      sim_id_csc_alct  = new t_ints;
+      sim_id_csc_lct  = new t_ints;
+      sim_id_csc_mplct  = new t_ints;
+
+      sim_id_emtf_track  = new t_ints;
+      sim_id_emtf_cand  = new t_ints;
+      sim_id_l1mu  = new t_ints;
+      sim_id_l1track  = new t_ints;
+      sim_id_l1trackmu  = new t_ints;
     };
 
     void book(TTree* t) {
