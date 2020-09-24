@@ -7,7 +7,7 @@ gen = {
 }
 
 sim = {
-    "float" : ["pt","pz","eta","phi","vx","vy","vz","d0","z0","d0_prod","z0_prod"],
+    "float" : ["pt","px","py","pz","eta","phi","vx","vy","vz","d0","z0","d0_prod","z0_prod"],
     "int" : ["charge","pdgid","tpid",
              "id_gem_sh",
              "id_gem_dg",
@@ -67,7 +67,6 @@ gemstrip = {
         "station",
         "roll",
         "layer",
-        "ring",
         "chamber",
         "tpid"],
 }
@@ -81,7 +80,6 @@ gempad = {
         "station",
         "roll",
         "layer",
-        "ring",
         "chamber",
         "tpid"],
 }
@@ -93,7 +91,7 @@ gemcopad = {
         "isodd",
         "region",
         "station",
-        "ring",
+        "roll",
         "layer",
         "chamber",
         "tpid"],
@@ -107,7 +105,7 @@ gemcluster = {
         "size",
         "region",
         "station",
-        "ring",
+        "roll",
         "layer",
         "chamber",
         "tpid"],
@@ -314,8 +312,8 @@ def printInit(ffile, struct):
     for obj in struct.objects:
         for stype in obj.obj_array:
             for var in obj.obj_array[stype]:
-                ffile.write("      %s_%s = t_%ss;\n"%(obj.prefix, var, stype))
-    ffile.write("    };\n")
+                ffile.write("      %s_%s = new t_%ss;\n"%(obj.prefix, var, stype))
+    ffile.write("    }\n")
 
 def printBook(ffile, struct):
     ffile.write("\n    void book(TTree* t) {\n")
@@ -323,7 +321,7 @@ def printBook(ffile, struct):
         for stype in obj.obj_array:
             for var in obj.obj_array[stype]:
                 ffile.write('      t->Branch("%s_%s", &%s_%s);\n'%(obj.prefix, var, obj.prefix, var))
-    ffile.write("    };\n")
+    ffile.write("    }\n")
 
 for struct in structs:
     printStruct(ffile, struct)
@@ -333,5 +331,7 @@ for struct in structs:
     printEndStruct(ffile)
 
 ffile.write("};\n")
+
+ffile.write("\n#endif\n")
 
 ffile.close()

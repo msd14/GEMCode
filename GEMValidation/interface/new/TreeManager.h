@@ -4,18 +4,11 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
-#include "GEMCode/GEMValidation/interface/NewStructs/GenParticleStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/SimTrackStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/GEMSimHitStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/GEMDigiStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/GEMStubStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/CSCSimHitStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/CSCDigiStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/CSCStubStruct.h"
+#include "GEMCode/GEMValidation/interface/NewStructs/FlatStruct.h"
+
 #include "GEMCode/GEMValidation/interface/NewStructs/RPCSimHitStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/RPCDigiStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/RPCRecHitStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/L1MuStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/L1TrackStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/RecoTrackStruct.h"
 
