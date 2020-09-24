@@ -56,6 +56,10 @@ gemstrip = {
         "layer",
         "chamber",
         "tpid"],
+    "float" : [
+        "phi",
+        "eta",
+    ]
 }
 
 gempad = {
@@ -69,6 +73,10 @@ gempad = {
         "layer",
         "chamber",
         "tpid"],
+    "float" : [
+        "phi",
+        "eta",
+    ]
 }
 
 gemcopad = {
@@ -82,6 +90,10 @@ gemcopad = {
         "layer",
         "chamber",
         "tpid"],
+    "float" : [
+        "phi",
+        "eta",
+    ]
 }
 
 gemcluster = {
@@ -96,6 +108,10 @@ gemcluster = {
         "layer",
         "chamber",
         "tpid"],
+    "float" : [
+        "phi",
+        "eta",
+    ]
 }
 
 cscstrip = {

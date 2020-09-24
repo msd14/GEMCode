@@ -302,6 +302,8 @@ namespace my {
     p_ints gem_digi_layer;
     p_ints gem_digi_chamber;
     p_ints gem_digi_tpid;
+    p_floats gem_digi_phi;
+    p_floats gem_digi_eta;
 
     void init() {
       gem_digi_bx = new t_ints;
@@ -313,6 +315,8 @@ namespace my {
       gem_digi_layer = new t_ints;
       gem_digi_chamber = new t_ints;
       gem_digi_tpid = new t_ints;
+      gem_digi_phi = new t_floats;
+      gem_digi_eta = new t_floats;
     }
 
     void book(TTree* t) {
@@ -325,6 +329,8 @@ namespace my {
       t->Branch("gem_digi_layer", &gem_digi_layer);
       t->Branch("gem_digi_chamber", &gem_digi_chamber);
       t->Branch("gem_digi_tpid", &gem_digi_tpid);
+      t->Branch("gem_digi_phi", &gem_digi_phi);
+      t->Branch("gem_digi_eta", &gem_digi_eta);
     }
   };
 
@@ -403,6 +409,8 @@ namespace my {
     p_ints gem_pad_layer;
     p_ints gem_pad_chamber;
     p_ints gem_pad_tpid;
+    p_floats gem_pad_phi;
+    p_floats gem_pad_eta;
     p_ints gem_copad_bx;
     p_ints gem_copad_pad;
     p_ints gem_copad_isodd;
@@ -412,6 +420,8 @@ namespace my {
     p_ints gem_copad_layer;
     p_ints gem_copad_chamber;
     p_ints gem_copad_tpid;
+    p_floats gem_copad_phi;
+    p_floats gem_copad_eta;
     p_ints gem_cluster_bx;
     p_ints gem_cluster_pad;
     p_ints gem_cluster_isodd;
@@ -422,6 +432,8 @@ namespace my {
     p_ints gem_cluster_layer;
     p_ints gem_cluster_chamber;
     p_ints gem_cluster_tpid;
+    p_floats gem_cluster_phi;
+    p_floats gem_cluster_eta;
 
     void init() {
       gem_pad_bx = new t_ints;
@@ -433,6 +445,8 @@ namespace my {
       gem_pad_layer = new t_ints;
       gem_pad_chamber = new t_ints;
       gem_pad_tpid = new t_ints;
+      gem_pad_phi = new t_floats;
+      gem_pad_eta = new t_floats;
       gem_copad_bx = new t_ints;
       gem_copad_pad = new t_ints;
       gem_copad_isodd = new t_ints;
@@ -442,6 +456,8 @@ namespace my {
       gem_copad_layer = new t_ints;
       gem_copad_chamber = new t_ints;
       gem_copad_tpid = new t_ints;
+      gem_copad_phi = new t_floats;
+      gem_copad_eta = new t_floats;
       gem_cluster_bx = new t_ints;
       gem_cluster_pad = new t_ints;
       gem_cluster_isodd = new t_ints;
@@ -452,6 +468,8 @@ namespace my {
       gem_cluster_layer = new t_ints;
       gem_cluster_chamber = new t_ints;
       gem_cluster_tpid = new t_ints;
+      gem_cluster_phi = new t_floats;
+      gem_cluster_eta = new t_floats;
     }
 
     void book(TTree* t) {
@@ -464,6 +482,8 @@ namespace my {
       t->Branch("gem_pad_layer", &gem_pad_layer);
       t->Branch("gem_pad_chamber", &gem_pad_chamber);
       t->Branch("gem_pad_tpid", &gem_pad_tpid);
+      t->Branch("gem_pad_phi", &gem_pad_phi);
+      t->Branch("gem_pad_eta", &gem_pad_eta);
       t->Branch("gem_copad_bx", &gem_copad_bx);
       t->Branch("gem_copad_pad", &gem_copad_pad);
       t->Branch("gem_copad_isodd", &gem_copad_isodd);
@@ -473,6 +493,8 @@ namespace my {
       t->Branch("gem_copad_layer", &gem_copad_layer);
       t->Branch("gem_copad_chamber", &gem_copad_chamber);
       t->Branch("gem_copad_tpid", &gem_copad_tpid);
+      t->Branch("gem_copad_phi", &gem_copad_phi);
+      t->Branch("gem_copad_eta", &gem_copad_eta);
       t->Branch("gem_cluster_bx", &gem_cluster_bx);
       t->Branch("gem_cluster_pad", &gem_cluster_pad);
       t->Branch("gem_cluster_isodd", &gem_cluster_isodd);
@@ -483,6 +505,8 @@ namespace my {
       t->Branch("gem_cluster_layer", &gem_cluster_layer);
       t->Branch("gem_cluster_chamber", &gem_cluster_chamber);
       t->Branch("gem_cluster_tpid", &gem_cluster_tpid);
+      t->Branch("gem_cluster_phi", &gem_cluster_phi);
+      t->Branch("gem_cluster_eta", &gem_cluster_eta);
     }
   };
 
