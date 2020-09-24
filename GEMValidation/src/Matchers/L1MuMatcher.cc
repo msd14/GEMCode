@@ -127,7 +127,8 @@ L1MuMatcher::matchEmtfTrackToSimTrack(const SimTrack& simtrack, const l1t::EMTFT
                   << deltaREMTFTrack_ << std::endl;
       if (dR < deltaREMTFTrack_){
         if (dR < mindREMTFTrack){
-          std::cout <<"...is matched" << std::endl;
+          if (verboseEMTFTrack_)
+            std::cout <<"...is matched" << std::endl;
           mindREMTFTrack = dR;
           emtfTrack_.reset(new gem::EMTFTrack(trk));
           mindREMTFTrack = dR;
@@ -173,7 +174,8 @@ void L1MuMatcher::matchRegionalMuonCandToSimTrack(const l1t::RegionalMuonCandBxC
         std::cout << "\tdR " << dR << " dPtRel " << dPtRel << std::endl<< std::endl;
 
       if (dR < mindRRegMuCand and dR < 0.1){
-        std::cout <<"...is matched" << std::endl;
+        if (verboseRegMuCand_)
+          std::cout <<"...is matched" << std::endl;
         mindRRegMuCand = dR;
         emtfCand_.reset(new gem::EMTFCand(*emtfCand));
       }
@@ -217,7 +219,8 @@ void L1MuMatcher::matchGMTToSimTrack(const BXVector<l1t::Muon>& gmtCands)
         std::cout << "\tdR " << dR << " dPtRel " << dPtRel << std::endl << std::endl;
 
       if (dR < mindRGMT and dR < 0.1){
-        std::cout <<"...is matched" << std::endl;
+        if (verboseGMT_)
+          std::cout <<"...is matched" << std::endl;
         mindRGMT = dR;
         muon_.reset(new gem::EMTFCand(*emtfCand));
       }
