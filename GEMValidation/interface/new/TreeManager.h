@@ -9,7 +9,6 @@
 #include "GEMCode/GEMValidation/interface/NewStructs/RPCSimHitStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/RPCDigiStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/RPCRecHitStruct.h"
-#include "GEMCode/GEMValidation/interface/NewStructs/L1TrackStruct.h"
 #include "GEMCode/GEMValidation/interface/NewStructs/RecoTrackStruct.h"
 
 #include "TTree.h"
