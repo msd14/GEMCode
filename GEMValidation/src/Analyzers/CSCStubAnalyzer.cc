@@ -1,6 +1,6 @@
 #include "GEMCode/GEMValidation/interface/Analyzers/CSCStubAnalyzer.h"
 #include "GEMCode/GEMValidation/interface/Helpers.h"
-#include "L1Trigger/CSCCommonTrigger/interface/CSCPatternLUT.h"
+#include "L1Trigger/CSCTriggerPrimitives/interface/CSCPatternBank.h"
 
 CSCStubAnalyzer::CSCStubAnalyzer(const edm::ParameterSet& conf, edm::ConsumesCollector&& iC)
 {
