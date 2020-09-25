@@ -11,10 +11,10 @@ rm -rf $csctriggerdir/figures_4layers
 
 ## make new directories
 mkdir $csctriggerdir/data
-mkdir $csctriggerdir/output_3layers
-mkdir $csctriggerdir/output_4layers
-mkdir $csctriggerdir/figures_3layers
-mkdir $csctriggerdir/figures_4layers
+mkdir $csctriggerdir/test/macros/output_3layers
+mkdir $csctriggerdir/test/macros/output_4layers
+mkdir $csctriggerdir/test/macros/figures_3layers
+mkdir $csctriggerdir/test/macros/figures_4layers
 
 ## set environment
 eval `scramv1 runtime -sh`
