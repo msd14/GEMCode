@@ -6,16 +6,7 @@ def addCSCTriggerRun3(process):
 
     ## Run-3 patterns with CCLUT
     process.simCscTriggerPrimitiveDigisRun3CCLUT = process.simCscTriggerPrimitiveDigis.clone()
-    process.simCscTriggerPrimitiveDigisRun3CCLUT.clctParam07.useRun3Patterns = cms.bool(True)
-    process.simCscTriggerPrimitiveDigisRun3CCLUT.clctSLHC.useRun3Patterns = cms.bool(True)
-    process.simCscTriggerPrimitiveDigisRun3CCLUT.clctParam07.useComparatorCodes = cms.bool(True)
-    process.simCscTriggerPrimitiveDigisRun3CCLUT.clctSLHC.useComparatorCodes = cms.bool(True)
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT,
-                         clctSLHCME21 = dict(useRun3Patterns = cms.bool(True),
-                                             useComparatorCodes = cms.bool(True) ) )
-    phase2_muon.toModify(process.simCscTriggerPrimitiveDigisRun3CCLUT,
-                         clctSLHCME3141 = dict(useRun3Patterns = cms.bool(True),
-                                               useComparatorCodes = cms.bool(True) ) )
+    process.simCscTriggerPrimitiveDigisRun3CCLUT.commonParam.runCCLUT = True
     return process
 
 def addAnalysisRun3(process):
