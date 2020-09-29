@@ -50,7 +50,7 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   auto& gemTree = tree.gemStub();
   auto& simTree = tree.simTrack();
 
-  int index;
+  int index = 0;
   for (auto detUnitIt = gemPads.begin(); detUnitIt != gemPads.end(); ++detUnitIt) {
     const GEMDetId& id = (*detUnitIt).first;
     const bool isodd = (id.chamber()%2 == 1);
@@ -69,9 +69,6 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         // get the matcher
         const auto& matcher = manager.matcher(tpid);
-
-        // stop processing when the first invalid matcher is found
-        if (matcher->isInValid()) break;
 
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->padsInDetId(id.rawId());
         for (const auto& gemMatch : gemMatches) {
@@ -92,8 +89,9 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_pad_roll->push_back(id.roll());
       gemTree.gem_pad_tpid->push_back(tpidfound);
 
-      if (tpidfound != -1)
+      if (tpidfound != -1) {
         ((*simTree.sim_id_gem_pad)[tpidfound]).push_back(index);
+      }
     }
   }
 
@@ -116,9 +114,6 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         // get the matcher
         const auto& matcher = manager.matcher(tpid);
-
-        // stop processing when the first invalid matcher is found
-        if (matcher->isInValid()) break;
 
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->coPadsInSuperChamber(id.rawId());
         for (const auto& gemMatch : gemMatches) {
@@ -162,9 +157,6 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
         // get the matcher
         const auto& matcher = manager.matcher(tpid);
-
-        // stop processing when the first invalid matcher is found
-        if (matcher->isInValid()) break;
 
         const auto& gemMatches = manager.matcher(tpid)->gemDigis()->clustersInDetId(id.rawId());
         for (const auto& gemMatch : gemMatches) {

@@ -97,7 +97,7 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   auto& cscTree = tree.cscStub();
   auto& simTree = tree.simTrack();
 
-  int index;
+  int index = 0;
   // CSC ALCTs
   for (auto detUnitIt = alcts.begin(); detUnitIt != alcts.end(); detUnitIt++) {
     const CSCDetId& id = (*detUnitIt).first;

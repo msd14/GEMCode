@@ -46,6 +46,8 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   if (verboseEMTFTrack_)
     std::cout << "Analyzing " << emtfTracks.size() << " EMTF tracks" << std::endl;
 
+
+  int index = 0;
   for (const auto& trk : emtfTracks) {
 
     int bx = trk.BX();
@@ -63,8 +65,7 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
       // get the matcher
       const auto& matcher = manager.matcher(tpid);
 
-      // stop processing when the first invalid matcher is found
-      if (matcher->isInValid()) break;
+      index++;
 
       const auto& trackMatch = matcher->l1Muons()->emtfTrack();
       if (trackMatch) {
@@ -88,11 +89,16 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
     trkTree.emtftrack_charge->push_back(gemtrk.charge());
     trkTree.emtftrack_bx->push_back(gemtrk.bx());
     trkTree.emtftrack_tpid->push_back(tpidfound);
+
+    if (tpidfound != -1) {
+      ((*simTree.sim_id_emtf_track)[tpidfound]).push_back(index);
+    }
   }
 
   if (verboseEMTFCand_)
     std::cout << "Analyzing " << int(emtfCands.end(0) - emtfCands.begin(0)) << " EMTF cands" << std::endl;
 
+  index = 0;
   for (int bx = emtfCands.getFirstBX(); bx <= emtfCands.getLastBX(); bx++ ){
     if ( bx < minBXEMTFCand_ or bx > maxBXEMTFCand_) continue;
     for (auto emtfCand = emtfCands.begin(bx); emtfCand != emtfCands.end(bx); ++emtfCand ){
@@ -108,9 +114,6 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
         // get the matcher
         const auto& matcher = manager.matcher(tpid);
-
-        // stop processing when the first invalid matcher is found
-        if (matcher->isInValid()) break;
 
         const auto& trackMatch = matcher->l1Muons()->emtfCand();
         if (trackMatch) {
@@ -134,12 +137,17 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
       trkTree.emtfcand_charge->push_back(gemtrk.charge());
       trkTree.emtfcand_bx->push_back(gemtrk.bx());
       trkTree.emtfcand_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1) {
+        ((*simTree.sim_id_emtf_cand)[tpidfound]).push_back(index);
+      }
     }
   }
 
   if (verboseGMT_)
     std::cout << "Analyzing " << int(gmtCands.end(0) - gmtCands.begin(0)) << " GMT cands" << std::endl;
 
+  index = 0;
   for (int bx = gmtCands.getFirstBX(); bx <= gmtCands.getLastBX(); bx++ ){
     if ( bx < minBXGMT_ or bx > maxBXGMT_) continue;
     for (auto emtfCand = gmtCands.begin(bx); emtfCand != gmtCands.end(bx); ++emtfCand ){
@@ -155,9 +163,6 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
         // get the matcher
         const auto& matcher = manager.matcher(tpid);
-
-        // stop processing when the first invalid matcher is found
-        if (matcher->isInValid()) break;
 
         const auto& trackMatch = matcher->l1Muons()->muon();
         if (trackMatch) {
@@ -181,6 +186,10 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
       trkTree.l1mu_charge->push_back(gemtrk.charge());
       trkTree.l1mu_bx->push_back(gemtrk.bx());
       trkTree.l1mu_tpid->push_back(tpidfound);
+
+      if (tpidfound != -1) {
+        ((*simTree.sim_id_l1mu)[tpidfound]).push_back(index);
+      }
     }
   }
 }
