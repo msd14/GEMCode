@@ -46,8 +46,6 @@ void GEMDigiAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (!digiIt->isValid())
         continue;
 
-      index++;
-
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
 
@@ -78,6 +76,8 @@ void GEMDigiAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if (tpidfound != -1)
         ((*simTree.sim_id_gem_dg)[tpidfound]).push_back(index);
+
+      index++;
     }
   }
 }

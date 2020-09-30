@@ -62,8 +62,6 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (!digiIt->isValid())
         continue;
 
-      index++;
-
       int tpidfound = -1;
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
 
@@ -92,6 +90,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (tpidfound != -1) {
         ((*simTree.sim_id_gem_pad)[tpidfound]).push_back(index);
       }
+
+      index++;
     }
   }
 
@@ -135,6 +135,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if (tpidfound != -1)
         ((*simTree.sim_id_gem_copad)[tpidfound]).push_back(index);
+
+      index++;
     }
   }
 
@@ -180,6 +182,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if (tpidfound != -1)
         ((*simTree.sim_id_gem_cluster)[tpidfound]).push_back(index);
+
+      index++;
     }
   }
 }

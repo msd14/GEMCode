@@ -112,8 +112,6 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXALCT_ || digiIt->getBX() > maxBXALCT_)
         continue;
 
-      index++;
-
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
@@ -132,19 +130,21 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         }
       }
 
-      cscTree.alct_bx->push_back(digiIt->getBX());
-      cscTree.alct_wg->push_back(digiIt->getKeyWG());
-      cscTree.alct_quality->push_back(digiIt->getQuality());
-      cscTree.alct_isodd->push_back(isodd);
-      cscTree.alct_region->push_back(id.zendcap());
-      cscTree.alct_station->push_back(id.station());
-      cscTree.alct_ring->push_back(id.ring());
-      cscTree.alct_chamber->push_back(id.chamber());
-      cscTree.alct_tpid->push_back(tpidfound);
+      cscTree.csc_alct_bx->push_back(digiIt->getBX());
+      cscTree.csc_alct_wg->push_back(digiIt->getKeyWG());
+      cscTree.csc_alct_quality->push_back(digiIt->getQuality());
+      cscTree.csc_alct_isodd->push_back(isodd);
+      cscTree.csc_alct_region->push_back(id.zendcap());
+      cscTree.csc_alct_station->push_back(id.station());
+      cscTree.csc_alct_ring->push_back(id.ring());
+      cscTree.csc_alct_chamber->push_back(id.chamber());
+      cscTree.csc_alct_tpid->push_back(tpidfound);
 
       if (tpidfound != -1) {
         ((*simTree.sim_id_csc_alct)[tpidfound]).push_back(index);
       }
+
+      index++;
     }
   }
 
@@ -162,8 +162,6 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       // check that the BX for this stub wasn't too early or too late
       if (digiIt->getBX() < minBXCLCT_ || digiIt->getBX() > maxBXCLCT_)
         continue;
-
-      index++;
 
       int tpidfound = -1;
       // check if it was matched to a simtrack
@@ -183,23 +181,26 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         }
       }
 
-      cscTree.clct_hs->push_back(digiIt->getKeyStrip(2));
-      cscTree.clct_qs->push_back(digiIt->getKeyStrip(4));
-      cscTree.clct_es->push_back(digiIt->getKeyStrip(8));
-      cscTree.clct_pattern->push_back(digiIt->getPattern());
-      cscTree.clct_pattern_run3->push_back(digiIt->getRun3Pattern());
+      cscTree.csc_clct_hs->push_back(digiIt->getKeyStrip(2));
+      cscTree.csc_clct_qs->push_back(digiIt->getKeyStrip(4));
+      cscTree.csc_clct_es->push_back(digiIt->getKeyStrip(8));
+      cscTree.csc_clct_pattern->push_back(digiIt->getPattern());
+      cscTree.csc_clct_pattern_run3->push_back(digiIt->getRun3Pattern());
 
-      cscTree.clct_bx->push_back(digiIt->getBX());
-      cscTree.clct_quality->push_back(digiIt->getQuality());
-      cscTree.clct_isodd->push_back(isodd);
-      cscTree.clct_region->push_back(id.zendcap());
-      cscTree.clct_station->push_back(id.station());
-      cscTree.clct_ring->push_back(id.ring());
-      cscTree.clct_chamber->push_back(id.chamber());
-      cscTree.clct_tpid->push_back(tpidfound);
+      cscTree.csc_clct_bx->push_back(digiIt->getBX());
+      cscTree.csc_clct_quality->push_back(digiIt->getQuality());
+      cscTree.csc_clct_isodd->push_back(isodd);
+      cscTree.csc_clct_region->push_back(id.zendcap());
+      cscTree.csc_clct_station->push_back(id.station());
+      cscTree.csc_clct_ring->push_back(id.ring());
+      cscTree.csc_clct_chamber->push_back(id.chamber());
+      cscTree.csc_clct_tpid->push_back(tpidfound);
 
       if (tpidfound != -1)
         ((*simTree.sim_id_csc_clct)[tpidfound]).push_back(index);
+
+      index++;
+
     }
   }
 
@@ -218,8 +219,6 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXLCT_ || digiIt->getBX() > maxBXLCT_)
         continue;
 
-      index++;
-
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
@@ -238,23 +237,25 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         }
       }
 
-      cscTree.lct_hs->push_back(digiIt->getStrip(2));
-      cscTree.lct_qs->push_back(digiIt->getStrip(4));
-      cscTree.lct_es->push_back(digiIt->getStrip(8));
-      cscTree.lct_pattern->push_back(digiIt->getPattern());
-      cscTree.lct_pattern_run3->push_back(digiIt->getRun3Pattern());
+      cscTree.csc_lct_hs->push_back(digiIt->getStrip(2));
+      cscTree.csc_lct_qs->push_back(digiIt->getStrip(4));
+      cscTree.csc_lct_es->push_back(digiIt->getStrip(8));
+      cscTree.csc_lct_pattern->push_back(digiIt->getPattern());
+      cscTree.csc_lct_pattern_run3->push_back(digiIt->getRun3Pattern());
 
-      cscTree.lct_bx->push_back(digiIt->getBX());
-      cscTree.lct_quality->push_back(digiIt->getQuality());
-      cscTree.lct_isodd->push_back(isodd);
-      cscTree.lct_region->push_back(id.zendcap());
-      cscTree.lct_station->push_back(id.station());
-      cscTree.lct_ring->push_back(id.ring());
-      cscTree.lct_chamber->push_back(id.chamber());
-      cscTree.lct_tpid->push_back(tpidfound);
+      cscTree.csc_lct_bx->push_back(digiIt->getBX());
+      cscTree.csc_lct_quality->push_back(digiIt->getQuality());
+      cscTree.csc_lct_isodd->push_back(isodd);
+      cscTree.csc_lct_region->push_back(id.zendcap());
+      cscTree.csc_lct_station->push_back(id.station());
+      cscTree.csc_lct_ring->push_back(id.ring());
+      cscTree.csc_lct_chamber->push_back(id.chamber());
+      cscTree.csc_lct_tpid->push_back(tpidfound);
 
       if (tpidfound != -1)
         ((*simTree.sim_id_csc_lct)[tpidfound]).push_back(index);
+
+      index++;
     }
   }
 
@@ -273,8 +274,6 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if (digiIt->getBX() < minBXMPLCT_ || digiIt->getBX() > maxBXMPLCT_)
         continue;
 
-      index++;
-
       int tpidfound = -1;
       // check if it was matched to a simtrack
       for (int tpid = 0; tpid < MAX_PARTICLES; tpid++) {
@@ -293,22 +292,24 @@ void CSCStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         }
       }
 
-      cscTree.mplct_hs->push_back(digiIt->getStrip(2));
-      cscTree.mplct_qs->push_back(digiIt->getStrip(4));
-      cscTree.mplct_es->push_back(digiIt->getStrip(8));
-      cscTree.mplct_pattern->push_back(digiIt->getPattern());
-      cscTree.mplct_pattern_run3->push_back(digiIt->getRun3Pattern());
-      cscTree.mplct_bx->push_back(digiIt->getBX());
-      cscTree.mplct_quality->push_back(digiIt->getQuality());
-      cscTree.mplct_isodd->push_back(isodd);
-      cscTree.mplct_region->push_back(id.zendcap());
-      cscTree.mplct_station->push_back(id.station());
-      cscTree.mplct_ring->push_back(id.ring());
-      cscTree.mplct_chamber->push_back(id.chamber());
-      cscTree.mplct_tpid->push_back(tpidfound);
+      cscTree.csc_mplct_hs->push_back(digiIt->getStrip(2));
+      cscTree.csc_mplct_qs->push_back(digiIt->getStrip(4));
+      cscTree.csc_mplct_es->push_back(digiIt->getStrip(8));
+      cscTree.csc_mplct_pattern->push_back(digiIt->getPattern());
+      cscTree.csc_mplct_pattern_run3->push_back(digiIt->getRun3Pattern());
+      cscTree.csc_mplct_bx->push_back(digiIt->getBX());
+      cscTree.csc_mplct_quality->push_back(digiIt->getQuality());
+      cscTree.csc_mplct_isodd->push_back(isodd);
+      cscTree.csc_mplct_region->push_back(id.zendcap());
+      cscTree.csc_mplct_station->push_back(id.station());
+      cscTree.csc_mplct_ring->push_back(id.ring());
+      cscTree.csc_mplct_chamber->push_back(id.chamber());
+      cscTree.csc_mplct_tpid->push_back(tpidfound);
 
       if (tpidfound != -1)
         ((*simTree.sim_id_csc_mplct)[tpidfound]).push_back(index);
+
+      index++;
     }
   }
 }

@@ -9,9 +9,17 @@ gen = {
 sim = {
     "float" : ["pt","px","py","pz","eta","phi","vx","vy","vz","d0","z0","d0_prod","z0_prod"],
     "int" : ["charge", "pdgid", "index", "id_gem_sh", "id_csc_sh", "id_gen"],
-    "vint": ["id_gem_dg", "id_gem_pad", "id_gem_copad", "id_gem_cluster",
-             "id_csc_wire", "id_csc_strip", "id_csc_clct",
-             "id_csc_alct", "id_csc_lct", "id_csc_mplct", "id_emtf_track", "id_emtf_cand",
+    "vint": ["id_gem_dg",
+             "id_gem_pad",
+             "id_gem_copad",
+             "id_gem_cluster",
+             "id_csc_wire",
+             "id_csc_strip",
+             "id_csc_clct",
+             "id_csc_alct",
+             "id_csc_lct",
+             "id_csc_mplct",
+             "id_emtf_track", "id_emtf_cand",
              "id_l1mu", "id_l1track", "id_l1trackmu"]
 }
 
@@ -276,10 +284,10 @@ gemStubStruct.add(Object("gem_copad", gemcopad))
 gemStubStruct.add(Object("gem_cluster", gemcluster))
 
 cscStubStruct = Struct("CSCStubStruct")
-cscStubStruct.add(Object("alct", alct))
-cscStubStruct.add(Object("clct", clct))
-cscStubStruct.add(Object("lct",  lct))
-cscStubStruct.add(Object("mplct", mplct))
+cscStubStruct.add(Object("csc_alct", alct))
+cscStubStruct.add(Object("csc_clct", clct))
+cscStubStruct.add(Object("csc_lct",  lct))
+cscStubStruct.add(Object("csc_mplct", mplct))
 
 l1MuStruct = Struct("L1MuStruct")
 l1MuStruct.add(Object("emtftrack", emtftrack))
