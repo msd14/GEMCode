@@ -42,6 +42,7 @@ void L1MuAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
   const l1t::MuonBxCollection& gmtCands = *muonHandle_.product();
 
   auto& trkTree = tree.l1mu();
+  auto& simTree = tree.simTrack();
 
   if (verboseEMTFTrack_)
     std::cout << "Analyzing " << emtfTracks.size() << " EMTF tracks" << std::endl;
