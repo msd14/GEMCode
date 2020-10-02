@@ -120,6 +120,7 @@ process.SimL1Emulator = cms.Sequence(
     process.simCscTriggerPrimitiveDigis
     * process.simCscTriggerPrimitiveDigisRun3CCLUT
     * process.simEmtfDigis
+    * process.simEmtfDigisRun3CCLUT
 )
 
 # Path and EndPath definitions

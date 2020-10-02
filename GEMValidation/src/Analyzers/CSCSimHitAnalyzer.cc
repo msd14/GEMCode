@@ -52,18 +52,12 @@ void CSCSimHitAnalyzer::analyze(TreeManager& tree)
       }
     }
 
-    // check if the strip numbering is flipped
-    const auto& layergeoms = dynamic_cast<const CSCGeometry*>(match_->geometry())->chamber(id)->layer(1)->geometry();
-    const int pstrip(layergeoms->strip(LocalPoint(5,0,0)));
-    const int nstrip(layergeoms->strip(LocalPoint(-5,0,0)));
-
     // layer requirement (typically 4)
     if (nlayers < minNHitsChamber_) continue;
 
     const bool odd(id.chamber()%2==1);
     const auto& simhits = match_->hitsInChamber(id);
     const auto& keygp(match_->simHitsMeanPosition(simhits));
-    const auto& csc_simhits_gv = match_->simHitsMeanMomentum(simhits);
     float stripIntercept, stripSlope;
     match_->fitHitsInChamber(d, stripIntercept, stripSlope);
 

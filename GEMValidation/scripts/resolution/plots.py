@@ -24,4 +24,5 @@ def makeResolutionPlots(plotter):
     GEMStub(plotter)
 
 def makeResolutionComparisonPlots(plotter, plotter2):
-    CSCResolutionComparison(plotter, plotter2)
+    CSCPosResolutionComparison(plotter, plotter2)
+    CSCBendResolutionComparison(plotter, plotter2)

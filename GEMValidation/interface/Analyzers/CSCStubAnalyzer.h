@@ -46,10 +46,6 @@ public:
   int minBXLCT_, maxBXLCT_;
   int minBXMPLCT_, maxBXMPLCT_;
 
-  // all in strips / layer
-  float getSlope(const CSCCLCTDigi& lct) const;
-  float getRun3Slope(int pattern, int slope) const;
-
   // best here means "closest in phi"
   std::pair<GEMDigi, GlobalPoint>
   bestGEMDigi(const GEMDetId& gemId,
