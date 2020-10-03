@@ -42,6 +42,10 @@ from GEMCode.GEMValidation.relValSamples import *
 from GEMCode.GEMValidation.relValSamplesPU200 import *
 
 inputFiles = RelValSingleMuPt10_110X_mcRun4_realistic_v2_2026D49noPU
+inputFiles += RelValSingleMuFlatPt2To100_110X_mcRun4_realistic_v2_2026D49noPU
+#inputFiles = RelValSingleMuFlatPt1p5To8_112X_mcRun4_realistic_v2_2026D49noPU
+#inputFiles += RelValSingleMuFlatPt2To100_112X_mcRun4_realistic_v2_2026D49noPU
+
 if options.usePileUp:
     inputFiles = RelValSingleMuPt10_110X_mcRun4_realistic_v3_2026D49PU200
 
@@ -104,7 +108,7 @@ process.FEVTDEBUGoutput = cms.OutputModule(
 
 ## keep all CSC trigger versions
 process.FEVTDEBUGoutput.outputCommands.append('keep *_simCscTriggerPrimitiveDigis*_*_*')
-process.FEVTDEBUGoutput.outputCommands.append('keep *_simEmtfDigis_*_*')
+process.FEVTDEBUGoutput.outputCommands.append('keep *_simEmtfDigis*_*_*')
 
 # Additional output definition
 

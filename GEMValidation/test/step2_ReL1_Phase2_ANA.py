@@ -135,7 +135,6 @@ process.SimL1Emulator = cms.Sequence(
 process.raw2digi_step = cms.Path(process.RawToDigi)
 process.L1simulation_step = cms.Path(process.SimL1Emulator)
 process.ana_step = cms.Path(process.GEMCSCAnalyzer *
-                            #process.GEMCSCAnalyzerRun3 *
                             process.GEMCSCAnalyzerRun3CCLUT)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.FEVTDEBUGoutput_step = cms.EndPath(process.FEVTDEBUGoutput)

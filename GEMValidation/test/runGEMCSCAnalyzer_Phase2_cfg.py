@@ -48,34 +48,10 @@ ana = process.GEMCSCAnalyzer
 ana.simTrack.minEta = 0.9
 ana.simTrack.maxEta = 2.4
 ana.simTrack.minPt = 2
-ana.gemSimHit.verbose = 0
-ana.gemStripDigi.verbose = 0
 ana.gemStripDigi.matchDeltaStrip = 2
-ana.gemPadDigi.verbose = 0
-ana.gemCoPadDigi.verbose = 0
-ana.gemPadCluster.verbose = 0
-ana.cscComparatorDigi.verbose = 0
-ana.cscWireDigi.verbose = 0
-ana.cscALCT.verbose = 0
-ana.cscCLCT.verbose = 0
-ana.cscLCT.verbose = 0
-ana.cscLCT.addGhostLCTs = cms.bool(True)
 
-ana.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigis","","ReL1")
-ana.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigis","","ReL1")
-ana.cscLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigis","","ReL1")
-ana.cscMPLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigis","MPCSORTED","ReL1")
-
-useUnpacked = False
-if useUnpacked:
-    ana.gemStripDigi.inputTag = "muonGEMDigis"
-    ana.muon.inputTag = cms.InputTag("gmtStage2Digis","Muon")
-
-process.GEMCSCAnalyzerRun3CCLUT = process.GEMCSCAnalyzer.clone()
-process.GEMCSCAnalyzerRun3CCLUT.cscALCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")
-process.GEMCSCAnalyzerRun3CCLUT.cscCLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")
-process.GEMCSCAnalyzerRun3CCLUT.cscLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","","ReL1")
-process.GEMCSCAnalyzerRun3CCLUT.cscMPLCT.inputTag = cms.InputTag("simCscTriggerPrimitiveDigisRun3CCLUT","MPCSORTED","ReL1")
+from GEMCode.GEMValidation.cscTriggerCustoms import addAnalysisRun3
+process = addAnalysisRun3(process)
 
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 
