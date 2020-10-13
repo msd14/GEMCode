@@ -1,5 +1,5 @@
 cmssw_compile:
-  stage: compile
+  stage: build
   tags:
     - cvmfs
   variables:
