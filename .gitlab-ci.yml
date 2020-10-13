@@ -25,5 +25,4 @@ cmssw_compile:
     - cp -r "${CI_PROJECT_DIR}/GEMValidation" "${CMSSW_BASE}/src/GEMCode/"
     - ls -h ${CMSSW_BASE}/src/GEMCode/
     - ls -h ${CMSSW_BASE}/src/GEMCode/GEMValidation
-    - scram b
-    
+    - scram b -j 4
