@@ -21,6 +21,7 @@ cmssw_compile:
     - git cms-init --upstream-only
     - git cms-rebase-topic dildick:CMSSW_11_2_0_pre7-GEM-CSC-trigger-taskforce-20201001
     - ls -h ${CI_PROJECT_DIR}
-    - cp -r "${CI_PROJECT_DIR}/GEMCode" "${CMSSW_BASE}/src/"
+    - mkdir "${CMSSW_BASE}/src/GEMCode/"
+    - cp -r "${CI_PROJECT_DIR}/GEMValidation" "${CMSSW_BASE}/src/GEMCode/"
     - scram b
     
