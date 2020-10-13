@@ -8,6 +8,7 @@ cmssw_compile:
   script:
     - shopt -s expand_aliases
     - set +u && source ${CMS_PATH}/cmsset_default.sh; set -u
+    - cd ${CI_PROJECT_DIR}
     - cmsrel ${CMSSW_RELEASE}
     - cd ${CMSSW_RELEASE}/src
     - cmsenv
@@ -19,6 +20,7 @@ cmssw_compile:
     # problems with git config
     - git cms-init --upstream-only
     - git cms-rebase-topic dildick:CMSSW_11_2_0_pre7-GEM-CSC-trigger-taskforce-20201001
+    - ls -h ${CI_PROJECT_DIR}
     - cp -r "${CI_PROJECT_DIR}/GEMCode" "${CMSSW_BASE}/src/"
     - scram b
     
