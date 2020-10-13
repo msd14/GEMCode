@@ -1,4 +1,4 @@
-cmssw_addpkg:
+cmssw_compile:
   stage: compile
   tags:
     - cvmfs
