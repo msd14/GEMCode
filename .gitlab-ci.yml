@@ -19,6 +19,6 @@ cmssw_compile:
     # problems with git config
     - git cms-init --upstream-only
     - git cms-rebase-topic dildick:CMSSW_11_2_0_pre7-GEM-CSC-trigger-taskforce-20201001
-    - cp -r "${CI_PROJECT_DIR}/" "${CMSSW_BASE}/src/"
+    - cp -r "${CI_PROJECT_DIR}/GEMCode" "${CMSSW_BASE}/src/"
     - scram b
     
