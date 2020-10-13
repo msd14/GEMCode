@@ -3,7 +3,7 @@ name: GEMCode CI
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ for-CMSSW_11_1_X ]
 
 jobs:
   service-x-build:
@@ -30,5 +30,3 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CHECKOUT_BRANCH: for-CMSSW_11_1_X
         POLL_TIMEOUT: 60
-        
-        
