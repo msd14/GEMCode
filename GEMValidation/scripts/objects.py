@@ -40,6 +40,8 @@ def getObjects(tree):
         "tpid" : tree["csc_alct_tpid"]
     })
     csc_lct = ak.zip( {
+        "station" : tree["csc_lct_station"],
+        "ring" : tree["csc_lct_ring"],
         "bx" : tree["csc_lct_bx"]
         #"wg" : tree["csc_lct_wg"],
         #"hs" : tree["csc_lct_hs"],
