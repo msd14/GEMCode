@@ -43,13 +43,39 @@ def getObjects(tree):
         "station" : tree["csc_lct_station"],
         "ring" : tree["csc_lct_ring"],
         "bx" : tree["csc_lct_bx"]
-        #"wg" : tree["csc_lct_wg"],
         #"hs" : tree["csc_lct_hs"],
         #"qs" : tree["csc_lct_qs"],
         #"es" : tree["csc_lct_es"],
         #"isodd" : tree["csc_lct_isodd"]
     })
-    return csc_clct, csc_alct, csc_lct
+    gem_cluster = ak.zip( {
+        "bx" : tree["gem_cluster_bx"],
+        "pad" : tree["gem_cluster_pad"],
+        "isodd" : tree["gem_cluster_isodd"],
+        "size" : tree["gem_cluster_size"],
+        "region" : tree["gem_cluster_region"],
+        "station" : tree["gem_cluster_station"],
+        "roll" : tree["gem_cluster_roll"],
+        "layer" : tree["gem_cluster_layer"],
+        "chamber" : tree["gem_cluster_chamber"]
+    })
+    emtftrack = ak.zip({
+        "charge" : tree["emtftrack_charge"],
+        "bx" : tree["emtftrack_bx"],
+        "tpid" : tree["emtftrack_tpid"],
+        "pt" : tree["emtftrack_pt"],
+        "eta" : tree["emtftrack_eta"],
+        "phi" : tree["emtftrack_phi"]
+    })
+    l1mu = ak.zip({
+        "charge" : tree["l1mu_charge"],
+        "bx" : tree["l1mu_bx"],
+        "tpid" : tree["l1mu_tpid"],
+        "pt" : tree["l1mu_pt"],
+        "eta" : tree["l1mu_eta"],
+        "phi" : tree["l1mu_phi"]
+    })
+    return csc_clct, csc_alct, csc_lct, gem_cluster, emtftrack, l1mu
 
 '''
 #"isodd" : tree["csc_lct_isodd"],
@@ -216,20 +242,6 @@ def getObjects(tree):
         "phi" : tree["gem_copad_phi"],
         "eta" : tree["gem_copad_eta"]
     })
-    gem_cluster = ak.zip({
-        "bx" : tree["gem_cluster_bx"],
-        "pad" : tree["gem_cluster_pad"],
-        "isodd" : tree["gem_cluster_isodd"],
-        "size" : tree["gem_cluster_size"],
-        "region" : tree["gem_cluster_region"],
-        "station" : tree["gem_cluster_station"],
-        "roll" : tree["gem_cluster_roll"],
-        "layer" : tree["gem_cluster_layer"],
-        "chamber" : tree["gem_cluster_chamber"],
-        "tpid" : tree["gem_cluster_tpid"],
-        "phi" : tree["gem_cluster_phi"],
-        "eta" : tree["gem_cluster_eta"]
-    })
     """
     csc_mplct = ak.zip({
         "bx" : tree["csc_mplct_bx"],
@@ -248,15 +260,6 @@ def getObjects(tree):
         "tpid" : tree["csc_mplct_tpid"]
         depth_limit=1
     })
-    """
-    emtftrack = ak.zip({
-        "charge" : tree["emtftrack_charge"],
-        "bx" : tree["emtftrack_bx"],
-        "tpid" : tree["emtftrack_tpid"],
-        "pt" : tree["emtftrack_pt"],
-        "eta" : tree["emtftrack_eta"],
-        "phi" : tree["emtftrack_phi"]
-    })
     emtfcand = ak.zip({
         "charge" : tree["emtfcand_charge"],
         "bx" : tree["emtfcand_bx"],
@@ -265,14 +268,5 @@ def getObjects(tree):
         "eta" : tree["emtfcand_eta"],
         "phi" : tree["emtfcand_phi"]
     })
-    l1mu = ak.zip({
-        "charge" : tree["l1mu_charge"],
-        "bx" : tree["l1mu_bx"],
-        "tpid" : tree["l1mu_tpid"],
-        "pt" : tree["l1mu_pt"],
-        "eta" : tree["l1mu_eta"],
-        "phi" : tree["l1mu_phi"]
-    })
-    """
     return sim, csc_clct, csc_alct, csc_lct
 '''
