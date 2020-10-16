@@ -49,6 +49,8 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
   auto& gemTree = tree.gemStub();
   auto& simTree = tree.simTrack();
+  //std::cout << tree.simTrack().sim_pt->size() << std::endl;
+  //std::cout << tree.simTrack().sim_pt->at(0) << std::endl;
 
   int index = 0;
   for (auto detUnitIt = gemPads.begin(); detUnitIt != gemPads.end(); ++detUnitIt) {
@@ -87,7 +89,7 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_pad_roll->push_back(id.roll());
       gemTree.gem_pad_tpid->push_back(tpidfound);
 
-      if (tpidfound != -1) {
+      if ((tpidfound != -1) and (tree.simTrack().sim_pt->size()>0)) {
         ((*simTree.sim_id_gem_pad)[tpidfound]).push_back(index);
       }
 
@@ -133,7 +135,7 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_copad_roll->push_back(id.roll());
       gemTree.gem_copad_tpid->push_back(tpidfound);
 
-      if (tpidfound != -1)
+      if ((tpidfound != -1) and (tree.simTrack().sim_pt->size()>0))
         ((*simTree.sim_id_gem_copad)[tpidfound]).push_back(index);
 
       index++;
@@ -180,7 +182,7 @@ void GEMStubAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       gemTree.gem_cluster_roll->push_back(id.roll());
       gemTree.gem_cluster_tpid->push_back(tpidfound);
 
-      if (tpidfound != -1)
+      if ((tpidfound != -1) and (tree.simTrack().sim_pt->size()>0))
         ((*simTree.sim_id_gem_cluster)[tpidfound]).push_back(index);
 
       index++;
