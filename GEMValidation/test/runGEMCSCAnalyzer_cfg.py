@@ -78,10 +78,11 @@ ana.cscCLCT.verbose = 0
 ana.cscLCT.verbose = 0
 ana.cscLCT.addGhostLCTs = cms.bool(True)
 
-useUnpacked = False
+useUnpacked = True
 if useUnpacked:
     ana.gemStripDigi.inputTag = "muonGEMDigis"
     ana.muon.inputTag = cms.InputTag("gmtStage2Digis","Muon")
+    ana.gemStripDigi.matchToSimLink = False
 
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 

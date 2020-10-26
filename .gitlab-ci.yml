@@ -1,0 +1,28 @@
+cmssw_compile:
+  stage: build
+  tags:
+    - cvmfs
+  variables:
+    CMS_PATH: /cvmfs/cms.cern.ch
+    CMSSW_RELEASE: CMSSW_11_2_0_pre7
+  script:
+    - shopt -s expand_aliases
+    - set +u && source ${CMS_PATH}/cmsset_default.sh; set -u
+    - cd ${CI_PROJECT_DIR}
+    - cmsrel ${CMSSW_RELEASE}
+    - cd ${CMSSW_RELEASE}/src
+    - cmsenv
+    # If within CERN, we can speed up interaction with CMSSW:
+    - export CMSSW_MIRROR=https://:@git.cern.ch/kerberos/CMSSW.git
+    # This is another trick to speed things up independent of your location:
+    - export CMSSW_GIT_REFERENCE=/cvmfs/cms.cern.ch/cmssw.git.daily
+    # Important: run git cms-init with --upstream-only flag to not run into
+    # problems with git config
+    - git cms-init --upstream-only
+    - git cms-rebase-topic dildick:CMSSW_11_2_0_pre7-GEM-CSC-trigger-taskforce-20201001
+    - ls -h ${CI_PROJECT_DIR}
+    - mkdir "${CMSSW_BASE}/src/GEMCode/"
+    - cp -r "${CI_PROJECT_DIR}/GEMValidation" "${CMSSW_BASE}/src/GEMCode/"
+    - ls -h ${CMSSW_BASE}/src/GEMCode/
+    - ls -h ${CMSSW_BASE}/src/GEMCode/GEMValidation
+    - scram b -j 4
