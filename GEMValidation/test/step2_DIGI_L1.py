@@ -142,15 +142,6 @@ process.FEVTDEBUGoutput.outputCommands.append('keep *_simEmtfDigis*_*_*')
 from GEMCode.GEMValidation.cscTriggerCustoms import addCSCTriggerRun3
 process = addCSCTriggerRun3(process)
 
-
-#process.SimL1Emulator = cms.Sequence(
-   # process.simCscTriggerPrimitiveDigis
-   # * process.simCscTriggerPrimitiveDigisRun3CCLUT
-   # * process.simEmtfDigis
-   #process.simEmtfDigisRun3CCLUT
-#)
-
-
 # Additional output definition
 
 # Other statements
