@@ -23,7 +23,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(20),
+    input = cms.untracked.int32(300),
     output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
@@ -141,6 +141,16 @@ process.FEVTDEBUGoutput.outputCommands.append('keep *_simEmtfDigis*_*_*')
 
 from GEMCode.GEMValidation.cscTriggerCustoms import addCSCTriggerRun3
 process = addCSCTriggerRun3(process)
+
+
+process.SimL1Emulator = cms.Sequence(
+    process.simMuonGEMPadDigis *
+    process.simMuonGEMPadDigiClusters *
+    process.simCscTriggerPrimitiveDigis *
+    process.simCscTriggerPrimitiveDigisRun3CCLUT *
+    process.simEmtfDigis *
+    process.simEmtfDigisRun3CCLUT
+)
 
 # Additional output definition
 
