@@ -28,7 +28,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.Generator.SingleMuFlatLogPt_100MeVto2TeV_cfi')
 
 process.maxEvents = cms.untracked.PSet(
-        input = cms.untracked.int32(4000000)
+        input = cms.untracked.int32(100)
 )
 
 # Input source
@@ -69,6 +69,7 @@ process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:phase1_2021_realistic', '')
 
+'''
 generator = cms.EDProducer("FlatRandomOneOverPtGunProducer",
 
     PGunParameters = cms.PSet(
@@ -88,7 +89,7 @@ generator = cms.EDProducer("FlatRandomOneOverPtGunProducer",
     AddAntiParticle = cms.bool(True),
     firstRun = cms.untracked.uint32(1)
 )
-
+'''
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
@@ -105,7 +106,7 @@ associatePatAlgosToolsTask(process)
 for path in process.paths:
 	getattr(process,path).insert(0, process.generator)
 
-process.options.numberOfThreads = cms.untracked.uint32(2)
+process.options.numberOfThreads = cms.untracked.uint32(1)
 
 # Customisation from command line
 from GEMCode.GEMValidation.randomizeMuonGun import randomizeMuonGunGEM
