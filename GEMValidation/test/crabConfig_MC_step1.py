@@ -15,9 +15,9 @@ config.JobType.allowUndistributedCMSSW = True
 #config.JobType.numCores = 1
 #config.JobType.maxMemoryMB = 3000   #Use approx (1+1*ncores)GB
 
-config.Data.inputDBS = 'phys03'  #'global'
+config.Data.inputDBS = 'global' #'phys03
 config.Data.splitting = 'EventBased'
-config.Data.unitsPerJob = 10000
+config.Data.unitsPerJob = 50000
 config.Data.totalUnits = 10000000
 config.Data.publication = True
 config.Data.outputDatasetTag = 'CRAB3_SingleMu_Run3_Pt1to50OneOverPt_noPU_10M'
